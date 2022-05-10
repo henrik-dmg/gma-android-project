@@ -1,0 +1,17 @@
+┌───────────────────┐    ┌──────────────┐    ┌─────────────┐    ┌───────────────────┐
+│MetronomProKitTests│    │              │    │             │    │MetronomProUITests │
+│(basic JUnit tests)│◀───│MetronomProKit│───▶│MetronomProUI│───▶│  (UI tests with   │
+│                   │    │              │    │             │    │     Espresso)     │
+└───────────────────┘    └──────────────┘    └─────────────┘    └───────────────────┘
+                                 │                  │
+                                 │                  │
+                                 │       im         │
+                                 └────Idealfall ────┤
+                                     kein Import    │
+                                                    │
+                                                    ▼
+                                           ┌─────────────────┐
+                                           │                 │
+                                           │   MetronomPro   │
+                                           │                 │
+                                           └─────────────────┘

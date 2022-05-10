@@ -31,3 +31,40 @@ In dieser kann dann entweder auf "Abbrechen" oder "Laden" gedrückt werden, was 
 #### Mockups
 
 ![Mockup of Application](assets/Mockup.jpg "Mockup")
+
+## Komponenten
+
+### Allgemein
+
+In `MetronomProKit` haben wir Komponenten wie `FileUtility`, welches das Lesen und Schreiben der Beatmuster in JSON auf die Disk handhabt.
+
+### SoundGenerator
+
+Ein weiteres wichtiges Modul wird `SoundGenerator` und `Metronome` darstellen, da diese für die tatsächliche Ton-Ausgabe zuständig sind.
+Diese zu testen wird vermutlich eher schwierig, allerdings könnte man zum Beispiel den Buffer im `SoundGenerator` überprüfen, ob die Abstände richtig sind.
+
+### Tests
+
+Wir testen unsere Business-Logik mit JUnit und unser UI mit Espresso.
+
+### Komponentendiagramm
+
+```
+┌───────────────────┐    ┌──────────────┐    ┌─────────────┐    ┌───────────────────┐
+│MetronomProKitTests│    │              │    │             │    │MetronomProUITests │
+│(basic JUnit tests)│◀───│MetronomProKit│───▶│MetronomProUI│───▶│  (UI tests with   │
+│                   │    │              │    │             │    │     Espresso)     │
+└───────────────────┘    └──────────────┘    └─────────────┘    └───────────────────┘
+                                 │                  │
+                                 │                  │
+                                 │       im         │
+                                 └────Idealfall ────┤
+                                     kein Import    │
+                                                    │
+                                                    ▼
+                                           ┌─────────────────┐
+                                           │                 │
+                                           │   MetronomPro   │
+                                           │                 │
+                                           └─────────────────┘
+```
