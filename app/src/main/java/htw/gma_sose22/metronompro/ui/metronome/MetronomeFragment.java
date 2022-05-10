@@ -53,8 +53,8 @@ public class MetronomeFragment extends Fragment {
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
                 metronomeCallable.call();
-            } catch (Exception ignored) {
-
+            } catch (Exception exception) {
+                exception.printStackTrace();
             }
         });
     }
