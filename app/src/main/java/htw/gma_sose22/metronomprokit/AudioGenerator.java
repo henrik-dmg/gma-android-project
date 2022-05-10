@@ -6,7 +6,7 @@ import android.media.AudioTrack;
 
 public class AudioGenerator implements AudioGeneratorInterface {
 
-    private int sampleRate;
+    private final int sampleRate;
     private AudioTrack audioTrack;
 
     public AudioGenerator(int sampleRate) {

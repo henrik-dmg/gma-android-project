@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">MetronomPro</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_editor">Editor</string>
+    <string name="title_metronome">Metronome</string>
 </resources>

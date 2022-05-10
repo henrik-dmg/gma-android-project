@@ -2,11 +2,11 @@ package htw.gma_sose22.metronomprokit;
 
 import java.util.concurrent.Callable;
 
-public class MetronomeAsyncTask implements Callable<MetronomeInterface> {
+public class MetronomeCallable implements Callable<MetronomeInterface> {
 
     MetronomeInterface metronome;
 
-    public MetronomeAsyncTask(MetronomeInterface metronome) {
+    public MetronomeCallable(MetronomeInterface metronome) {
         this.metronome = metronome;
     }
 
