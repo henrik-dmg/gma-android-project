@@ -3,21 +3,21 @@ package htw.gma_sose22.metronomprokit;
 import android.os.Handler;
 import android.os.Message;
 
-public class Metronome {
+public class Metronome implements MetronomeInterface {
 
-    private double bpm;
+    private double bpm = 100;
     private int beat;
-    private int noteValue;
+    private int noteValue = 4;
     private int silence;
 
-    private double beatSound;
-    private double sound;
+    private double beatSound = 2440;
+    private double sound = 6440;
     private final int tick = 1000; // samples of tick
 
     private boolean play = true;
 
-    private final AudioGenerator audioGenerator = new AudioGenerator(8000);
-    private final Handler mHandler;
+    private final AudioGeneratorInterface audioGenerator;
+    private final Handler messageHandler;
     private double[] soundTickArray;
     private double[] soundTockArray;
     private double[] silenceSoundArray;
@@ -25,11 +25,12 @@ public class Metronome {
     private int currentBeat = 1;
 
     public Metronome(Handler handler) {
+        this.audioGenerator = new AudioGenerator(8000);
         audioGenerator.createPlayer();
-        this.mHandler = handler;
+        this.messageHandler = handler;
     }
 
-    public void calcSilence() {
+    public void calculateSilence() {
         silence = (int) (((60/bpm)*8000)-tick);
         soundTickArray = new double[this.tick];
         soundTockArray = new double[this.tick];
@@ -42,12 +43,13 @@ public class Metronome {
             soundTickArray[i] = tick[i];
             soundTockArray[i] = tock[i];
         }
-        for(int i=0;i<silence;i++)
+        for(int i = 0; i < silence; i++) {
             silenceSoundArray[i] = 0;
+        }
     }
 
     public void play() {
-        calcSilence();
+        calculateSilence();
         do {
             msg = new Message();
             msg.obj = ""+currentBeat;
@@ -56,10 +58,10 @@ public class Metronome {
             else
                 audioGenerator.writeSound(soundTickArray);
             if(bpm <= 120)
-                mHandler.sendMessage(msg);
+                messageHandler.sendMessage(msg);
             audioGenerator.writeSound(silenceSoundArray);
             if(bpm > 120)
-                mHandler.sendMessage(msg);
+                messageHandler.sendMessage(msg);
             currentBeat++;
             if(currentBeat > beat)
                 currentBeat = 1;
