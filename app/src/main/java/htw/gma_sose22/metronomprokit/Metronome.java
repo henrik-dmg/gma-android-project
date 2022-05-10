@@ -1,117 +1,143 @@
 package htw.gma_sose22.metronomprokit;
 
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import java.util.Random;
+
+import android.media.AudioTrack;
 
 public class Metronome implements MetronomeInterface {
 
-    private double bpm = 100;
-    private int beat;
-    private int noteValue = 4;
-    private int silence;
+    public static final int DEFAULT_SPEED = 100;
+    public static final int MAX_ACCURACY = 100;
+    public static final int MAX_LAG_BEATS = 1;
 
-    private double beatSound = 2440;
-    private double sound = 6440;
-    private final int tick = 1000; // samples of tick
+    private int bpm, accuracy;
+    private boolean isPlaying = false;
+    private byte[] sound;
+    private AudioTrack audioTrack;
+    private Runnable playbackRunnable;
+    private Thread playbackThread;
 
-    private boolean play = true;
-
-    private final AudioGeneratorInterface audioGenerator;
-    private final Handler messageHandler;
-    private double[] soundTickArray;
-    private double[] soundTockArray;
-    private double[] silenceSoundArray;
-    private Message msg;
-    private int currentBeat = 1;
-
-    public Metronome(Handler handler) {
-        this.audioGenerator = new AudioGenerator(8000);
-        audioGenerator.createPlayer();
-        this.messageHandler = handler;
+    public Metronome(byte[] sound, AudioTrack audioTrack) {
+        this(DEFAULT_SPEED, sound, audioTrack);
     }
 
-    public void calculateSilence() {
-        silence = (int) (((60/bpm)*8000)-tick);
-        soundTickArray = new double[this.tick];
-        soundTockArray = new double[this.tick];
-        silenceSoundArray = new double[this.silence];
-        msg = new Message();
-        msg.obj = ""+currentBeat;
-        double[] tick = audioGenerator.getSineWave(this.tick, 8000, beatSound);
-        double[] tock = audioGenerator.getSineWave(this.tick, 8000, sound);
-        for(int i=0;i<this.tick;i++) {
-            soundTickArray[i] = tick[i];
-            soundTockArray[i] = tock[i];
-        }
-        for(int i = 0; i < silence; i++) {
-            silenceSoundArray[i] = 0;
-        }
+    public Metronome(int speed, byte[] sound, AudioTrack audioTrack) {
+        this(speed, MAX_ACCURACY, sound, audioTrack);
     }
 
-    public void play() {
-        Log.i("Metronome", "Play was called");
-        calculateSilence();
-        Log.i("Metronome", "Writing sound to generator");
-        msg = new Message();
-        msg.obj = ""+currentBeat;
-        if(currentBeat == 1)
-            audioGenerator.writeSound(soundTockArray);
-        else
-            audioGenerator.writeSound(soundTickArray);
-        if(bpm <= 120)
-            messageHandler.sendMessage(msg);
-        audioGenerator.writeSound(silenceSoundArray);
-        if(bpm > 120)
-            messageHandler.sendMessage(msg);
-        currentBeat++;
-        if(currentBeat > beat)
-            currentBeat = 1;
+    public Metronome(int speed, int accuracy, byte[] sound, AudioTrack audioTrack) {
+        this.setAccuracy(accuracy);
+        this.setSound(sound);
+        this.setBPM(speed);
+        this.setAudioTrack(audioTrack);
     }
 
-    public void stop() {
-        play = false;
-        audioGenerator.destroyAudioTrack();
-    }
-
-    public double getBpm() {
+    @Override
+    public int getBPM() {
         return bpm;
     }
 
-    public void setBpm(int bpm) {
-        this.bpm = bpm;
+    @Override
+    public void setBPM(int speed) {
+        this.bpm = speed;
     }
 
-    public int getNoteValue() {
-        return noteValue;
+    @Override
+    public int getAccuracy() {
+        return accuracy;
     }
 
-    public void setNoteValue(int bpmetre) {
-        this.noteValue = bpmetre;
+    @Override
+    public void setAccuracy(int accuracy) {
+        this.accuracy = accuracy;
     }
 
-    public int getBeat() {
-        return beat;
+    private byte[] buildSpace(int beatLength, int soundLength) {
+        int error = 0;
+        if(this.accuracy < MAX_ACCURACY) {
+            int errorRandom = new Random().nextInt(MAX_ACCURACY-1) + 1; //Generate a random number in the range 1 to MAX_ACCURACY
+            if(errorRandom > this.accuracy) {
+                //A mistake is going to occur
+                double errorRangeFactor = (double)(errorRandom - this.accuracy)/(double)MAX_ACCURACY;
+                double flip = new Random().nextDouble();
+                // 50/50 chance that the mistake is playing early or late
+                if(flip < 0.5 && beatLength > soundLength) {
+                    //Too little space
+                    error = (int) (-1 * Math.round(errorRangeFactor * (beatLength - soundLength)));
+                    this.bpm++;
+                } else {
+                    //Too much space
+                    error = (int)(Math.round(errorRangeFactor * soundLength * MAX_LAG_BEATS));
+                    this.bpm--;
+                }
+            }
+        }
+        int spaceLength = beatLength - soundLength + error;
+        byte[] space = new byte[spaceLength];
+        return space;
     }
 
-    public void setBeat(int beat) {
-        this.beat = beat;
+    @Override
+    public void start() {
+        audioTrack.play();
+        isPlaying = true;
+
+        playbackRunnable = () -> {
+            while (isPlaying) {
+                int beatLength = (int) Math.round((60.0/bpm)*audioTrack.getSampleRate());
+                beatLength = beatLength * 2;
+                int soundLength = sound.length;
+                if(soundLength > beatLength)
+                    soundLength = beatLength; //with higher BPMs, the full sound is too long
+                audioTrack.write(sound, 0, soundLength);
+                byte[] space = buildSpace(beatLength, soundLength);
+                audioTrack.write(space, 0, space.length);
+            }
+        };
+
+        playbackThread = new Thread(playbackRunnable);
+        playbackThread.start();
     }
 
-    public double getBeatSound() {
-        return beatSound;
+    @Override
+    public void stop() {
+        audioTrack.pause();
+        audioTrack.flush();
+        isPlaying = false;
     }
 
-    public void setBeatSound(double sound1) {
-        this.beatSound = sound1;
+    @Override
+    public void togglePlayback() {
+        if (isPlaying) {
+            stop();
+        } else {
+            start();
+        }
     }
 
-    public double getSound() {
+    @Override
+    public boolean getIsPlaying() {
+        return isPlaying;
+    }
+
+    @Override
+    public byte[] getSound() {
         return sound;
     }
 
-    public void setSound(double sound2) {
-        this.sound = sound2;
+    @Override
+    public void setSound(byte[] sound) {
+        this.sound = sound;
+    }
+
+    @Override
+    public AudioTrack getAudioTrack() {
+        return audioTrack;
+    }
+
+    @Override
+    public void setAudioTrack(AudioTrack audioTrack) {
+        this.audioTrack = audioTrack;
     }
 
 }

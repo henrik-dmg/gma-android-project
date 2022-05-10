@@ -1,6 +1,7 @@
 package htw.gma_sose22.metronompro;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -8,11 +9,19 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import htw.gma_sose22.metronompro.databinding.ActivityMainBinding;
+import htw.gma_sose22.metronomprokit.MetronomeService;
 
 public class MainActivity extends AppCompatActivity {
 
+    // MARK: Properties
+
     private ActivityMainBinding binding;
+
+    // MARK: Lifecycle
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,39 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        configureMetronome();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        MetronomeService.getSharedInstance().startMetronome();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MetronomeService.getSharedInstance().stopMetronome();
+    }
+
+    private void configureMetronome() {
+        InputStream is = this.getResources().openRawResource(R.raw.tabla_snapa);
+
+        int WAV_INFO_BYTES = 44;
+        byte[] wavInfo = new byte[WAV_INFO_BYTES];
+
+        int TABLA_SNAP_BYTES = 17594;
+        byte[] sound = new byte[TABLA_SNAP_BYTES];
+
+        try {
+            is.read(wavInfo);
+            is.read(sound);
+        } catch (IOException e) {
+            Log.e("BadMetronome", "Error while reading in sound file.");
+        }
+
+        MetronomeService.setSharedInstance(sound);
     }
 
 }

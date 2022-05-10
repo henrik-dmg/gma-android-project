@@ -1,24 +1,31 @@
 package htw.gma_sose22.metronomprokit;
 
+import android.media.AudioTrack;
+
 public interface MetronomeInterface {
 
-    void calculateSilence();
-    void play();
+    int getBPM();
+
+    void setBPM(int speed);
+
+    int getAccuracy();
+
+    void setAccuracy(int accuracy);
+
+    void start();
+
     void stop();
 
-    double getBpm();
-    void setBpm(int bpm);
+    void togglePlayback();
 
-    int getNoteValue();
-    void setNoteValue(int bpmetre);
+    boolean getIsPlaying();
 
-    int getBeat();
-    void setBeat(int beat);
+    byte[] getSound();
 
-    double getBeatSound();
-    void setBeatSound(double sound1);
+    void setSound(byte[] sound);
 
-    double getSound();
-    void setSound(double sound2);
+    AudioTrack getAudioTrack();
+
+    void setAudioTrack(AudioTrack audioTrack);
 
 }

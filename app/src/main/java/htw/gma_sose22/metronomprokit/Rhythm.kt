@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronomprokit.metronome
+package htw.gma_sose22.metronomprokit
 
 enum class Rhythm(val value: Int) {
     QUARTER(1),
