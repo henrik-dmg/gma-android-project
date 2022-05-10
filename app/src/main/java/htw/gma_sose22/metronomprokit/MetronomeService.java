@@ -15,6 +15,8 @@ public class MetronomeService {
 
     private MetronomeService() {}
 
+    // MARK: - Shared Instance
+
     public static MetronomeService getSharedInstance() throws NullPointerException {
         if (sharedInstance == null) {
             sharedInstance = new MetronomeService();
@@ -27,7 +29,7 @@ public class MetronomeService {
         metronomeService.setMetronomeSound(metronomeSound);
     }
 
-    public MetronomeInterface getMetronome() {
+    private MetronomeInterface getMetronome() {
         if (metronome == null) {
             metronome = makeMetronome();
         }
@@ -38,7 +40,7 @@ public class MetronomeService {
         return new Metronome(120, metronomeSound, getAudioTrack());
     }
 
-    public AudioTrack getAudioTrack() {
+    private AudioTrack getAudioTrack() {
         if (audioTrack == null) {
             audioTrack = makeAudioTrack();
         }
@@ -73,6 +75,11 @@ public class MetronomeService {
         );
     }
 
+    public void togglePlayback() {
+        MetronomeInterface metronome = getMetronome();
+        metronome.togglePlayback();
+    }
+
     public void startMetronome() {
         MetronomeInterface metronome = getMetronome();
         if (metronome.getIsPlaying()) {
@@ -91,7 +98,7 @@ public class MetronomeService {
         }
     }
 
-    void setMetronomeSound(byte[] metronomeSound) {
+    private void setMetronomeSound(byte[] metronomeSound) {
         this.metronomeSound = metronomeSound;
     }
 

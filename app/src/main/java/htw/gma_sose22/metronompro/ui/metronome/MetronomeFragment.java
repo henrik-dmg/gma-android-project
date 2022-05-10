@@ -48,7 +48,7 @@ public class MetronomeFragment extends Fragment {
 
     private void handleStartStopButtonClicked() {
         MetronomeService service = MetronomeService.getSharedInstance();
-        service.startMetronome();
+        service.togglePlayback();
     }
 
 }
