@@ -1,6 +1,5 @@
 package htw.gma_sose22.metronomprokit;
 
-import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -36,7 +35,7 @@ public class MetronomeService {
     }
 
     private MetronomeInterface makeMetronome() {
-        return new Metronome(100, 100, metronomeSound, getAudioTrack());
+        return new Metronome(120, metronomeSound, getAudioTrack());
     }
 
     public AudioTrack getAudioTrack() {
