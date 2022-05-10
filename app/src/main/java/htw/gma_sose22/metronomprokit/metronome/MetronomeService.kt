@@ -17,8 +17,9 @@ private const val CHANNEL_ID = "METRONOME SERVICE"
 private const val STOP_SERVICE = "STOP_METRONOME_SERVICE"
 private const val MAX_BPM = 220
 private const val MIN_BPM = 40
+
 /**
- * The Metronome service is responsible for playing, stoping and timing the ticks.
+ * The Metronome service is responsible for playing, stopping and timing the ticks.
  * It is a started AND bound service, so it can persist and survive device rotation, and allow
  * The fragments to bind keep referencing it.
  * The service is starting foreground mode on play() and exits it on stop().
@@ -72,11 +73,16 @@ class MetronomeService : Service() {
 
         val pendingIntent: PendingIntent =
             Intent(this, MainActivity::class.java).let { notificationIntent ->
-                PendingIntent.getActivity(this, 0, notificationIntent, 0)
+                PendingIntent.getActivity(this, 0, notificationIntent, 0 or PendingIntent.FLAG_IMMUTABLE)
             }
         val stopSelf = Intent(this, MetronomeService::class.java)
         stopSelf.action = STOP_SERVICE
-        val pStopSelf = PendingIntent.getService(this, 0, stopSelf, PendingIntent.FLAG_CANCEL_CURRENT)
+        val pStopSelf = PendingIntent.getService(
+            this,
+            0,
+            stopSelf,
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
         val stopAction = Notification.Action.Builder(Icon.createWithResource(this, android.R.drawable.ic_media_pause), "Stop", pStopSelf).build()
 
         val notification: Notification = Notification.Builder(this, CHANNEL_ID)
@@ -217,7 +223,5 @@ class MetronomeService : Service() {
             return this@MetronomeService
         }
     }
-    interface TickListener {
-        fun onTick(interval: Int)
-    }
+
 }

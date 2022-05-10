@@ -2,6 +2,7 @@ package htw.gma_sose22.metronomprokit;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 public class Metronome implements MetronomeInterface {
 
@@ -49,23 +50,23 @@ public class Metronome implements MetronomeInterface {
     }
 
     public void play() {
+        Log.i("Metronome", "Play was called");
         calculateSilence();
-        do {
-            msg = new Message();
-            msg.obj = ""+currentBeat;
-            if(currentBeat == 1)
-                audioGenerator.writeSound(soundTockArray);
-            else
-                audioGenerator.writeSound(soundTickArray);
-            if(bpm <= 120)
-                messageHandler.sendMessage(msg);
-            audioGenerator.writeSound(silenceSoundArray);
-            if(bpm > 120)
-                messageHandler.sendMessage(msg);
-            currentBeat++;
-            if(currentBeat > beat)
-                currentBeat = 1;
-        } while(play);
+        Log.i("Metronome", "Writing sound to generator");
+        msg = new Message();
+        msg.obj = ""+currentBeat;
+        if(currentBeat == 1)
+            audioGenerator.writeSound(soundTockArray);
+        else
+            audioGenerator.writeSound(soundTickArray);
+        if(bpm <= 120)
+            messageHandler.sendMessage(msg);
+        audioGenerator.writeSound(silenceSoundArray);
+        if(bpm > 120)
+            messageHandler.sendMessage(msg);
+        currentBeat++;
+        if(currentBeat > beat)
+            currentBeat = 1;
     }
 
     public void stop() {
