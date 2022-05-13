@@ -1,5 +1,6 @@
 package htw.gma_sose22.metronomprokit;
 
+import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -48,31 +49,22 @@ public class MetronomeService {
     }
 
     private AudioTrack makeAudioTrack() {
-//        AudioAttributes audioAttributes = new AudioAttributes.Builder()
-//                .setUsage(AudioAttributes.USAGE_MEDIA)
-//                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-//                .build();
-//
-//        AudioFormat audioFormat = new AudioFormat.Builder()
-//                .setEncoding(AudioFormat.ENCODING_PCM_8BIT)
-//                .setSampleRate(44100)
-//                .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
-//                .build();
-//
-//        return new AudioTrack.Builder()
-//                .setAudioAttributes(audioAttributes)
-//                .setAudioFormat(audioFormat)
-//                .setBufferSizeInBytes(44100)
-//                .build();
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_MEDIA)
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .build();
 
-        return new AudioTrack(
-                AudioManager.STREAM_MUSIC,
-                44100,
-                AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT,
-                44100,
-                AudioTrack.MODE_STREAM
-        );
+        AudioFormat audioFormat = new AudioFormat.Builder()
+                .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                .setSampleRate(44100)
+                .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
+                .build();
+
+        return new AudioTrack.Builder()
+                .setAudioAttributes(audioAttributes)
+                .setAudioFormat(audioFormat)
+                .setBufferSizeInBytes(44100)
+                .build();
     }
 
     public void togglePlayback() {

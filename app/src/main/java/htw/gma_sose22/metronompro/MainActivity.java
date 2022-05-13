@@ -46,16 +46,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-//        MetronomeService.getSharedInstance().startMetronome();
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
         MetronomeService.getSharedInstance().stopMetronome();
     }
+
+    // MARK: Configuration
 
     private void configureMetronome() {
         InputStream is = this.getResources().openRawResource(R.raw.tabla_snapa);

@@ -4,7 +4,6 @@ import java.io.File;
 
 public class FileUtility implements FileUtilityInterface {
 
-
     @Override
     public void readFileAtPath(File file) {
 
