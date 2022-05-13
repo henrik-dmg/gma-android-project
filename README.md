@@ -49,22 +49,4 @@ Wir testen unsere Business-Logik mit JUnit und unser UI mit Espresso.
 
 ### Komponentendiagramm
 
-```
-┌───────────────────┐    ┌──────────────┐    ┌─────────────┐    ┌───────────────────┐
-│MetronomProKitTests│    │              │    │             │    │MetronomProUITests │
-│(basic JUnit tests)│◀───│MetronomProKit│───▶│MetronomProUI│───▶│  (UI tests with   │
-│                   │    │              │    │             │    │     Espresso)     │
-└───────────────────┘    └──────────────┘    └─────────────┘    └───────────────────┘
-                                 │                  │
-                                 │                  │
-                                 │       im         │
-                                 └────Idealfall ────┤
-                                     kein Import    │
-                                                    │
-                                                    ▼
-                                           ┌─────────────────┐
-                                           │                 │
-                                           │   MetronomPro   │
-                                           │                 │
-                                           └─────────────────┘
-```
+![Component Diagram](assets/packages.svg "Components")
