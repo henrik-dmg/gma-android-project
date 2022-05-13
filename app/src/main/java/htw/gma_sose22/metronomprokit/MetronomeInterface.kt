@@ -4,7 +4,7 @@ import android.media.AudioTrack
 
 interface MetronomeInterface {
     val bpm: Int
-    val sound: ByteArray
+    var sound: ByteArray
     val audioTrack: AudioTrack
 
     fun getIsPlaying() : Boolean
