@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronomprokit
+package htw.gma_sose22.metronomprokit.beat
 
 enum class Tone(val value: Int) {
     WOOD(1),

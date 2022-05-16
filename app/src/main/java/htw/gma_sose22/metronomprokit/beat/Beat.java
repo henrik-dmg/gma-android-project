@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronomprokit;
+package htw.gma_sose22.metronomprokit.beat;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
