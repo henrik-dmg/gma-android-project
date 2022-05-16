@@ -7,18 +7,82 @@
     android:layout_height="match_parent"
     tools:context=".ui.metronome.MetronomeFragment">
 
-    <Button
-        android:id="@+id/button_start_stop"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/button_start_stop"
+            tools:layout_editor_absoluteX="1dp" >
+
+            <Button
+                android:id="@+id/metronomeLargeDrecrementButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/metronome_decrement_large"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/metronomeMediumDrecrementButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/metronome_decrement_medium"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/metronomeSmallDrecrementButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/metronome_decrement_small"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/metronomeSmallIncrementButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/metronome_increment_small"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/metronomeMediumIncrementButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/metronome_increment_medium"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/metronomeLargeIncrementButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/metronome_increment_large"
+                style="?android:attr/buttonBarButtonStyle" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_start_stop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/title_metronome"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

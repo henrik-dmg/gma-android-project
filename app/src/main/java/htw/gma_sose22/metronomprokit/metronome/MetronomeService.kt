@@ -50,4 +50,8 @@ object MetronomeService: AudioControllable {
         metronome.togglePlayback()
     }
 
+    fun changeBPM(bpmDelta: Int) {
+        metronome.bpm += bpmDelta
+    }
+
 }

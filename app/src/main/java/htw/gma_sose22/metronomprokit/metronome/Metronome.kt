@@ -5,7 +5,7 @@ import java.util.*
 import kotlin.math.roundToInt
 
 class Metronome(
-    override val bpm: Int,
+    override var bpm: Int,
     override var sound: ByteArray,
     override val metronomeAudio: MetronomeAudioInterface
 ) : MetronomeInterface {

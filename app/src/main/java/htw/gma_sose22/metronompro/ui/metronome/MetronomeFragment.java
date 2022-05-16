@@ -17,6 +17,9 @@ public class MetronomeFragment extends Fragment {
 
     private FragmentMetronomeBinding binding;
     private Button startStopButton;
+    private Button smallIncrementButton, smallDecrementButton;
+    private Button mediumIncrementButton, mediumDecrementButton;
+    private Button largeIncrementButton, largeDecrementButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         MetronomeViewModel metronomeViewModel = new ViewModelProvider(this).get(MetronomeViewModel.class);
@@ -28,6 +31,7 @@ public class MetronomeFragment extends Fragment {
         metronomeViewModel.getText().observe(getViewLifecycleOwner(), startStopButton::setText);
 
         setupStartStopButton();
+        setupMetronomeControls();
         return root;
     }
 
@@ -42,6 +46,39 @@ public class MetronomeFragment extends Fragment {
         startStopButton.setOnClickListener((button) -> {
             handleStartStopButtonClicked();
         });
+    }
+
+    private void setupMetronomeControls() {
+        smallDecrementButton = binding.metronomeSmallDrecrementButton;
+        smallDecrementButton.setOnClickListener((button) -> {
+            handleBPMChangeRequested(-1);
+        });
+        smallIncrementButton = binding.metronomeSmallIncrementButton;
+        smallIncrementButton.setOnClickListener((button) -> {
+            handleBPMChangeRequested(1);
+        });
+
+        mediumDecrementButton = binding.metronomeMediumDrecrementButton;
+        mediumDecrementButton.setOnClickListener((button) -> {
+            handleBPMChangeRequested(-5);
+        });
+        mediumIncrementButton = binding.metronomeMediumIncrementButton;
+        mediumIncrementButton.setOnClickListener((button) -> {
+            handleBPMChangeRequested(5);
+        });
+
+        largeDecrementButton = binding.metronomeLargeDrecrementButton;
+        largeDecrementButton.setOnClickListener((button) -> {
+            handleBPMChangeRequested(-10);
+        });
+        largeIncrementButton = binding.metronomeLargeIncrementButton;
+        largeIncrementButton.setOnClickListener((button) -> {
+            handleBPMChangeRequested(10);
+        });
+    }
+
+    private void handleBPMChangeRequested(int bpmDelta) {
+        MetronomeService.INSTANCE.changeBPM(bpmDelta);
     }
 
     private void handleStartStopButtonClicked() {
