@@ -4,7 +4,6 @@ import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioTrack
 import htw.gma_sose22.metronomprokit.audio.AudioControllable
-import htw.gma_sose22.metronomprokit.audio.AudioWriteable
 import htw.gma_sose22.metronomprokit.audio.WrappedAudioTrack
 
 object MetronomeService: AudioControllable {
@@ -12,8 +11,11 @@ object MetronomeService: AudioControllable {
     private val audioWriteable: MetronomeAudioInterface = makeAudioWriteable()
     private lateinit var metronome: MetronomeInterface
 
+    val bpm: Int
+        get() = metronome.bpm
+
     fun configureMetronome(sound: ByteArray) {
-        metronome = Metronome(40, sound, audioWriteable)
+        metronome = Metronome(Metronome.DEFAULT_SPEED, sound, audioWriteable)
     }
 
     private fun makeAudioWriteable(): MetronomeAudioInterface {
