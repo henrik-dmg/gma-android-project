@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import htw.gma_sose22.metronompro.databinding.ActivityMainBinding;
-import htw.gma_sose22.metronomprokit.MetronomeService;
+import htw.gma_sose22.metronomprokit.metronome.MetronomeInterface;
+import htw.gma_sose22.metronomprokit.metronome.MetronomeService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        MetronomeService.getSharedInstance().stopMetronome();
+        MetronomeService.INSTANCE.stop();
     }
 
     // MARK: Configuration
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e("BadMetronome", "Error while reading in sound file.");
         }
 
-        MetronomeService.setSharedInstance(sound);
+        MetronomeService.INSTANCE.configureMetronome(sound);
     }
 
 }

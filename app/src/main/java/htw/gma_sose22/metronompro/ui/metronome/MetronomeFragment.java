@@ -5,15 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import htw.gma_sose22.metronompro.databinding.FragmentMetronomeBinding;
-import htw.gma_sose22.metronomprokit.MetronomeService;
+import htw.gma_sose22.metronomprokit.metronome.MetronomeService;
 
 public class MetronomeFragment extends Fragment {
 
@@ -47,8 +45,7 @@ public class MetronomeFragment extends Fragment {
     }
 
     private void handleStartStopButtonClicked() {
-        MetronomeService service = MetronomeService.getSharedInstance();
-        service.togglePlayback();
+        MetronomeService.INSTANCE.togglePlayback();
     }
 
 }
