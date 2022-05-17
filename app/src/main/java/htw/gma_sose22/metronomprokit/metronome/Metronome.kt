@@ -17,7 +17,6 @@ class Metronome(
     private var isPlaying = false
     private var playbackRunnable: Runnable? = null
     private var playbackThread: Thread? = null
-    private var lastTimestamp: Long? = null
 
     override fun getIsPlaying(): Boolean {
         return isPlaying
@@ -38,15 +37,6 @@ class Metronome(
                 metronomeAudio.write(sound, 0, soundLength)
                 val space = ByteArray(beatLength - soundLength)
                 metronomeAudio.write(space, 0, space.size)
-
-                Log.d("Metronome", "Space size " + space.size)
-
-                val millisecondsSinceEpoch = System.currentTimeMillis()
-                lastTimestamp?.let { lastTimestamp ->
-                    val difference = millisecondsSinceEpoch - lastTimestamp
-                    Log.d("Metronome", "Time diff: $difference")
-                }
-                lastTimestamp = millisecondsSinceEpoch
             }
         }
         playbackThread = Thread(playbackRunnable)
