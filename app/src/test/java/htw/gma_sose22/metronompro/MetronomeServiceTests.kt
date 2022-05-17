@@ -3,17 +3,20 @@ package htw.gma_sose22.metronompro
 import htw.gma_sose22.metronomprokit.metronome.Metronome
 import htw.gma_sose22.metronomprokit.metronome.MetronomeInterface
 import htw.gma_sose22.metronomprokit.metronome.MetronomeService
-import org.junit.Test
 import org.junit.Assert.*
-
+import org.junit.Before
+import org.junit.Test
 
 class MetronomeServiceTests {
 
-    @Test
-    fun testBPMChange() {
+    @Before
+    fun setUp() {
         val metronome = makeMetronome()
         MetronomeService.metronome = metronome
+    }
 
+    @Test
+    fun testBPMChange() {
         val currentBPM = MetronomeService.bpm
         MetronomeService.bpm += 5
         assertEquals(currentBPM + 5, MetronomeService.bpm)
@@ -21,9 +24,6 @@ class MetronomeServiceTests {
 
     @Test
     fun testNegativeBPMChange() {
-        val metronome = makeMetronome()
-        MetronomeService.metronome = metronome
-
         val currentBPM = MetronomeService.bpm
         MetronomeService.bpm -= 5
         assertEquals(currentBPM - 5, MetronomeService.bpm)
@@ -31,9 +31,6 @@ class MetronomeServiceTests {
 
     @Test
     fun testStartAndStopPlayback() {
-        val metronome = makeMetronome()
-        MetronomeService.metronome = metronome
-
         assertFalse(MetronomeService.isPlaying)
         MetronomeService.play()
         assertTrue(MetronomeService.isPlaying)
@@ -43,9 +40,6 @@ class MetronomeServiceTests {
 
     @Test
     fun testTogglePlayback() {
-        val metronome = makeMetronome()
-        MetronomeService.metronome = metronome
-
         assertFalse(MetronomeService.isPlaying)
         MetronomeService.togglePlayback()
         assertTrue(MetronomeService.isPlaying)
