@@ -14,13 +14,11 @@ class Metronome(
         const val DEFAULT_SPEED = 100
     }
 
-    private var isPlaying = false
+    override var isPlaying = false
+        private set
+
     private var playbackRunnable: Runnable? = null
     private var playbackThread: Thread? = null
-
-    override fun getIsPlaying(): Boolean {
-        return isPlaying
-    }
 
     override fun play() {
         metronomeAudio.play()

@@ -9,11 +9,8 @@ class MockMetronome(
     override val metronomeAudio: MetronomeAudioInterface
 ) : MetronomeInterface {
 
-    var isPlaying = false
-
-    override fun getIsPlaying(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override var isPlaying = false
+        private set
 
     override fun play() {
         isPlaying = true

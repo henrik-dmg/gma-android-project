@@ -18,7 +18,7 @@ class MetronomeViewModel : ViewModel() {
     }
 
     fun handleBPMChangeRequested(bpmDelta: Int) {
-        MetronomeService.changeBPM(bpmDelta)
+        MetronomeService.bpm += bpmDelta
         mutableBPM.value = MetronomeService.bpm
     }
 

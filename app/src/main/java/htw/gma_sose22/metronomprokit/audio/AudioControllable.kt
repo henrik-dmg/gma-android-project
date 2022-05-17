@@ -1,7 +1,7 @@
 package htw.gma_sose22.metronomprokit.audio
 
 interface AudioControllable: StatelessAudioControllable {
-    fun getIsPlaying() : Boolean
+    val isPlaying: Boolean
 
     fun togglePlayback()
 }

@@ -20,4 +20,5 @@ class MockAudioTrack(override val sampleRate: Int) : MetronomeAudioInterface {
     override fun stop() {
         stopCalls++
     }
+
 }

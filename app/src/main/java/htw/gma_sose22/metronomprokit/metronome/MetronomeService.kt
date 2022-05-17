@@ -10,12 +10,14 @@ object MetronomeService: AudioControllable {
 
     lateinit var metronome: MetronomeInterface
 
-    val bpm: Int
+    var bpm: Int
         get() = metronome.bpm
+        set(value) {
+            metronome.bpm = value
+        }
 
-    override fun getIsPlaying(): Boolean {
-        return metronome.getIsPlaying()
-    }
+    override val isPlaying: Boolean
+        get() = metronome.isPlaying
 
     override fun play() {
         metronome.play()
@@ -27,10 +29,6 @@ object MetronomeService: AudioControllable {
 
     override fun togglePlayback() {
         metronome.togglePlayback()
-    }
-
-    fun changeBPM(bpmDelta: Int) {
-        metronome.bpm += bpmDelta
     }
 
 }
