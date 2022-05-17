@@ -1,10 +1,6 @@
 package htw.gma_sose22.metronomprokit.metronome
 
-import android.media.AudioAttributes
-import android.media.AudioFormat
-import android.media.AudioTrack
 import htw.gma_sose22.metronomprokit.audio.AudioControllable
-import htw.gma_sose22.metronomprokit.audio.WrappedAudioTrack
 
 object MetronomeService: AudioControllable {
 

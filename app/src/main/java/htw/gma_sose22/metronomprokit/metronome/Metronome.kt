@@ -1,8 +1,6 @@
 package htw.gma_sose22.metronomprokit.metronome
 
 import android.util.Log
-import java.util.*
-import kotlin.math.roundToInt
 
 class Metronome(
     override var bpm: Int,
@@ -11,6 +9,7 @@ class Metronome(
 ) : MetronomeInterface {
 
     companion object {
+        const val DEFAULT_SAMPLE_RATE = 44100
         const val DEFAULT_SPEED = 100
     }
 
@@ -23,20 +22,7 @@ class Metronome(
     override fun play() {
         metronomeAudio.play()
         isPlaying = true
-        playbackRunnable = Runnable {
-            while (isPlaying) {
-                var beatLength = (60.0 / bpm * metronomeAudio.sampleRate).roundToInt()
-                beatLength *= 2
-
-                var soundLength = sound.size
-                if (soundLength > beatLength) {
-                    soundLength = beatLength
-                } // with higher BPMs, the full sound is too long
-                metronomeAudio.write(sound, 0, soundLength)
-                val space = ByteArray(beatLength - soundLength)
-                metronomeAudio.write(space, 0, space.size)
-            }
-        }
+        playbackRunnable = configureRunnable()
         playbackThread = Thread(playbackRunnable)
         playbackThread?.start()
     }
@@ -51,6 +37,28 @@ class Metronome(
             stop()
         } else {
             play()
+        }
+    }
+
+    private fun configureRunnable(): Runnable {
+        return Runnable {
+            // this active waiting is okay here, because metronomeAudio blocks until
+            // the audio buffer has been emptied. This way we get precise gaps between taps
+            while (isPlaying) {
+                val bufferInfo = AudioGapCalculator.calculateBeatLength(
+                    bpm,
+                    metronomeAudio.sampleRate * 2, // a sample consists of two bytes instead of one
+                    sound.size
+                )
+
+                Log.d("Metronome", "Beatlength: ${bufferInfo.beatLength}")
+                Log.d("Metronome", "SoundLength: ${bufferInfo.soundLength}")
+                Log.d("Metronome", "Spacelength: ${bufferInfo.spaceLength}")
+
+                metronomeAudio.write(sound, 0, bufferInfo.soundLength)
+                val spaceBytes = ByteArray(bufferInfo.spaceLength)
+                metronomeAudio.write(spaceBytes, 0, spaceBytes.size)
+            }
         }
     }
 

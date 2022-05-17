@@ -2,6 +2,7 @@ package htw.gma_sose22.metronompro;
 
 import android.media.AudioAttributes;
 import android.media.AudioFormat;
+import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,11 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import htw.gma_sose22.metronompro.databinding.ActivityMainBinding;
-import htw.gma_sose22.metronomprokit.audio.WrappedAudioTrack;
-import htw.gma_sose22.metronomprokit.metronome.Metronome;
-import htw.gma_sose22.metronomprokit.metronome.MetronomeAudioInterface;
-import htw.gma_sose22.metronomprokit.metronome.MetronomeInterface;
-import htw.gma_sose22.metronomprokit.metronome.MetronomeService;
+import htw.gma_sose22.metronomprokit.metronome.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,20 +65,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private MetronomeAudioInterface makeMetronomeAudio() {
-        AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_MEDIA)
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .build();
-        AudioFormat audioFormat = new AudioFormat.Builder()
-                .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
-                .setSampleRate(44100)
-                .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
-                .build();
-        AudioTrack audioTrack = new AudioTrack.Builder()
-                .setAudioAttributes(audioAttributes)
-                .setAudioFormat(audioFormat)
-                .setBufferSizeInBytes(44100)
-                .build();
+        AudioTrack audioTrack = new AudioTrack(
+                AudioManager.STREAM_MUSIC,
+                Metronome.DEFAULT_SAMPLE_RATE,
+                AudioFormat.CHANNEL_OUT_MONO,
+                AudioFormat.ENCODING_PCM_16BIT,
+                Metronome.DEFAULT_SAMPLE_RATE * 2,
+                AudioTrack.MODE_STREAM
+        );
         return new WrappedAudioTrack(audioTrack);
     }
 
