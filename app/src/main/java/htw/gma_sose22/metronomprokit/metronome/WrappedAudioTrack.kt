@@ -1,7 +1,6 @@
 package htw.gma_sose22.metronomprokit.metronome
 
 import android.media.AudioTrack
-import htw.gma_sose22.metronomprokit.metronome.MetronomeAudioInterface
 
 class WrappedAudioTrack(private val audioTrack: AudioTrack): MetronomeAudioInterface {
 

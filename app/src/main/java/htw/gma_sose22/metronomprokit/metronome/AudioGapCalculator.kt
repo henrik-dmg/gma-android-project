@@ -1,6 +1,5 @@
 package htw.gma_sose22.metronomprokit.metronome
 
-import android.util.Log
 import kotlin.math.roundToInt
 
 object AudioGapCalculator {

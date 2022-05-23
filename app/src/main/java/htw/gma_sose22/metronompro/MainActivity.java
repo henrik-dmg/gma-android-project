@@ -1,6 +1,5 @@
 package htw.gma_sose22.metronompro;
 
-import android.media.AudioAttributes;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
@@ -21,17 +20,13 @@ import htw.gma_sose22.metronomprokit.metronome.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    // MARK: Properties
-
-    private ActivityMainBinding binding;
-
     // MARK: Lifecycle
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Passing each menu ID as a set of Ids because each
