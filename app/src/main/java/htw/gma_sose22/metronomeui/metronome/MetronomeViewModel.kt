@@ -1,20 +1,23 @@
-package htw.gma_sose22.metronompro.ui.metronome
+package htw.gma_sose22.metronomeui.metronome
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import htw.gma_sose22.metronomprokit.metronome.Metronome
-import htw.gma_sose22.metronomprokit.metronome.MetronomeService
+import htw.gma_sose22.metronomekit.metronome.MetronomeService
 
 class MetronomeViewModel : ViewModel() {
 
-    private val mutableBPM: MutableLiveData<Int> = MutableLiveData()
+    private val mutableBPM = MutableLiveData<Int>()
+    private val mutableIsPlaying = MutableLiveData<Boolean>()
 
     val bpm: LiveData<Int>
         get() = mutableBPM
+    val isPlaying: LiveData<Boolean>
+        get() = mutableIsPlaying
 
     init {
-        mutableBPM.value = Metronome.DEFAULT_SPEED
+        mutableBPM.value = MetronomeService.bpm
+        mutableIsPlaying.value = MetronomeService.isPlaying
     }
 
     fun handleBPMChangeRequested(bpmDelta: Int) {
@@ -24,5 +27,6 @@ class MetronomeViewModel : ViewModel() {
 
     fun handleStartStopButtonClicked() {
         MetronomeService.togglePlayback()
+        mutableIsPlaying.value = MetronomeService.isPlaying
     }
 }

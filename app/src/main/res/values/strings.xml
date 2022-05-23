@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MetronomPro</string>
+    <string name="app_name">MetronomePro</string>
     <string name="title_editor">Editor</string>
     <string name="title_metronome">Metronome</string>
     <string name="metronome_increment_small">+1</string>

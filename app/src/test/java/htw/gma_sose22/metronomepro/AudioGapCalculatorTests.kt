@@ -1,6 +1,6 @@
-package htw.gma_sose22.metronompro
+package htw.gma_sose22.metronomepro
 
-import htw.gma_sose22.metronomprokit.metronome.AudioGapCalculator
+import htw.gma_sose22.metronomekit.metronome.AudioGapCalculator
 import org.junit.Test
 import org.junit.Assert.*
 

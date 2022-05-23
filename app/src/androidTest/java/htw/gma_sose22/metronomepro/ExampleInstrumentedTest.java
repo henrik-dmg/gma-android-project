@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronompro;
+package htw.gma_sose22.metronomepro;
 
 import android.content.Context;
 

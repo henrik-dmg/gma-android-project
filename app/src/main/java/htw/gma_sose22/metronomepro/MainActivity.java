@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronompro;
+package htw.gma_sose22.metronomepro;
 
 import android.media.AudioFormat;
 import android.media.AudioManager;
@@ -15,8 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 import java.io.IOException;
 import java.io.InputStream;
 
-import htw.gma_sose22.metronompro.databinding.ActivityMainBinding;
-import htw.gma_sose22.metronomprokit.metronome.*;
+import htw.gma_sose22.metronomepro.databinding.ActivityMainBinding;
+import htw.gma_sose22.metronomekit.metronome.*;
 
 public class MainActivity extends AppCompatActivity {
 

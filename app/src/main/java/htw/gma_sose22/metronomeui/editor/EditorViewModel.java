@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronompro.ui.editor;
+package htw.gma_sose22.metronomeui.editor;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

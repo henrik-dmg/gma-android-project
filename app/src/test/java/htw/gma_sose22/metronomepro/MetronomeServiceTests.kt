@@ -1,8 +1,8 @@
-package htw.gma_sose22.metronompro
+package htw.gma_sose22.metronomepro
 
-import htw.gma_sose22.metronomprokit.metronome.Metronome
-import htw.gma_sose22.metronomprokit.metronome.MetronomeInterface
-import htw.gma_sose22.metronomprokit.metronome.MetronomeService
+import htw.gma_sose22.metronomekit.metronome.Metronome
+import htw.gma_sose22.metronomekit.metronome.MetronomeInterface
+import htw.gma_sose22.metronomekit.metronome.MetronomeService
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

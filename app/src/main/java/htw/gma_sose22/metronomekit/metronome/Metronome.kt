@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronomprokit.metronome
+package htw.gma_sose22.metronomekit.metronome
 
 class Metronome(
     override var bpm: Int,
@@ -8,7 +8,7 @@ class Metronome(
 
     companion object {
         const val DEFAULT_SAMPLE_RATE = 44100
-        const val DEFAULT_SPEED = 100
+        const val DEFAULT_SPEED = 120
     }
 
     override var isPlaying = false

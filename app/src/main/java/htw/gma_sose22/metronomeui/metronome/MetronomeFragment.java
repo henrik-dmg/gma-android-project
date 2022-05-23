@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronompro.ui.metronome;
+package htw.gma_sose22.metronomeui.metronome;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import htw.gma_sose22.metronompro.databinding.FragmentMetronomeBinding;
+import htw.gma_sose22.metronomepro.databinding.FragmentMetronomeBinding;
 
 public class MetronomeFragment extends Fragment {
 

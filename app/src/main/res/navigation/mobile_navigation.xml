@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_metronome"
-        android:name="htw.gma_sose22.metronompro.ui.metronome.MetronomeFragment"
+        android:name="htw.gma_sose22.metronomeui.metronome.MetronomeFragment"
         android:label="@string/title_metronome"
         tools:layout="@layout/fragment_metronome" />
 
     <fragment
         android:id="@+id/navigation_editor"
-        android:name="htw.gma_sose22.metronompro.ui.editor.EditorFragment"
+        android:name="htw.gma_sose22.metronomeui.editor.EditorFragment"
         android:label="@string/title_editor"
         tools:layout="@layout/fragment_editor" />
 

@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronompro.ui.editor;
+package htw.gma_sose22.metronomeui.editor;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import htw.gma_sose22.metronompro.databinding.FragmentEditorBinding;
+import htw.gma_sose22.metronomepro.databinding.FragmentEditorBinding;
 
 public class EditorFragment extends Fragment {
 

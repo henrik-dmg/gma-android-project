@@ -1,4 +1,4 @@
-package htw.gma_sose22.metronomprokit.metronome
+package htw.gma_sose22.metronomekit.metronome
 
 import android.media.AudioTrack
 
