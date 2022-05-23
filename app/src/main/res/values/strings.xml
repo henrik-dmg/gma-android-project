@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">MetronomPro</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_editor">Editor</string>
+    <string name="title_metronome">Metronome</string>
+    <string name="metronome_increment_small">+1</string>
+    <string name="metronome_decrement_small">-1</string>
+    <string name="metronome_decrement_medium">-5</string>
+    <string name="metronome_increment_medium">+5</string>
+    <string name="metronome_decrement_large">-10</string>
+    <string name="metronome_increment_large">+10</string>
 </resources>
