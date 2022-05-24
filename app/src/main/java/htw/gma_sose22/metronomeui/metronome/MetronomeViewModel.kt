@@ -29,4 +29,5 @@ class MetronomeViewModel : ViewModel() {
         MetronomeService.togglePlayback()
         mutableIsPlaying.value = MetronomeService.isPlaying
     }
+
 }

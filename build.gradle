@@ -2,24 +2,26 @@
 
 buildscript {
 
+    ext.lifecycle_version = "2.4.1"
     ext.kotlin_version = "1.6.21"
     ext.supportLibVersion = "25.3.0"
     ext.navLibVersion = "2.4.2"
 
     repositories {
         google()
+        mavenCentral()
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
+    dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navLibVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 plugins {
     id 'com.android.application' version '7.2.0' apply false
     id 'com.android.library' version '7.2.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
 }
 
 task clean(type: Delete) {
