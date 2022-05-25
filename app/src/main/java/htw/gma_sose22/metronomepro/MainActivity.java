@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 Metronome.DEFAULT_SAMPLE_RATE,
                 AudioFormat.CHANNEL_OUT_MONO,
                 AudioFormat.ENCODING_PCM_16BIT,
-                Metronome.DEFAULT_SAMPLE_RATE * 2,
+                Metronome.DEFAULT_SAMPLE_RATE,
                 AudioTrack.MODE_STREAM
         );
         return new WrappedAudioTrack(audioTrack);
