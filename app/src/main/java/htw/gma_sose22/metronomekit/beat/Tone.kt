@@ -1,5 +1,8 @@
 package htw.gma_sose22.metronomekit.beat
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 enum class Tone(val value: Int) {
     WOOD(1),
     CLICK(2),

@@ -1,5 +1,8 @@
 package htw.gma_sose22.metronomekit.beat
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 enum class Rhythm(val value: Int) {
     QUARTER(1),
     EIGHTH(2),
