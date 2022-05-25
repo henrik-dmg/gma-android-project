@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "MetronomPro"
+rootProject.name = "MetronomePro"
 include ':app'
