@@ -1,21 +1,19 @@
 {
-  "patternName": "Some Beat Pattern",
-  "createdAt": "2022-05-08 15:26:01+1000",
-  "patterns": [
+  "patternName": "Some Beat Pattern", // name of pattern ; always needed
+  "createdAt": "2022-05-08 15:26:01+1000", // date of creation ; always needed
+  "patterns": [ // pattern array start
     {
-      "tempo": 120,
-      "noteValue": 4,
-      "noteCount": 3,
-      "repetitions": 3,
-      "emphasisedNotes": [0]
+      "tempo": 120, // range(10-300) ; always needed
+      "noteCount": 3, // range(1-12) ; always needed
+      "repetitions": 3, // range(1-10) ; always needed
+      "emphasisedNotes": [0, 1] // first and second note emphasised ; if this entry is missing, no note is emphasised
     },
     {
       "tempo": 140,
-      "noteValue": 8,
       "noteCount": 4,
       "repetitions": 2,
-      "emphasisedNotes": [1, 3],
-      "mutedNotes": [2]
+      "emphasisedNotes": [1, 3], // second and fourth note emphasised
+      "mutedNotes": [2] // 3 note muted ; if this entry is missing, no note is muted
     }
-  ]
+  ] // pattern array end
 }
