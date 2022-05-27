@@ -53,9 +53,10 @@ public class MainActivity extends AppCompatActivity {
     // MARK: Configuration
 
     private void configureMetronome() {
-        byte[] sound = makeSoundBytes();
+        byte[] beatSound = makeBeatSoundBytes();
+        byte[] offbeatSound = makeOffbeatSoundBytes();
         MetronomeAudioInterface metronomeAudio = makeMetronomeAudio();
-        MetronomeInterface metronome = new Metronome(Metronome.DEFAULT_SPEED, sound, metronomeAudio);
+        MetronomeInterface metronome = new Metronome(Metronome.DEFAULT_SPEED, beatSound, offbeatSound, metronomeAudio);
         MetronomeService.INSTANCE.setMetronome(metronome);
     }
 
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         return new WrappedAudioTrack(audioTrack);
     }
 
-    private byte[] makeSoundBytes() {
+    private byte[] makeBeatSoundBytes() {
         InputStream is = this.getResources().openRawResource(R.raw.tabla_snapa);
 
         int WAV_INFO_BYTES = 44;
@@ -88,6 +89,30 @@ public class MainActivity extends AppCompatActivity {
             Log.e("BadMetronome", "Error while reading in sound file.");
         }
         return new byte[0];
+    }
+
+    private byte[] makeOffbeatSoundBytes() {
+        byte[] beatSound = makeBeatSoundBytes();
+        byte[] offbeatSound = new byte[beatSound.length];
+        double volumeScale = 0.2;
+
+        for (int i = 0; i < beatSound.length; i+=2) {
+            // convert byte pair to int
+            short buf1 = beatSound[i+1];
+            short buf2 = beatSound[i];
+
+            buf1 = (short) ((buf1 & 0xff) << 8);
+            buf2 = (short) (buf2 & 0xff);
+
+            short res= (short) (buf1 | buf2);
+            res = (short) (res * volumeScale);
+
+            // convert back
+            offbeatSound[i] = (byte) res;
+            offbeatSound[i+1] = (byte) (res >> 8);
+
+        }
+        return offbeatSound;
     }
 
 }

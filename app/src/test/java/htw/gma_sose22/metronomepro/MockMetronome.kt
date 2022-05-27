@@ -5,7 +5,8 @@ import htw.gma_sose22.metronomekit.metronome.MetronomeInterface
 
 class MockMetronome(
     override var bpm: Int,
-    override var sound: ByteArray,
+    override var beatSound: ByteArray,
+    override var offbeatSound: ByteArray,
     override val metronomeAudio: MetronomeAudioInterface
 ) : MetronomeInterface {
 

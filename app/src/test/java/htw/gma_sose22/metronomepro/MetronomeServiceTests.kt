@@ -49,7 +49,7 @@ class MetronomeServiceTests {
 
     private fun makeMetronome(): MetronomeInterface {
         val mockAudio = MockAudioTrack(100)
-        return Metronome(80, ByteArray(100), mockAudio)
+        return Metronome(80, ByteArray(100), ByteArray(80), mockAudio)
     }
 
 }
