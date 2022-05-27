@@ -5,11 +5,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Beat(
     var tempo: Int?,
-    var noteValue: Int?,
     var noteCount: Int?,
     var repetitions: Int?,
     var emphasisedNotes: IntArray,
-    var mutedNotes: Array<Int>
+    var mutedNotes: IntArray
 ) {
 
     override fun equals(other: Any?): Boolean {
@@ -19,7 +18,6 @@ data class Beat(
         other as Beat
 
         if (tempo != other.tempo) return false
-        if (noteValue != other.noteValue) return false
         if (noteCount != other.noteCount) return false
         if (repetitions != other.repetitions) return false
         if (!emphasisedNotes.contentEquals(other.emphasisedNotes)) return false
@@ -30,7 +28,6 @@ data class Beat(
 
     override fun hashCode(): Int {
         var result = tempo ?: 0
-        result = 31 * result + (noteValue ?: 0)
         result = 31 * result + (noteCount ?: 0)
         result = 31 * result + (repetitions ?: 0)
         result = 31 * result + emphasisedNotes.contentHashCode()
