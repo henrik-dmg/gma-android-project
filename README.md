@@ -37,6 +37,28 @@ In dieser kann dann entweder auf "Abbrechen" oder "Laden" gedrückt werden, was 
 ### Allgemein
 
 In `MetronomProKit` haben wir Komponenten wie `FileUtility`, welches das Lesen und Schreiben der Beatmuster in JSON auf die Disk handhabt.
+Folgendes JSON Layout wird verwendet
+
+{
+    "patternName": "Some Beat Pattern", // name of pattern ; always needed
+    "createdAt": "2022-05-08 15:26:01+1000", // date of creation ; always needed
+    "patterns": [ // pattern array start
+        { // pattern start
+        "tempo": 120, // range(10-300) ; always needed
+        "noteCount": 3, // range(1-12) ; always needed
+        "repetitions": 3, // range(1-10) ; always needed
+        "emphasisedNotes": [0, 1] // first and second note emphasised ; if this entry is missing, no note is emphasised
+    }, // pattern end
+        {
+        "tempo": 140,
+        "noteCount": 4,
+        "repetitions": 2,
+        "emphasisedNotes": [1, 3], // second and fourth note emphasised
+        "mutedNotes": [2] // 3 note muted ; if this entry is missing, no note is muted
+    }
+    ] // pattern array end
+}
+
 
 ### SoundGenerator
 
