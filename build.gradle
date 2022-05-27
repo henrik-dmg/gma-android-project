@@ -3,6 +3,7 @@
 buildscript {
 
     ext.lifecycle_version = "2.4.1"
+    ext.gradle_version = "7.2.1"
     ext.kotlin_version = "1.6.21"
     ext.supportLibVersion = "25.3.0"
     ext.navLibVersion = "2.4.2"
@@ -19,7 +20,11 @@ buildscript {
 }
 
 plugins {
-    id 'com.android.application' version '7.2.0' apply false
-    id 'com.android.library' version '7.2.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.6.21' apply false
+    id 'com.android.application' version "$gradle_version" apply false
+    id 'com.android.library' version "$gradle_version" apply false
+    id 'org.jetbrains.kotlin.android' version "$kotlin_version" apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }

@@ -2,7 +2,8 @@ package htw.gma_sose22.metronomekit.metronome
 
 class Metronome(
     override var bpm: Int,
-    override var sound: ByteArray,
+    override var beatSound: ByteArray,
+    override var offbeatSound: ByteArray,
     override val metronomeAudio: MetronomeAudioInterface
 ) : MetronomeInterface {
 
@@ -16,6 +17,8 @@ class Metronome(
 
     private var playbackRunnable: Runnable? = null
     private var playbackThread: Thread? = null
+
+    var notesPlayed = 0
 
     override fun play() {
         metronomeAudio.play()
@@ -43,6 +46,8 @@ class Metronome(
             // this active waiting is okay here, because metronomeAudio blocks until
             // the audio buffer has been emptied. This way we get precise gaps between taps
             while (isPlaying) {
+                val sound = nextNote()
+
                 // a sample consists of two bytes instead of one
                 // https://github.com/pandapaul/BadMetronome/commit/d84083a455b974fc37625da5789f9dec881e1094
                 val sampleRateForGapCalculation = metronomeAudio.sampleRate * 2
@@ -54,9 +59,18 @@ class Metronome(
                 )
 
                 metronomeAudio.write(sound, 0, bufferInfo.soundLength)
+                notesPlayed++
                 val spaceBytes = ByteArray(bufferInfo.spaceLength)
                 metronomeAudio.write(spaceBytes, 0, spaceBytes.size)
             }
+        }
+    }
+
+    private fun nextNote(): ByteArray {
+        return if (notesPlayed % 2 == 0) {
+            beatSound
+        } else {
+            offbeatSound
         }
     }
 
