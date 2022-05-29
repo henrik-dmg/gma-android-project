@@ -3,6 +3,7 @@ package htw.gma_sose22.metronomepro
 import htw.gma_sose22.metronomekit.beat.*
 import org.junit.*
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
 import java.util.*
 
 class BeatManagerTests {
@@ -100,6 +101,17 @@ class BeatManagerTests {
 
         for (i in 0..100) {
             assertEquals(Tone.regular, beatManager.nextTone())
+        }
+    }
+
+    @Test
+    fun testInvalidBeat() {
+        val beats = Array(1) {
+            Beat(120, 2, 1, intArrayOf(3, 4), null)
+        }
+        val beatPattern = BeatPattern("Pattern", Date(), beats)
+        assertThrows(BeatManagerException::class.java) {
+            beatManager.loadBeat(beatPattern)
         }
     }
 

@@ -9,6 +9,9 @@ class BeatManager {
     private var currentRepetitionCount = 0
 
     fun loadBeat(beatPattern: BeatPattern) {
+        if (!beatPattern.isValid()) {
+            throw BeatManagerException("The BeatPattern is invalid")
+        }
         this.beatPattern = beatPattern
         reset()
     }
