@@ -33,8 +33,9 @@ class BeatManager {
             currentToneIndex = 0
         }
         currentBeat.repetitions?.let { repetitions ->
-            if (repetitions <= currentRepetitionCount) {
+            if (repetitions == currentRepetitionCount) {
                 currentBeatIndex++
+                currentRepetitionCount = 0
                 return nextToneInPattern(beatPattern)
             }
         }
