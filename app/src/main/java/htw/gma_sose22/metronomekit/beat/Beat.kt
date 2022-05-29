@@ -1,5 +1,6 @@
 package htw.gma_sose22.metronomekit.beat
 
+import htw.gma_sose22.metronomekit.util.Validateable
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -9,7 +10,7 @@ data class Beat(
     var repetitions: Int?,
     var emphasisedNotes: IntArray?,
     var mutedNotes: IntArray?
-) {
+): Validateable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -33,6 +34,20 @@ data class Beat(
         result = 31 * result + emphasisedNotes.contentHashCode()
         result = 31 * result + mutedNotes.contentHashCode()
         return result
+    }
+
+    override fun isValid(): Boolean {
+        emphasisedNotes?.forEach { index ->
+            if (index >= noteCount) {
+                return false
+            }
+        }
+        mutedNotes?.forEach { index ->
+            if (index >= noteCount) {
+                return false
+            }
+        }
+        return true
     }
 
     fun makeNotes(): Array<Tone> {

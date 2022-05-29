@@ -1,6 +1,7 @@
 package htw.gma_sose22.metronomekit.beat
 
 import htw.gma_sose22.metronomekit.util.DateSerializer
+import htw.gma_sose22.metronomekit.util.Validateable
 import kotlinx.serialization.Serializable
 import java.util.*
 
@@ -10,7 +11,7 @@ data class BeatPattern(
     @Serializable(DateSerializer::class)
     var createdAt: Date?,
     var beats: Array<Beat>
-) {
+): Validateable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -30,6 +31,10 @@ data class BeatPattern(
         result = 31 * result + (createdAt?.hashCode() ?: 0)
         result = 31 * result + beats.contentHashCode()
         return result
+    }
+
+    override fun isValid(): Boolean {
+        return beats.all { beat -> beat.isValid() }
     }
 
 }
