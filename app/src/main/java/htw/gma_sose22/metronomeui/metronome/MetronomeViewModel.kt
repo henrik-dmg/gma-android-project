@@ -1,8 +1,6 @@
 package htw.gma_sose22.metronomeui.metronome
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import htw.gma_sose22.metronomekit.metronome.MetronomeService
 
 class MetronomeViewModel : ViewModel() {
@@ -10,10 +8,8 @@ class MetronomeViewModel : ViewModel() {
     private val mutableBPM = MutableLiveData<Int>()
     private val mutableIsPlaying = MutableLiveData<Boolean>()
 
-    val bpm: LiveData<Int>
-        get() = mutableBPM
-    val isPlaying: LiveData<Boolean>
-        get() = mutableIsPlaying
+    val bpm: LiveData<Int> = mutableBPM
+    val isPlaying: LiveData<Boolean> = mutableIsPlaying
 
     init {
         mutableBPM.value = MetronomeService.bpm

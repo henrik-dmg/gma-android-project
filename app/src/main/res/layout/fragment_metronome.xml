@@ -16,6 +16,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <include layout="@layout/beat_view" />
+
         <TextView
             android:id="@+id/metronomeBPMLabel"
             android:layout_width="match_parent"
