@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/metronomeLargeDecrementButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/metronome_decrement_large" />
+
+    <Button
+        android:id="@+id/metronomeMediumDecrementButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/metronome_decrement_medium" />
+
+    <Button
+        android:id="@+id/metronomeSmallDecrementButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/metronome_decrement_small" />
+
+    <Button
+        android:id="@+id/metronomeSmallIncrementButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/metronome_increment_small" />
+
+    <Button
+        android:id="@+id/metronomeMediumIncrementButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/metronome_increment_medium" />
+
+    <Button
+        android:id="@+id/metronomeLargeIncrementButton"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/metronome_increment_large" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

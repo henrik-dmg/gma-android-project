@@ -46,37 +46,37 @@ class MetronomeFragment : Fragment() {
     }
 
     private fun setupMetronomeControls() {
-        val smallDecrementButton = binding.metronomeSmallDrecrementButton
+        val smallDecrementButton = binding.bpmModificationView.metronomeSmallDecrementButton
         smallDecrementButton.setOnClickListener {
             viewModel?.handleBPMChangeRequested(
                 -1
             )
         }
-        val smallIncrementButton = binding.metronomeSmallIncrementButton
+        val smallIncrementButton = binding.bpmModificationView.metronomeSmallIncrementButton
         smallIncrementButton.setOnClickListener {
             viewModel?.handleBPMChangeRequested(
                 1
             )
         }
-        val mediumDecrementButton = binding.metronomeMediumDrecrementButton
+        val mediumDecrementButton = binding.bpmModificationView.metronomeMediumDecrementButton
         mediumDecrementButton.setOnClickListener {
             viewModel?.handleBPMChangeRequested(
                 -5
             )
         }
-        val mediumIncrementButton = binding.metronomeMediumIncrementButton
+        val mediumIncrementButton = binding.bpmModificationView.metronomeMediumIncrementButton
         mediumIncrementButton.setOnClickListener {
             viewModel?.handleBPMChangeRequested(
                 5
             )
         }
-        val largeDecrementButton = binding.metronomeLargeDrecrementButton
+        val largeDecrementButton = binding.bpmModificationView.metronomeLargeDecrementButton
         largeDecrementButton.setOnClickListener {
             viewModel?.handleBPMChangeRequested(
                 -10
             )
         }
-        val largeIncrementButton = binding.metronomeLargeIncrementButton
+        val largeIncrementButton = binding.bpmModificationView.metronomeLargeIncrementButton
         largeIncrementButton.setOnClickListener {
             viewModel?.handleBPMChangeRequested(
                 10
