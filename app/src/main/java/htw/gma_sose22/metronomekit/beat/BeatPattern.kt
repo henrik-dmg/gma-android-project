@@ -1,14 +1,10 @@
 package htw.gma_sose22.metronomekit.beat
 
-import htw.gma_sose22.metronomekit.util.DateSerializer
 import htw.gma_sose22.metronomekit.util.Validateable
-import kotlinx.serialization.Serializable
 import java.util.*
 
-@Serializable
 data class BeatPattern(
     var patternName: String?,
-    @Serializable(DateSerializer::class)
     var createdAt: Date?,
     var beats: Array<Beat>
 ): Validateable {

@@ -1,9 +1,7 @@
 package htw.gma_sose22.metronomekit.beat
 
 import htw.gma_sose22.metronomekit.util.Validateable
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class Beat(
     var tempo: Int,
     var noteCount: Int,
