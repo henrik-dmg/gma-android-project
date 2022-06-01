@@ -1,6 +1,6 @@
 package htw.gma_sose22.metronomekit.beat
 
-class BeatManager {
+object BeatManager {
 
     private var beatPattern: BeatPattern? = null
 
@@ -8,7 +8,12 @@ class BeatManager {
     private var currentToneIndex = 0
     private var currentRepetitionCount = 0
 
-    fun loadBeat(beatPattern: BeatPattern) {
+    fun loadBeat(beat: Beat) {
+        val beatPattern = BeatPattern(null, null, arrayOf(beat))
+        loadBeatPattern(beatPattern)
+    }
+
+    fun loadBeatPattern(beatPattern: BeatPattern) {
         if (!beatPattern.isValid()) {
             throw BeatManagerException("The BeatPattern is invalid")
         }
@@ -46,9 +51,5 @@ class BeatManager {
         currentToneIndex ++
         return tone
     }
-
-//    private fun makeTonesForCurrentBeat(): Array<Tone>? {
-//        val currentBeat = beatPattern?.beats?.get(currentBeatIndex)
-//    }
 
 }

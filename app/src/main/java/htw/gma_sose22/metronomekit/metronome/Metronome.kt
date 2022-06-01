@@ -1,10 +1,13 @@
 package htw.gma_sose22.metronomekit.metronome
 
+import htw.gma_sose22.metronomekit.beat.Tone
+
 class Metronome(
     override var bpm: Int,
     override var beatSound: ByteArray,
     override var offbeatSound: ByteArray,
-    override val metronomeAudio: MetronomeAudioInterface
+    override val metronomeAudio: MetronomeAudioInterface,
+    override val nextToneClosure: () -> Tone?
 ) : MetronomeInterface {
 
     companion object {
@@ -17,8 +20,6 @@ class Metronome(
 
     private var playbackRunnable: Runnable? = null
     private var playbackThread: Thread? = null
-
-    var notesPlayed = 0
 
     override fun play() {
         metronomeAudio.play()
@@ -46,31 +47,35 @@ class Metronome(
             // this active waiting is okay here, because metronomeAudio blocks until
             // the audio buffer has been emptied. This way we get precise gaps between taps
             while (isPlaying) {
-                val sound = nextNote()
+                nextSound().let { sound ->
+                    if (sound is ByteArray) {
+                        // a sample consists of two bytes instead of one
+                        // https://github.com/pandapaul/BadMetronome/commit/d84083a455b974fc37625da5789f9dec881e1094
+                        val sampleRateForGapCalculation = metronomeAudio.sampleRate * 2
 
-                // a sample consists of two bytes instead of one
-                // https://github.com/pandapaul/BadMetronome/commit/d84083a455b974fc37625da5789f9dec881e1094
-                val sampleRateForGapCalculation = metronomeAudio.sampleRate * 2
+                        val bufferInfo = AudioGapCalculator.calculateBeatLength(
+                            bpm,
+                            sampleRateForGapCalculation,
+                            sound.size
+                        )
 
-                val bufferInfo = AudioGapCalculator.calculateBeatLength(
-                    bpm,
-                    sampleRateForGapCalculation,
-                    sound.size
-                )
-
-                metronomeAudio.write(sound, 0, bufferInfo.soundLength)
-                notesPlayed++
-                val spaceBytes = ByteArray(bufferInfo.spaceLength)
-                metronomeAudio.write(spaceBytes, 0, spaceBytes.size)
+                        metronomeAudio.write(sound, 0, bufferInfo.soundLength)
+                        val spaceBytes = ByteArray(bufferInfo.spaceLength)
+                        metronomeAudio.write(spaceBytes, 0, spaceBytes.size)
+                    } else {
+                        isPlaying = false
+                    }
+                }
             }
         }
     }
 
-    private fun nextNote(): ByteArray {
-        return if (notesPlayed % 2 == 0) {
-            beatSound
-        } else {
-            offbeatSound
+    private fun nextSound(): ByteArray? {
+        return when (nextToneClosure()) {
+            Tone.emphasised -> beatSound
+            Tone.muted -> ByteArray(10)
+            Tone.regular -> offbeatSound
+            null -> null
         }
     }
 
