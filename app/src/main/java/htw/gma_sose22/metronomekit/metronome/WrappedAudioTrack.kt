@@ -16,7 +16,7 @@ class WrappedAudioTrack(private val audioTrack: AudioTrack): MetronomeAudioInter
     }
 
     override fun stop() {
-        audioTrack.pause()
+        audioTrack.stop()
         audioTrack.flush()
     }
 

@@ -8,4 +8,6 @@
     <string name="metronome_increment_medium">+5</string>
     <string name="metronome_decrement_large">-10</string>
     <string name="metronome_increment_large">+10</string>
+    <string name="metronome_start_button_title">Start</string>
+    <string name="metronome_stop_button_title">Stop</string>
 </resources>

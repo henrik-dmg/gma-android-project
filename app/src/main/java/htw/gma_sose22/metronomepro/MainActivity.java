@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import java.io.IOException;
 import java.io.InputStream;
 
+import htw.gma_sose22.metronomekit.beat.BeatManager;
 import htw.gma_sose22.metronomepro.databinding.ActivityMainBinding;
 import htw.gma_sose22.metronomekit.metronome.*;
 
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         byte[] beatSound = makeBeatSoundBytes();
         byte[] offbeatSound = makeOffbeatSoundBytes();
         MetronomeAudioInterface metronomeAudio = makeMetronomeAudio();
-        MetronomeInterface metronome = new Metronome(Metronome.DEFAULT_SPEED, beatSound, offbeatSound, metronomeAudio);
+        MetronomeInterface metronome = new Metronome(Metronome.DEFAULT_SPEED, beatSound, offbeatSound, metronomeAudio, BeatManager.INSTANCE::nextTone);
         MetronomeService.INSTANCE.setMetronome(metronome);
     }
 
