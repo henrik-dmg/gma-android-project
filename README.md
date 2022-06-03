@@ -34,7 +34,7 @@ In dieser kann dann entweder auf "Abbrechen" oder "Laden" gedrückt werden, was 
 
 ![Mockup of Application](assets/Mockup.jpg "Mockup")
 
-## Komponenten
+## Komponenten (Stand 6. Juni 2022)
 
 Unsere App ist in die folgenden Komponenten unterteilt:
 
@@ -48,9 +48,9 @@ Hier lebt die Logik unserer App. Genauer gesagt liegt der gesamte Code, der nich
 
 Das `Audio` Package stellt einige Interfaces bereit, die benötigt werden um mit Audio zu arbeiten und es zu steuern
 
-- `AudioControllable` (interface)
-- `AudioWriteable` (interface)
-- `StatelessAudioControllable` (interface)
+- `AudioControllable`: `interface`
+- `AudioWriteable`: `interface`
+- `StatelessAudioControllable`: `interface`
 
 Da dieses Package keinerleit Implementation hat, wird dieses nicht getestet.
 
@@ -58,11 +58,11 @@ Da dieses Package keinerleit Implementation hat, wird dieses nicht getestet.
 
 Im Package `Beat` ist die Logik und die Datenstrukturen für die Beatmuster zu finden. Dies beinhaltet simple `data class` Objekte, die reine Model-Objekte sind und keine Logik beinhalten (außer Validierung). Außerdem ist hier der `BeatManager` zu finden, welches das Singleton-Objekt ist, welches dafür zuständig ist, den nächsten Ton auszusuchen (betont, normal oder muted).
 
-- `Beat` (data class)
-- `BeatManager` (object class)
-- `BeatManagerException` (exception, die von `BeatManager` geworfen wird, falls ein Beat-Muster fehlformartiert ist)
-- `BeatPattern` (data class)
-- `Tone` (enum)
+- `Beat`: `data`-Klasse
+- `BeatManager`: `object`-Klasse
+- `BeatManagerException`: exception, die von `BeatManager` geworfen wird, falls ein Beat-Muster fehlformartiert ist)
+- `BeatPattern`: `data`-Klasse
+- `Tone`: `enum`
 
 In diesem Package wird vor Allem die doch eher komplexe Logik des `BeatManager` getestet. Bereits vorhandene Tests sind zB:
 
@@ -83,6 +83,36 @@ Tests die für die `Beat` Klasse noch geschrieben werden:
 - `Tone`-Array wird korrekt ausgegeben
   - richtige Anzahl an Tönen wird zurückgegeben
   - betonte und gemutete Töne sind am richtigen Index zu finden
+
+#### Metronome Package
+
+In diesem Package passiert die meiste Magie. Die folgenden Klassen und Interfaces liegen hier:
+
+- `AudioGapCalculator`: `data class` mit nur einem Zweck, und zwar den Abstand zwischen zwei Schlägen zu errechen, basierent auf der BPM-Zahl und der Länge des abzuspielenden Tons
+- `Metronome`: Klasse, die `MetronomeInterface` implementiert, hier wird der eigentliche Ton in den Buffer des `AudioTrack` geschrieben (welcher aber hinter einem weiteren Interface versteckt ist)
+- `MetronomeAudioIntercace`: `interface`
+- `MetronomeInterface`: `interface`
+- `MetronomeService`: `object`-Klasse, die das erstellte Metronom in der gesamten App als Singleton bereitstellt
+- `WrappedAudioTrack`: Klasse, die `MetronomeAudioIntercace` implementier. Im Prinzip nur Wrapper für `AudioTrack`, damit dieser `MetronomeAudioIntercace` implementieren kann
+
+Wir werden uns für dieses Package auf die folgenden Tests konzentrieren:
+
+- `AudioGapCalculator`
+  - Errechnete Sound- und Pausenlänge ist korrekt für viele verschieden Eingaben und BPM
+- `MetronomeService`
+  - Metronom wird korrekt gesteuert und angesprochen (d.h. BPM wird korrekt verändert, `isPlaying`-State ist korrekt, usw.)
+- `Metronome`
+  - Korrekter Ton wird in richtiger Reihenfolge abgespielt
+
+### MetronomeUI
+
+Dieses Package enhält alle Fragments und ViewModel unserer App.
+
+TODO
+
+### MetronomePro
+
+Hier lebt nur `MainActivity`, welche vom Rest der App nicht wirklich weiß. Hier wird außerm der Sound des Metronoms geladen und festgelt und das Metronom mit dem `MetronomeService` verbunden. Da die `MainActivity` kaum Logik enhält, die nicht vorher schon getestet wurde, oder Boilerplate-Code ist, werden wir keine extra Tests für diese Klasse schreiben.
 
 ## Exploration
 
