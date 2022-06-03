@@ -108,7 +108,7 @@ Einfacher (und vermutlich auch deutlich sicherer) wäre es eine lokale NoSQL Dat
 
 Die gespeicherten Beat-Muster könnten in JSON ungefähr wie folgt aussehen:
 
-```json
+```jsonc
 {
   "patternName": "Some Beat Pattern", // name of pattern
   "createdAt": "2022-05-08 15:26:01+1000", // date of creation
