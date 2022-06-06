@@ -106,9 +106,23 @@ Wir werden uns für dieses Package auf die folgenden Tests konzentrieren:
 
 ### MetronomeUI
 
-Dieses Package enhält alle Fragments und ViewModel unserer App.
+Dieses Package enhält alle Fragments und ViewModel unserer App, d.h. nur den reinen UI-Code. Nach aktuellem Stand sind dies:
 
-TODO
+- `EditorFragment`
+- `EditorViewModel`
+- `MetronomeFragment`
+- `MetronomeViewModel`
+
+Es sollte klar sein, dass jeweils eine `ViewModel`-Klasse zum gleichnamigen `Fragment` gehört. Was UI-Tests anbelangt, sind wir noch nicht 100% sicher, ob man die Fragments einzeln testen kann oder nur als Teil der gesamten App, das müssen wir noch herausfinden.
+Allerdings ändert dies nichts an der Liste der zu testenden Funktionen:
+
+- Metronom
+  - BPM lassen sich erfolgreich verändern und dazugehörige `TextView` ändert den Text
+  - Start/Stop-Button funktioniert und UI passt sich entsprechend an
+  - `BeatView` verändert auch wirklich den zugrunde liegenden Beat
+- Editor
+  - Es lassen sich erfolgreich Beat-Muster hinzufügen und löschen
+  - die jeweiligen `BeatView` verändern den Beat (und nur den richtigen Beat)
 
 ### MetronomePro
 
