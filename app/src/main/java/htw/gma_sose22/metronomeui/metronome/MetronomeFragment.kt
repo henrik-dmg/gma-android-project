@@ -1,11 +1,10 @@
 package htw.gma_sose22.metronomeui.metronome
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import htw.gma_sose22.metronomepro.R
 import htw.gma_sose22.metronomepro.databinding.FragmentMetronomeBinding
 
 class MetronomeFragment : Fragment() {
@@ -26,7 +25,7 @@ class MetronomeFragment : Fragment() {
         _binding = FragmentMetronomeBinding.inflate(inflater, container, false)
 
         val bpmLabel = binding.metronomeBPMLabel
-        viewModel?.bpm?.observe(viewLifecycleOwner) { bpm: Int? ->
+        viewModel?.bpm?.observe(viewLifecycleOwner) { bpm ->
             bpmLabel.text = String.format("%d", bpm)
         }
 
@@ -42,6 +41,13 @@ class MetronomeFragment : Fragment() {
 
     private fun setupStartStopButton() {
         val startStopButton = binding.buttonStartStop
+        viewModel?.isPlaying?.observe(viewLifecycleOwner) { isPlaying ->
+            if (isPlaying) {
+                startStopButton.text = resources.getText(R.string.metronome_stop_button_title)
+            } else {
+                startStopButton.text = resources.getText(R.string.metronome_start_button_title)
+            }
+        }
         startStopButton.setOnClickListener { viewModel?.handleStartStopButtonClicked() }
     }
 
