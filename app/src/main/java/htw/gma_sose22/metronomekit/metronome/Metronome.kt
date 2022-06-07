@@ -13,6 +13,8 @@ class Metronome(
     companion object {
         const val DEFAULT_SAMPLE_RATE = 44100
         const val DEFAULT_SPEED = 120
+        const val MINIMUM_SPEED = 40
+        const val MAXIMUM_SPEED = 220
     }
 
     override var isPlaying = false

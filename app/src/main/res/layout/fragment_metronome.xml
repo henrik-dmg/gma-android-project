@@ -8,29 +8,36 @@
     tools:context="htw.gma_sose22.metronomeui.metronome.MetronomeFragment">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center" >
 
-        <TextView
-            android:id="@+id/metronomeBPMLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/title_metronome"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/metronomeBPMLabel"
+                android:text="@string/title_metronome"
+                android:textAlignment="center"
+                android:inputType="number"
+                android:autofillHints="Please enter a number between 40 and 200"
+                android:minHeight="48dp" />
 
-        <include
-            android:id="@+id/bpmModificationView"
-            layout="@layout/bpm_modification_view" />
+        <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/bpmSeekBar"
+                android:layout_weight="1"
+                android:paddingVertical="10dp"
+                android:layout_marginHorizontal="10dp"/>
 
         <Button
                 android:id="@+id/button_start_stop"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"

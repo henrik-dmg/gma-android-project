@@ -1,7 +1,10 @@
 package htw.gma_sose22.metronomeui.metronome
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.EditText
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import htw.gma_sose22.metronomepro.R
@@ -26,7 +29,7 @@ class MetronomeFragment : Fragment() {
 
         val bpmLabel = binding.metronomeBPMLabel
         viewModel?.bpm?.observe(viewLifecycleOwner) { bpm ->
-            bpmLabel.text = String.format("%d", bpm)
+            bpmLabel.setText(String.format("%d", bpm))
         }
 
         setupStartStopButton()
@@ -52,42 +55,28 @@ class MetronomeFragment : Fragment() {
     }
 
     private fun setupMetronomeControls() {
-        val smallDecrementButton = binding.bpmModificationView.metronomeSmallDecrementButton
-        smallDecrementButton.setOnClickListener {
-            viewModel?.handleBPMChangeRequested(
-                -1
-            )
+        binding.metronomeBPMLabel.setOnFocusChangeListener { view, hasFocus ->
+            Log.d("MetronomeFragment", "Metronome Label entered text")
+            if (!hasFocus) {
+                val enteredText = (view as EditText).text
+                val bpmValue = enteredText.toString().toInt()
+                Log.d("MetronomeFragment", "Changed BPM to $bpmValue")
+            }
         }
-        val smallIncrementButton = binding.bpmModificationView.metronomeSmallIncrementButton
-        smallIncrementButton.setOnClickListener {
-            viewModel?.handleBPMChangeRequested(
-                1
-            )
-        }
-        val mediumDecrementButton = binding.bpmModificationView.metronomeMediumDecrementButton
-        mediumDecrementButton.setOnClickListener {
-            viewModel?.handleBPMChangeRequested(
-                -5
-            )
-        }
-        val mediumIncrementButton = binding.bpmModificationView.metronomeMediumIncrementButton
-        mediumIncrementButton.setOnClickListener {
-            viewModel?.handleBPMChangeRequested(
-                5
-            )
-        }
-        val largeDecrementButton = binding.bpmModificationView.metronomeLargeDecrementButton
-        largeDecrementButton.setOnClickListener {
-            viewModel?.handleBPMChangeRequested(
-                -10
-            )
-        }
-        val largeIncrementButton = binding.bpmModificationView.metronomeLargeIncrementButton
-        largeIncrementButton.setOnClickListener {
-            viewModel?.handleBPMChangeRequested(
-                10
-            )
-        }
+
+        binding.bpmSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (fromUser) {
+                    viewModel?.setBPMMappedToAllowedRange(progress.toDouble() / 100.0)
+                }
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                // you can probably leave this empty
+            }
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                // you can probably leave this empty
+            }
+        })
     }
 
 }
