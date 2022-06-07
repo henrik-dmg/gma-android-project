@@ -48,20 +48,20 @@ Hier lebt die Logik unserer App. Genauer gesagt liegt der gesamte Code, der nich
 
 Das `Audio` Package stellt einige Interfaces bereit, die benötigt werden um mit Audio zu arbeiten und es zu steuern
 
-- `AudioControllable`: `interface`
-- `AudioWriteable`: `interface`
-- `StatelessAudioControllable`: `interface`
+- `AudioWriteable`: `interface` welches ein Typ implentiert, der Bytes in einen Audio-Kanal schreiben kann
+- `StatelessAudioControllable`: `interface` welches ein Typ implementiert, der simple Playback-Kontrolle erlaubt, so wie `play()` und `stop()`
+- `AudioControllable`: `interface`-Erweiterung von `StatelessAudioControllable` was ein Property hinzufügt, an dem sich der Playback-Status erkennen lässt
 
-Da dieses Package keinerleit Implementation hat, wird dieses nicht getestet.
+Da dieses Package keinerlei Implementation hat, wird dieses nicht getestet.
 
 #### Beat Package
 
 Im Package `Beat` ist die Logik und die Datenstrukturen für die Beatmuster zu finden. Dies beinhaltet simple `data class` Objekte, die reine Model-Objekte sind und keine Logik beinhalten (außer Validierung). Außerdem ist hier der `BeatManager` zu finden, welches das Singleton-Objekt ist, welches dafür zuständig ist, den nächsten Ton auszusuchen (betont, normal oder muted).
 
 - `Beat`: `data`-Klasse
-- `BeatManager`: `object`-Klasse
+- `BeatManager`: `object`-Klasse, welches ein `BeatPattern` laden kann und entscheidet welcher Ton des geladenen Musters als nächstes abgespielt werden soll
 - `BeatManagerException`: exception, die von `BeatManager` geworfen wird, falls ein Beat-Muster fehlformartiert ist)
-- `BeatPattern`: `data`-Klasse
+- `BeatPattern`: `data`-Klasse. Im Prinzip nur Metadaten und ein Array von `Beat` Objekten
 - `Tone`: `enum`
 
 In diesem Package wird vor Allem die doch eher komplexe Logik des `BeatManager` getestet. Bereits vorhandene Tests sind zB:
@@ -88,10 +88,10 @@ Tests die für die `Beat` Klasse noch geschrieben werden:
 
 In diesem Package passiert die meiste Magie. Die folgenden Klassen und Interfaces liegen hier:
 
-- `AudioGapCalculator`: `data class` mit nur einem Zweck, und zwar den Abstand zwischen zwei Schlägen zu errechen, basierent auf der BPM-Zahl und der Länge des abzuspielenden Tons
+- `AudioGapCalculator`: `object class` mit nur einem Zweck, und zwar den Abstand zwischen zwei Schlägen zu errechen, basierent auf der BPM-Zahl und der Länge des abzuspielenden Tons
 - `Metronome`: Klasse, die `MetronomeInterface` implementiert, hier wird der eigentliche Ton in den Buffer des `AudioTrack` geschrieben (welcher aber hinter einem weiteren Interface versteckt ist)
 - `MetronomeAudioIntercace`: `interface`
-- `MetronomeInterface`: `interface`
+- `MetronomeInterface`: `interface` welches ein Typ implentiert, der Metronom-Funktionalität bereitstellt. D.h. zum Beispiel BPM, Sample Rate und Playback-Controls so wie `play()` und `stop()`
 - `MetronomeService`: `object`-Klasse, die das erstellte Metronom in der gesamten App als Singleton bereitstellt
 - `WrappedAudioTrack`: Klasse, die `MetronomeAudioIntercace` implementier. Im Prinzip nur Wrapper für `AudioTrack`, damit dieser `MetronomeAudioIntercace` implementieren kann
 
