@@ -4,7 +4,7 @@ buildscript {
 
     ext.lifecycle_version = "2.4.1"
     ext.gradle_version = "7.2.1"
-    ext.kotlin_version = "1.6.21"
+    ext.kotlin_version = "1.7.0"
     ext.supportLibVersion = "25.3.0"
     ext.navLibVersion = "2.4.2"
 
