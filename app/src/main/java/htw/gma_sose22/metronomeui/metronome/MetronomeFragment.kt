@@ -27,12 +27,7 @@ class MetronomeFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MetronomeViewModel::class.java]
         _binding = FragmentMetronomeBinding.inflate(inflater, container, false)
 
-        val bpmLabel = binding.metronomeBeatView.bpmModificationView.metronomeBPMLabel
-        viewModel?.bpm?.observe(viewLifecycleOwner) { bpm ->
-            bpmLabel.setText(String.format("%d", bpm))
-        }
-
-        setupStartStopButton()
+        setupBindings()
         setupMetronomeControls()
         return binding.root
     }
@@ -40,18 +35,6 @@ class MetronomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun setupStartStopButton() {
-        val startStopButton = binding.buttonStartStop
-        viewModel?.isPlaying?.observe(viewLifecycleOwner) { isPlaying ->
-            if (isPlaying) {
-                startStopButton.text = resources.getText(R.string.metronome_stop_button_title)
-            } else {
-                startStopButton.text = resources.getText(R.string.metronome_start_button_title)
-            }
-        }
-        startStopButton.setOnClickListener { viewModel?.handleStartStopButtonClicked() }
     }
 
     private fun setupMetronomeControls() {
@@ -77,6 +60,35 @@ class MetronomeFragment : Fragment() {
                 // you can probably leave this empty
             }
         })
+    }
+
+    private fun setupBindings() {
+        val bpmLabel = binding.metronomeBeatView.bpmModificationView.metronomeBPMLabel
+        viewModel?.bpm?.observe(viewLifecycleOwner) { bpm ->
+            bpmLabel.setText(String.format("%d", bpm))
+        }
+
+        val startStopButton = binding.buttonStartStop
+        viewModel?.isPlaying?.observe(viewLifecycleOwner) { isPlaying ->
+            toggleMetronomeControls(!isPlaying)
+            if (isPlaying) {
+                startStopButton.text = resources.getText(R.string.metronome_stop_button_title)
+            } else {
+                startStopButton.text = resources.getText(R.string.metronome_start_button_title)
+            }
+        }
+        startStopButton.setOnClickListener { viewModel?.handleStartStopButtonClicked() }
+    }
+
+    private fun toggleMetronomeControls(controlsEnabled: Boolean) {
+        binding.metronomeBeatView.bpmModificationView.metronomeBPMLabel.isEnabled = controlsEnabled
+        binding.metronomeBeatView.bpmModificationView.bpmSeekBar.isEnabled = controlsEnabled
+        binding.metronomeBeatView.beatView.decrementNotesButton.isEnabled = controlsEnabled
+        binding.metronomeBeatView.beatView.incrementNotesButton.isEnabled = controlsEnabled
+    }
+
+    private fun updateNoteButtons() {
+
     }
 
 }

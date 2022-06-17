@@ -31,6 +31,10 @@ class EditorFragment : Fragment() {
 
         val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.adapter = editorAdapter
+
+        //val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(editorAdapter))
+        //itemTouchHelper.attachToRecyclerView(recyclerView)
+
         viewModel?.beatsLiveData?.observe(viewLifecycleOwner) {
             it?.let {
                 editorAdapter.submitList(it as MutableList<Beat>)

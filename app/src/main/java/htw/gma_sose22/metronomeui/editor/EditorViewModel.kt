@@ -8,7 +8,7 @@ class EditorViewModel: ViewModel() {
     val beatsLiveData = EditorDataSource.getBeatList()
 
     fun addNewBeat() {
-        EditorDataSource.addFlower(Beat(120, 4, 6, null, null))
+        EditorDataSource.addBeat(Beat(120, 4, 6, null, null))
     }
 
 }

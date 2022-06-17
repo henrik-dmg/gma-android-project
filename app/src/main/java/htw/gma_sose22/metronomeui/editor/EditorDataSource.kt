@@ -7,40 +7,50 @@ import htw.gma_sose22.metronomekit.beat.Beat
 object EditorDataSource {
 
     private val initialFlowerList = initialBeats()
-    private val flowersLiveData = MutableLiveData(initialFlowerList)
+    private val beatsLiveData = MutableLiveData(initialFlowerList)
 
-    /* Adds flower to liveData and posts value. */
-    fun addFlower(flower: Beat) {
-        val currentList = flowersLiveData.value
+    /* Adds beat to liveData and posts value. */
+    fun addBeat(beat: Beat) {
+        val currentList = beatsLiveData.value
         if (currentList == null) {
-            flowersLiveData.postValue(listOf(flower))
+            beatsLiveData.postValue(listOf(beat))
         } else {
             val updatedList = currentList.toMutableList()
-            updatedList.add(0, flower)
-            flowersLiveData.postValue(updatedList)
+            updatedList.add(beat)
+            beatsLiveData.postValue(updatedList)
         }
     }
 
-    /* Removes flower from liveData and posts value. */
-    fun removeFlower(flower: Beat) {
-        val currentList = flowersLiveData.value
+    /* Removes beat from liveData and posts value. */
+    fun removeBeat(beat: Beat) {
+        val currentList = beatsLiveData.value
         if (currentList != null) {
             val updatedList = currentList.toMutableList()
-            updatedList.remove(flower)
-            flowersLiveData.postValue(updatedList)
+            updatedList.remove(beat)
+            beatsLiveData.postValue(updatedList)
+        }
+    }
+
+    /* Removes beat at index from liveData and posts value. */
+    fun removeBeat(index: Int) {
+        val currentList = beatsLiveData.value
+        if (currentList != null) {
+            val updatedList = currentList.toMutableList()
+            updatedList.removeAt(index)
+            beatsLiveData.postValue(updatedList)
         }
     }
 
     /* Returns flower given an ID. */
-    fun getFlowerForId(id: String): Beat? {
-        flowersLiveData.value?.let { flowers ->
-            return flowers.firstOrNull{ it.id == id }
+    fun getBeatForID(id: String): Beat? {
+        beatsLiveData.value?.let { beats ->
+            return beats.firstOrNull{ it.id == id }
         }
         return null
     }
 
     fun getBeatList(): LiveData<List<Beat>> {
-        return flowersLiveData
+        return beatsLiveData
     }
 
     private fun initialBeats(): List<Beat> {

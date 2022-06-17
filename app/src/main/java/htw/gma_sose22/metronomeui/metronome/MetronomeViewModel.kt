@@ -23,18 +23,13 @@ class MetronomeViewModel : ViewModel() {
         mutableIsPlaying.value = MetronomeService.isPlaying
     }
 
-    fun handleBPMChangeRequested(bpmDelta: Int) {
-        MetronomeService.bpm += bpmDelta
-        updateLiveData()
-    }
-
     fun setBPMMappedToAllowedRange(percentage: Double) {
         val minMaxDelta = Metronome.MAXIMUM_SPEED - Metronome.MINIMUM_SPEED
         val percentageBPM = (minMaxDelta.toDouble() * percentage).toInt()
         handleBPMSetRequested(Metronome.MINIMUM_SPEED + percentageBPM)
     }
 
-    fun handleBPMSetRequested(targetBPM: Int) {
+    private fun handleBPMSetRequested(targetBPM: Int) {
         MetronomeService.bpm = targetBPM
         updateLiveData()
     }

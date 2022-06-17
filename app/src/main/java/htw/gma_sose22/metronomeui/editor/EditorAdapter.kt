@@ -16,7 +16,6 @@ class EditorAdapter(private val onClick: (Beat) -> Unit) : ListAdapter<Beat, Edi
       private var currentBeat: Beat? = null
 
       init {
-
       }
 
       /* Bind flower name and image. */
