@@ -1,6 +1,7 @@
 package htw.gma_sose22.metronomeui
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import htw.gma_sose22.metronomepro.R
@@ -17,6 +18,7 @@ class BeatView(context: Context): LinearLayout(context) {
 
     init {
         initControl(context)
+        Log.d("BeatView", "BeatView was init")
     }
 
 }

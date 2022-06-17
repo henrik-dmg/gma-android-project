@@ -1,7 +1,7 @@
 package htw.gma_sose22.metronomeui.editor
 
 import android.view.*
-import android.widget.TextView
+import android.widget.Button
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import htw.gma_sose22.metronomekit.beat.Beat
@@ -11,21 +11,17 @@ class EditorAdapter(private val onClick: (Beat) -> Unit) : ListAdapter<Beat, Edi
 
    /* ViewHolder for Flower, takes in the inflated view and the onClick behavior. */
    class EditorItemViewHolder(itemView: View, val onClick: (Beat) -> Unit) : RecyclerView.ViewHolder(itemView) {
-      private val flowerTextView: TextView = itemView.findViewById(R.id.beat_word)
-      private var currentFlower: Beat? = null
+      private val incrementNotesButton: Button = itemView.findViewById(R.id.increment_notes_button)
+      private val decrementNotesButton: Button = itemView.findViewById(R.id.decrement_notes_button)
+      private var currentBeat: Beat? = null
 
       init {
-         itemView.setOnClickListener {
-            currentFlower?.let {
-               onClick(it)
-            }
-         }
+
       }
 
       /* Bind flower name and image. */
       fun bind(beat: Beat) {
-         currentFlower = beat
-         flowerTextView.text = beat.toString()
+         currentBeat = beat
       }
    }
 

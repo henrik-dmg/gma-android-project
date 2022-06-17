@@ -27,7 +27,7 @@ class MetronomeFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MetronomeViewModel::class.java]
         _binding = FragmentMetronomeBinding.inflate(inflater, container, false)
 
-        val bpmLabel = binding.metronomeBPMChangeView.metronomeBPMLabel
+        val bpmLabel = binding.metronomeBeatView.bpmModificationView.metronomeBPMLabel
         viewModel?.bpm?.observe(viewLifecycleOwner) { bpm ->
             bpmLabel.setText(String.format("%d", bpm))
         }
@@ -55,7 +55,7 @@ class MetronomeFragment : Fragment() {
     }
 
     private fun setupMetronomeControls() {
-        binding.metronomeBPMChangeView.metronomeBPMLabel.setOnFocusChangeListener { view, hasFocus ->
+        binding.metronomeBeatView.bpmModificationView.metronomeBPMLabel.setOnFocusChangeListener { view, hasFocus ->
             Log.d("MetronomeFragment", "Metronome Label entered text")
             if (!hasFocus) {
                 val enteredText = (view as EditText).text
@@ -64,7 +64,7 @@ class MetronomeFragment : Fragment() {
             }
         }
 
-        binding.metronomeBPMChangeView.bpmSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.metronomeBeatView.bpmModificationView.bpmSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     viewModel?.setBPMMappedToAllowedRange(progress.toDouble() / 100.0)

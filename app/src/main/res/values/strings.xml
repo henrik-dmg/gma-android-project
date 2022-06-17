@@ -10,4 +10,6 @@
     <string name="metronome_increment_large">+10</string>
     <string name="metronome_start_button_title">Start</string>
     <string name="metronome_stop_button_title">Stop</string>
+    <string name="decrement_button_title">-</string>
+    <string name="increment_button_title">+</string>
 </resources>
