@@ -10,7 +10,7 @@ import htw.gma_sose22.metronomepro.R
 class EditorAdapter(private val onClick: (Beat) -> Unit) : ListAdapter<Beat, EditorAdapter.EditorItemViewHolder>(BeatDiffCallback) {
 
    /* ViewHolder for Flower, takes in the inflated view and the onClick behavior. */
-   class EditorItemViewHolder(itemView: View, val onClick: (Beat) -> Unit) : RecyclerView.ViewHolder(itemView) {
+   inner class EditorItemViewHolder(itemView: View, val onClick: (Beat) -> Unit) : RecyclerView.ViewHolder(itemView) {
       private val incrementNotesButton: Button = itemView.findViewById(R.id.increment_notes_button)
       private val decrementNotesButton: Button = itemView.findViewById(R.id.decrement_notes_button)
       private var currentBeat: Beat? = null
@@ -21,6 +21,10 @@ class EditorAdapter(private val onClick: (Beat) -> Unit) : ListAdapter<Beat, Edi
       /* Bind flower name and image. */
       fun bind(beat: Beat) {
          currentBeat = beat
+      }
+
+      fun unbind() {
+         currentBeat = null
       }
    }
 
@@ -35,6 +39,11 @@ class EditorAdapter(private val onClick: (Beat) -> Unit) : ListAdapter<Beat, Edi
    override fun onBindViewHolder(holder: EditorItemViewHolder, position: Int) {
       val beat = getItem(position)
       holder.bind(beat)
+   }
+
+   override fun onViewRecycled(holder: EditorItemViewHolder) {
+      super.onViewRecycled(holder)
+      holder.unbind()
    }
 
 }
