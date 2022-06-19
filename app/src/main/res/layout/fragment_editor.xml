@@ -23,6 +23,9 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_home_black_24dp"
-            android:contentDescription="@string/add_new_beat" />
+            android:contentDescription="@string/add_new_beat"
+            app:elevation="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
