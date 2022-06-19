@@ -12,7 +12,6 @@ class SwipeToDeleteCallback(private val adapter: EditorAdapter) : ItemTouchHelpe
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val adapterPosition = viewHolder.adapterPosition
-        EditorDataSource.removeBeat(adapterPosition)
         Log.d("SwipeToDeleteCallback", "Swiped item at position $adapterPosition")
     }
 
