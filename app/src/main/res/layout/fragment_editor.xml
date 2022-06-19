@@ -20,11 +20,9 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
             android:layout_gravity="bottom|end"
-            android:contentDescription="@string/bottom_sheet_behavior"
+            android:layout_margin="16dp"
             android:src="@drawable/ic_home_black_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:contentDescription="@string/add_new_beat" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

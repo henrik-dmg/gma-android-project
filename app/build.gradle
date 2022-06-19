@@ -55,7 +55,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navLibVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navLibVersion"
 
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

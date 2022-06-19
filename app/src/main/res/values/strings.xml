@@ -12,4 +12,5 @@
     <string name="metronome_stop_button_title">Stop</string>
     <string name="decrement_button_title">-</string>
     <string name="increment_button_title">+</string>
+    <string name="add_new_beat">Add new beat</string>
 </resources>
