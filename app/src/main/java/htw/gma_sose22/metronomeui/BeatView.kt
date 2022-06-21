@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import htw.gma_sose22.metronomepro.R
+import htw.gma_sose22.R
 
 class BeatView(context: Context): LinearLayout(context) {
 

@@ -3,8 +3,8 @@ package htw.gma_sose22.metronomeui.editor
 import android.view.*
 import android.widget.Button
 import androidx.recyclerview.widget.*
+import htw.gma_sose22.R
 import htw.gma_sose22.metronomekit.beat.Beat
-import htw.gma_sose22.metronomepro.R
 
 class EditorAdapter: ListAdapter<Beat, EditorAdapter.ViewHolder>(BeatDiffCallback) {
 

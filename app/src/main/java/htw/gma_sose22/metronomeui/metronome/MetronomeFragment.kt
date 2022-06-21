@@ -7,8 +7,8 @@ import android.widget.EditText
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import htw.gma_sose22.metronomepro.R
-import htw.gma_sose22.metronomepro.databinding.FragmentMetronomeBinding
+import htw.gma_sose22.R
+import htw.gma_sose22.databinding.FragmentMetronomeBinding
 
 class MetronomeFragment : Fragment() {
 

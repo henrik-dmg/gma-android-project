@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import htw.gma_sose22.metronomepro.databinding.FragmentEditorBinding
+import htw.gma_sose22.databinding.FragmentEditorBinding
 
 class EditorFragment : Fragment() {
 
