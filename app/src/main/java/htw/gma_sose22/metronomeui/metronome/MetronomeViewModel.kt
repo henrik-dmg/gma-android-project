@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import htw.gma_sose22.metronomekit.beat.Beat
 import htw.gma_sose22.metronomekit.beat.BeatManager
+import htw.gma_sose22.metronomekit.metronome.Metronome
 import htw.gma_sose22.metronomekit.metronome.MetronomeService
 
 class MetronomeViewModel : ViewModel() {
@@ -22,10 +23,15 @@ class MetronomeViewModel : ViewModel() {
         mutableIsPlaying.value = MetronomeService.isPlaying
     }
 
-    fun handleBPMChangeRequested(bpmDelta: Int) {
-        MetronomeService.bpm += bpmDelta
-        mutableBeat.value?.tempo = MetronomeService.bpm
-        mutableBPM.value = MetronomeService.bpm
+    fun setBPMMappedToAllowedRange(percentage: Double) {
+        val minMaxDelta = Metronome.MAXIMUM_SPEED - Metronome.MINIMUM_SPEED
+        val percentageBPM = (minMaxDelta.toDouble() * percentage).toInt()
+        handleBPMSetRequested(Metronome.MINIMUM_SPEED + percentageBPM)
+    }
+
+    private fun handleBPMSetRequested(targetBPM: Int) {
+        MetronomeService.bpm = targetBPM
+        updateLiveData()
     }
 
     fun handleStartStopButtonClicked() {
@@ -42,6 +48,11 @@ class MetronomeViewModel : ViewModel() {
             }
         }
         mutableIsPlaying.value = MetronomeService.isPlaying
+    }
+
+    private fun updateLiveData() {
+        mutableBeat.value?.tempo = MetronomeService.bpm
+        mutableBPM.value = MetronomeService.bpm
     }
 
 }

@@ -21,6 +21,7 @@ output.json
 .idea/gradle.xml
 .idea/libraries
 .idea/navEditor.xml
+.idea/assetWizardSettings.xml
 deploymentTargetDropDown.xml
 render.experimental.xml
 

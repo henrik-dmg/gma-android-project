@@ -16,7 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import htw.gma_sose22.metronomekit.beat.BeatManager;
-import htw.gma_sose22.metronomepro.databinding.ActivityMainBinding;
+import htw.gma_sose22.databinding.ActivityMainBinding;
+import htw.gma_sose22.R;
 import htw.gma_sose22.metronomekit.metronome.*;
 
 public class MainActivity extends AppCompatActivity {

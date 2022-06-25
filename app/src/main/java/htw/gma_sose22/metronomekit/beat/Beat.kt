@@ -1,6 +1,7 @@
 package htw.gma_sose22.metronomekit.beat
 
 import htw.gma_sose22.metronomekit.util.Validateable
+import java.util.*
 
 data class Beat(
     var tempo: Int,
@@ -9,6 +10,8 @@ data class Beat(
     var emphasisedNotes: IntArray?,
     var mutedNotes: IntArray?
 ): Validateable {
+
+    val id = UUID.randomUUID().toString()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
