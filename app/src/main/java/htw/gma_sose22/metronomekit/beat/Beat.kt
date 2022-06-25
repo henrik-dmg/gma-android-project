@@ -7,43 +7,19 @@ data class Beat(
     var tempo: Int,
     var noteCount: Int,
     var repetitions: Int?,
-    var emphasisedNotes: IntArray?,
-    var mutedNotes: IntArray?
+    var emphasisedNotes: Set<Int>,
+    var mutedNotes: Set<Int>
 ): Validateable {
 
     val id = UUID.randomUUID().toString()
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Beat
-
-        if (tempo != other.tempo) return false
-        if (noteCount != other.noteCount) return false
-        if (repetitions != other.repetitions) return false
-        if (!emphasisedNotes.contentEquals(other.emphasisedNotes)) return false
-        if (!mutedNotes.contentEquals(other.mutedNotes)) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = tempo
-        result = 31 * result + (noteCount)
-        result = 31 * result + (repetitions ?: 0)
-        result = 31 * result + emphasisedNotes.contentHashCode()
-        result = 31 * result + mutedNotes.contentHashCode()
-        return result
-    }
-
     override fun isValid(): Boolean {
-        emphasisedNotes?.forEach { index ->
+        emphasisedNotes.forEach { index ->
             if (index >= noteCount) {
                 return false
             }
         }
-        mutedNotes?.forEach { index ->
+        mutedNotes.forEach { index ->
             if (index >= noteCount) {
                 return false
             }
@@ -53,10 +29,10 @@ data class Beat(
 
     fun makeNotes(): Array<Tone> {
         val notes = Array(noteCount) { Tone.regular }
-        emphasisedNotes?.forEach { index ->
+        emphasisedNotes.forEach { index ->
             notes[index] = Tone.emphasised
         }
-        mutedNotes?.forEach { index ->
+        mutedNotes.forEach { index ->
             notes[index] = Tone.muted
         }
         return notes

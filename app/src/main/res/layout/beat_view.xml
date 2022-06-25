@@ -1,53 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:gravity="center"
         android:id="@+id/beat_view"
-        tools:context="htw.gma_sose22.metronomeui.BeatView">
+        tools:context="htw.gma_sose22.metronomeui.BeatView" >
 
-    <Button
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_note_default"
-            style="@style/Widget.Material3.Button.IconButton" />
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/beat_buttons">
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_note_default"
-            style="@style/Widget.Material3.Button.IconButton" />
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_note_default"
+                android:visibility="visible"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/beat_button_1" />
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_note_default"
-            style="@style/Widget.Material3.Button.IconButton" />
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_note_default"
+                android:visibility="visible"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/beat_button_2" />
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_note_default"
-            style="@style/Widget.Material3.Button.IconButton" />
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_note_default"
+                android:visibility="visible"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/beat_button_3" />
 
-    <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_note_default"
+                android:visibility="visible"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/beat_button_4" />
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_note_default"
+                android:visibility="gone"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/beat_button_5" />
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_note_default"
+                android:visibility="gone"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/beat_button_6" />
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_note_default"
+                android:visibility="gone"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/beat_button_7" />
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_note_default"
+                android:visibility="gone"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:id="@+id/beat_button_8" />
+
+    </LinearLayout>
 
     <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:id="@+id/note_control_stack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4 notes" />
+                android:text="4 xxx"
+                android:id="@+id/note_count_label"/>
 
         <LinearLayout
                 android:layout_width="wrap_content"
@@ -72,4 +121,4 @@
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

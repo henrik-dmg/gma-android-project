@@ -11,7 +11,7 @@ class EditorViewModel: ViewModel() {
     val beats: LiveData<List<Beat>> = beatsLiveData
 
     fun addBeat() {
-        val newBeat = Beat(120, 4, 4, null, null)
+        val newBeat = Beat(120, 4, 4, setOf(0), setOf())
         addBeat(newBeat)
     }
 
@@ -59,7 +59,7 @@ class EditorViewModel: ViewModel() {
     }
 
     private fun initialBeats(): List<Beat> {
-        val basicBeat = Beat(120, 4, 10, null, null)
+        val basicBeat = Beat(120, 4, 10, setOf(0), setOf())
         return listOf(basicBeat)
     }
 

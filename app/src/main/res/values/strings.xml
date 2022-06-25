@@ -13,4 +13,8 @@
     <string name="decrement_button_title">-</string>
     <string name="increment_button_title">+</string>
     <string name="add_new_beat">Add new beat</string>
+    <plurals name="notes_count">
+        <item quantity="one">%d note</item>
+        <item quantity="other">%d notes</item>
+    </plurals>
 </resources>
