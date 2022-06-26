@@ -16,17 +16,9 @@ data class Beat(
     constructor(tempo: Int, noteCount: Int, repetitions: Int?) : this(tempo, noteCount, repetitions, setOf(), setOf())
 
     override fun isValid(): Boolean {
-        emphasisedNotes.forEach { index ->
-            if (index >= noteCount) {
-                return false
-            }
-        }
-        mutedNotes.forEach { index ->
-            if (index >= noteCount) {
-                return false
-            }
-        }
-        return true
+        return emphasisedNotes.none { index -> index >= noteCount }
+                && mutedNotes.none { index -> index >= noteCount }
+                && (mutedNotes.intersect(emphasisedNotes).isEmpty()) // check that muted and emphasised notes are disjoint
     }
 
     fun rotateNote(index: Int) {
