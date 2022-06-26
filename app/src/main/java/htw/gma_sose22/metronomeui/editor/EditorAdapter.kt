@@ -1,6 +1,6 @@
 package htw.gma_sose22.metronomeui.editor
 
-import android.util.Log
+import android.content.Context
 import android.view.*
 import android.widget.Button
 import androidx.recyclerview.widget.ListAdapter
@@ -11,7 +11,7 @@ import htw.gma_sose22.databinding.EditorlistItemBinding
 import htw.gma_sose22.metronomekit.beat.Beat
 import htw.gma_sose22.metronomekit.beat.Tone
 
-class EditorAdapter: ListAdapter<Beat, EditorAdapter.ViewHolder>(BeatDiffCallback) {
+class EditorAdapter(val context: Context): ListAdapter<Beat, EditorAdapter.ViewHolder>(BeatDiffCallback) {
 
    inner class ViewHolder(private val binding: EditorlistItemBinding) : RecyclerView.ViewHolder(binding.root) {
       private val incrementNotesButton: Button = binding.beatView.tonesView.incrementNotesButton
@@ -38,6 +38,7 @@ class EditorAdapter: ListAdapter<Beat, EditorAdapter.ViewHolder>(BeatDiffCallbac
             }
          }
 
+         updateBeatView(beat)
       }
 
       fun unbind() {
@@ -60,15 +61,18 @@ class EditorAdapter: ListAdapter<Beat, EditorAdapter.ViewHolder>(BeatDiffCallbac
             }
          }
 
-         context
-         binding.beatView.tonesView.noteCountLabel.text = resources.getQuantityString(R.plurals.notes_count, beat.noteCount, beat.noteCount)
+         binding.beatView.tonesView.noteCountLabel.text = context.resources.getQuantityString(
+            R.plurals.notes_count,
+            beat.noteCount,
+            beat.noteCount
+         )
       }
 
       private fun updateButtonImage(button: MaterialButton, tone: Tone) {
          when (tone) {
-            Tone.emphasised -> button.icon = resources.getDrawable(R.drawable.ic_note_emphasised)
-            Tone.muted -> button.icon = resources.getDrawable(R.drawable.ic_note_muted)
-            Tone.regular -> button.icon = resources.getDrawable(R.drawable.ic_note_default)
+            Tone.emphasised -> button.icon = context.resources.getDrawable(R.drawable.ic_note_emphasised)
+            Tone.muted -> button.icon = context.resources.getDrawable(R.drawable.ic_note_muted)
+            Tone.regular -> button.icon = context.resources.getDrawable(R.drawable.ic_note_default)
          }
       }
    }

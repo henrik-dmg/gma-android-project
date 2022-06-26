@@ -23,13 +23,16 @@ class EditorFragment : Fragment() {
         viewModel = ViewModelProvider(this)[EditorViewModel::class.java]
         _binding = FragmentEditorBinding.inflate(inflater, container, false)
 
-        val adapter = EditorAdapter()
         val recyclerView = binding.recyclerView
 
-        recyclerView.adapter = adapter
-        viewModel?.beats?.observe(viewLifecycleOwner) {
-            it?.let {
-                adapter.submitList(it as MutableList)
+        context?.let { context ->
+            val adapter = EditorAdapter(context)
+            recyclerView.adapter = adapter
+
+            viewModel?.beats?.observe(viewLifecycleOwner) {
+                it?.let {
+                    adapter.submitList(it as MutableList)
+                }
             }
         }
 
