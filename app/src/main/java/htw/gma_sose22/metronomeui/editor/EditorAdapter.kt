@@ -2,7 +2,8 @@ package htw.gma_sose22.metronomeui.editor
 
 import android.view.*
 import android.widget.Button
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import htw.gma_sose22.R
 import htw.gma_sose22.metronomekit.beat.Beat
 
@@ -16,7 +17,6 @@ class EditorAdapter: ListAdapter<Beat, EditorAdapter.ViewHolder>(BeatDiffCallbac
       init {
       }
 
-      /* Bind flower name and image. */
       fun bind(beat: Beat) {
          currentBeat = beat
       }
@@ -45,16 +45,6 @@ class EditorAdapter: ListAdapter<Beat, EditorAdapter.ViewHolder>(BeatDiffCallbac
    override fun onViewRecycled(holder: ViewHolder) {
       super.onViewRecycled(holder)
       holder.unbind()
-   }
-
-   companion object BeatDiffCallback: DiffUtil.ItemCallback<Beat>() {
-      override fun areItemsTheSame(oldItem: Beat, newItem: Beat): Boolean {
-         return oldItem == newItem
-      }
-
-      override fun areContentsTheSame(oldItem: Beat, newItem: Beat): Boolean {
-         return oldItem.id == newItem.id
-      }
    }
 
 }

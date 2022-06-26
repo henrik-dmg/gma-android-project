@@ -36,7 +36,7 @@ class EditorFragment : Fragment() {
         //val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(editorAdapter))
         //itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        val fab: View = binding.fab
+        val fab = binding.fab
         fab.setOnClickListener {
             viewModel?.addBeat()
         }

@@ -5,8 +5,7 @@ import htw.gma_sose22.metronomekit.beat.Beat
 
 class EditorViewModel: ViewModel() {
 
-    private val initialFlowerList = initialBeats()
-    private val beatsLiveData = MutableLiveData(initialFlowerList)
+    private val beatsLiveData = MutableLiveData(initialBeats())
 
     val beats: LiveData<List<Beat>> = beatsLiveData
 
