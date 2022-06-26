@@ -2,7 +2,8 @@ package htw.gma_sose22.metronomeui.metronome
 
 import android.util.Log
 import androidx.lifecycle.*
-import htw.gma_sose22.metronomekit.beat.*
+import htw.gma_sose22.metronomekit.beat.Beat
+import htw.gma_sose22.metronomekit.beat.BeatManager
 import htw.gma_sose22.metronomekit.metronome.Metronome
 import htw.gma_sose22.metronomekit.metronome.MetronomeService
 
@@ -51,35 +52,7 @@ class MetronomeViewModel : ViewModel() {
 
     fun rotateNoteTypeAtIndex(index: Int) {
         mutableBeat.value?.let {
-            val notes = it.makeNotes()
-            val currentNote = notes[index]
-            Log.d("MetronomeViewModel", "Rotating note $currentNote")
-
-            when (currentNote) {
-                Tone.emphasised -> {
-                    val mutableList = it.emphasisedNotes.toMutableSet()
-                    mutableList.remove(index)
-                    it.emphasisedNotes = mutableList
-                    Log.d("MetronomeViewModel", "Next note Regular")
-                }
-                Tone.regular -> {
-                    Log.d("MetronomeViewModel", "Next note muted")
-                    val mutableMutedSet = it.mutedNotes.toMutableSet()
-                    mutableMutedSet.add(index)
-                    it.mutedNotes = mutableMutedSet
-                }
-                Tone.muted -> {
-                    val mutableList = it.mutedNotes.toMutableSet()
-                    mutableList.remove(index)
-                    it.mutedNotes = mutableList
-
-                    val mutableMutedSet = it.emphasisedNotes.toMutableSet()
-                    mutableMutedSet.add(index)
-                    it.emphasisedNotes = mutableMutedSet
-                    Log.d("MetronomeViewModel", "Next note emphasised")
-                }
-            }
-
+            it.rotateNote(index)
             Log.d("MetronomeViewModel", "New notes ${it.makeNotes()}")
             mutableBeat.postValue(it)
         }
