@@ -4,8 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/beat_view"
-        tools:context="htw.gma_sose22.metronomeui.BeatView" >
+        android:id="@+id/beat_view" >
 
     <LinearLayout
             android:layout_width="wrap_content"
