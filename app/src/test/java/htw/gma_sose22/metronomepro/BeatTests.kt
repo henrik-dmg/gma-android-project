@@ -48,4 +48,39 @@ class BeatTests {
         assertFalse(beat.isValid())
     }
 
+    @Test
+    fun testRotatingFirstNote() {
+        val beat = Beat(120, 4, null)
+        assertTrue(beat.isValid())
+
+        assertEquals(Tone.regular, beat.makeNotes()[0])
+        beat.rotateNote(0)
+        assertEquals(Tone.muted, beat.makeNotes()[0])
+        beat.rotateNote(0)
+        assertEquals(Tone.emphasised, beat.makeNotes()[0])
+        beat.rotateNote(0)
+        assertEquals(Tone.regular, beat.makeNotes()[0])
+    }
+
+    @Test
+    fun testRotatingFirstAndSecondNote() {
+        val beat = Beat(120, 4, null)
+        assertTrue(beat.isValid())
+
+        val initialTones = beat.makeNotes()
+        initialTones.forEach { tone ->
+            assertEquals(Tone.regular, tone)
+        }
+
+        beat.rotateNote(0)
+        beat.rotateNote(1)
+
+        val finalTones = beat.makeNotes()
+
+        assertEquals(Tone.muted, finalTones[0])
+        assertEquals(Tone.muted, finalTones[1])
+        assertEquals(Tone.regular, finalTones[2])
+        assertEquals(Tone.regular, finalTones[3])
+    }
+
 }
