@@ -32,9 +32,7 @@ class MetronomeViewModel : ViewModel() {
 
     fun addNoteToBeat() {
         mutableBeat.value?.let {
-            if (it.noteCount < 8) {
-                it.noteCount += 1
-                Log.d("MetronomeViewModel", "Added note to beat")
+            if (it.addNote()) {
                 mutableBeat.postValue(it)
             }
         }
@@ -42,9 +40,7 @@ class MetronomeViewModel : ViewModel() {
 
     fun removeNoteFromBeat() {
         mutableBeat.value?.let {
-            if (it.noteCount > 1) {
-                it.noteCount -= 1
-                Log.d("MetronomeViewModel", "Removed note from beat")
+            if (it.removeNote()) {
                 mutableBeat.postValue(it)
             }
         }

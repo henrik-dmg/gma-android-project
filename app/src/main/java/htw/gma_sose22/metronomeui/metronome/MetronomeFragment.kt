@@ -45,7 +45,7 @@ class MetronomeFragment : Fragment() {
     }
 
     private fun setupMetronomeControls() {
-        binding.metronomeBeatView.bpmModificationView.metronomeBPMLabel.setOnFocusChangeListener { view, hasFocus ->
+        binding.beatView.bpmModificationView.metronomeBPMLabel.setOnFocusChangeListener { view, hasFocus ->
             Log.d("MetronomeFragment", "Metronome Label entered text")
             if (!hasFocus) {
                 val enteredText = (view as EditText).text
@@ -54,23 +54,23 @@ class MetronomeFragment : Fragment() {
             }
         }
 
-        binding.metronomeBeatView.beatView.decrementNotesButton.setOnClickListener {
+        binding.beatView.tonesView.decrementNotesButton.setOnClickListener {
             viewModel?.removeNoteFromBeat()
         }
 
-        binding.metronomeBeatView.beatView.incrementNotesButton.setOnClickListener {
+        binding.beatView.tonesView.incrementNotesButton.setOnClickListener {
             viewModel?.addNoteToBeat()
         }
 
-        for (i in 0 until binding.metronomeBeatView.beatView.beatButtons.childCount) {
-            val button = binding.metronomeBeatView.beatView.beatButtons.getChildAt(i) as MaterialButton
+        for (i in 0 until binding.beatView.tonesView.beatButtons.childCount) {
+            val button = binding.beatView.tonesView.beatButtons.getChildAt(i) as MaterialButton
             button.setOnClickListener {
                 Log.d("MetronomeFragment", "button $i clicked")
                 viewModel?.rotateNoteTypeAtIndex(i)
             }
         }
 
-        binding.metronomeBeatView.bpmModificationView.bpmSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.beatView.bpmModificationView.bpmSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
                     viewModel?.setBPMMappedToAllowedRange(progress.toDouble() / 100.0)
@@ -86,7 +86,7 @@ class MetronomeFragment : Fragment() {
     }
 
     private fun setupBindings() {
-        val bpmLabel = binding.metronomeBeatView.bpmModificationView.metronomeBPMLabel
+        val bpmLabel = binding.beatView.bpmModificationView.metronomeBPMLabel
         viewModel?.bpm?.observe(viewLifecycleOwner) { bpm ->
             bpmLabel.setText(String.format("%d", bpm))
         }
@@ -109,21 +109,21 @@ class MetronomeFragment : Fragment() {
     }
 
     private fun toggleMetronomeControls(controlsEnabled: Boolean) {
-        binding.metronomeBeatView.bpmModificationView.metronomeBPMLabel.isEnabled = controlsEnabled
-        binding.metronomeBeatView.bpmModificationView.bpmSeekBar.isEnabled = controlsEnabled
-        binding.metronomeBeatView.beatView.decrementNotesButton.isEnabled = controlsEnabled
-        binding.metronomeBeatView.beatView.incrementNotesButton.isEnabled = controlsEnabled
+        binding.beatView.bpmModificationView.metronomeBPMLabel.isEnabled = controlsEnabled
+        binding.beatView.bpmModificationView.bpmSeekBar.isEnabled = controlsEnabled
+        binding.beatView.tonesView.decrementNotesButton.isEnabled = controlsEnabled
+        binding.beatView.tonesView.incrementNotesButton.isEnabled = controlsEnabled
     }
 
     private fun updateBeatView(beat: Beat) {
-        val beatButtons = binding.metronomeBeatView.beatView.beatButtons
+        val beatButtons = binding.beatView.tonesView.beatButtons
         val currentNumberOfButtons = beatButtons.childCount
 
         val tones = beat.makeNotes()
 
         for (i in 0 until currentNumberOfButtons) {
             val button = beatButtons.getChildAt(i)
-            if (i < beat.noteCount) {
+            if (i < tones.size) {
                 button.visibility = View.VISIBLE
                 updateButtonImage(button as MaterialButton, tones[i])
             } else {
@@ -131,10 +131,10 @@ class MetronomeFragment : Fragment() {
             }
         }
 
-        binding.metronomeBeatView.beatView.noteCountLabel.text = resources.getQuantityString(R.plurals.notes_count, beat.noteCount, beat.noteCount)
+        binding.beatView.tonesView.noteCountLabel.text = resources.getQuantityString(R.plurals.notes_count, beat.noteCount, beat.noteCount)
         viewModel?.mappedBPM?.let {
             Log.d("MetronomeFragment", "Changing seekbar progress to $it")
-            binding.metronomeBeatView.bpmModificationView.bpmSeekBar.progress = it
+            binding.beatView.bpmModificationView.bpmSeekBar.progress = it
         }
     }
 

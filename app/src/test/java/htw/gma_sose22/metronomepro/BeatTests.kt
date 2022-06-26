@@ -9,7 +9,7 @@ class BeatTests {
 
     @Test
     fun testSimpleMonotonousBeat() {
-        val beat = Beat(120, 4, null)
+        val beat = Beat(120, 4)
         assertTrue(beat.isValid())
 
         val tones = beat.makeNotes()
@@ -50,7 +50,7 @@ class BeatTests {
 
     @Test
     fun testRotatingFirstNote() {
-        val beat = Beat(120, 4, null)
+        val beat = Beat(120, 4)
         assertTrue(beat.isValid())
 
         assertEquals(Tone.regular, beat.makeNotes()[0])
@@ -64,7 +64,7 @@ class BeatTests {
 
     @Test
     fun testRotatingFirstAndSecondNote() {
-        val beat = Beat(120, 4, null)
+        val beat = Beat(120, 4)
         assertTrue(beat.isValid())
 
         val initialTones = beat.makeNotes()

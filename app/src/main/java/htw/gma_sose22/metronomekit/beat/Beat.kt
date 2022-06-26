@@ -1,19 +1,48 @@
 package htw.gma_sose22.metronomekit.beat
 
+import android.util.Log
 import htw.gma_sose22.metronomekit.util.Validateable
 import java.util.*
 
 data class Beat(
-    var tempo: Int,
-    var noteCount: Int,
-    var repetitions: Int?,
-    var emphasisedNotes: Set<Int>,
-    var mutedNotes: Set<Int>
+    var tempo: Int = 120,
+    var noteCount: Int = 4,
+    var repetitions: Int? = null,
+    var emphasisedNotes: Set<Int> = setOf(),
+    var mutedNotes: Set<Int> = setOf()
 ): Validateable {
 
     val id = UUID.randomUUID().toString()
 
-    constructor(tempo: Int, noteCount: Int, repetitions: Int?) : this(tempo, noteCount, repetitions, setOf(), setOf())
+    fun addNote(): Boolean {
+        if (noteCount < 8) {
+            noteCount += 1
+            cleanUpSets()
+            Log.d("Beat", "Added note to beat")
+            return true
+        }
+        return false
+    }
+
+    fun removeNote(): Boolean {
+        if (noteCount > 1) {
+            noteCount -= 1
+            cleanUpSets()
+            Log.d("Beat", "Removed note from beat")
+            return true
+        }
+        return false
+    }
+
+    private fun cleanUpSets() {
+        val mutableMutedSet = mutedNotes.toMutableSet()
+        mutableMutedSet.removeAll { index -> index >= noteCount }
+        this.mutedNotes = mutableMutedSet
+
+        val mutableEmphasisedSet = emphasisedNotes.toMutableSet()
+        mutableEmphasisedSet.removeAll { index -> index >= noteCount }
+        this.emphasisedNotes = mutableEmphasisedSet
+    }
 
     override fun isValid(): Boolean {
         return emphasisedNotes.none { index -> index >= noteCount }
@@ -32,7 +61,7 @@ data class Beat(
         }
     }
 
-    fun normalizeNote(index: Int) {
+    private fun normalizeNote(index: Int) {
         if (index >= noteCount) {
             throw IndexOutOfBoundsException()
         }
@@ -46,7 +75,7 @@ data class Beat(
         this.emphasisedNotes = mutableEmphasisedSet
     }
 
-    fun emphasiseNote(index: Int) {
+    private fun emphasiseNote(index: Int) {
         if (index >= noteCount) {
             throw IndexOutOfBoundsException()
         }
@@ -60,7 +89,7 @@ data class Beat(
         this.emphasisedNotes = mutableEmphasisedSet
     }
 
-    fun muteNote(index: Int) {
+    private fun muteNote(index: Int) {
         if (index >= noteCount) {
             throw IndexOutOfBoundsException()
         }
