@@ -8,7 +8,7 @@ data class Beat(
     var tempo: Int = 120,
     var noteCount: Int = 4,
     var repetitions: Int? = null,
-    var emphasisedNotes: Set<Int> = setOf(0),
+    var emphasisedNotes: Set<Int> = setOf(),
     var mutedNotes: Set<Int> = setOf()
 ): Validateable {
 
@@ -23,7 +23,7 @@ data class Beat(
         tempo = 120
         noteCount = 4
         repetitions = null
-        emphasisedNotes = setOf(0)
+        emphasisedNotes = setOf()
         mutedNotes = setOf()
     }
 
