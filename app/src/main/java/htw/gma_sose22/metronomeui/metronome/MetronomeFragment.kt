@@ -131,6 +131,9 @@ class MetronomeFragment : Fragment() {
             }
         }
 
+        binding.beatView.tonesView.incrementNotesButton.isEnabled = beat.canAddNote
+        binding.beatView.tonesView.decrementNotesButton.isEnabled = beat.canRemoveNote
+
         binding.beatView.tonesView.noteCountLabel.text = resources.getQuantityString(R.plurals.notes_count, beat.noteCount, beat.noteCount)
         viewModel?.mappedBPM?.let {
             Log.d("MetronomeFragment", "Changing seekbar progress to $it")

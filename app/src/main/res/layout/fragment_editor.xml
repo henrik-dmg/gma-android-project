@@ -15,7 +15,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layoutManager="LinearLayoutManager"
-            tools:listitem="@layout/editorlist_item" />
+            tools:listitem="@layout/editorlist_item"
+            android:background="@color/editor_background" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -23,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_home_black_24dp"
+            android:src="@drawable/ic_add_48px"
             android:contentDescription="@string/add_new_beat"
             app:elevation="16dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_editor
         ).build();
 
-        NavHostFragment navHostFragment = binding.navHostFragmentActivityMain.getFragment();
+        NavHostFragment navHostFragment = binding.navHostFragment.getFragment();
         NavController navController = navHostFragment.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);

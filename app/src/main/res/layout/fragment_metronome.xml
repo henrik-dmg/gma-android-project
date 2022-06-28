@@ -8,7 +8,9 @@
 
     <include
             layout="@layout/beat_view"
-            android:id="@+id/beat_view" />
+            android:id="@+id/beat_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
             android:id="@+id/button_start_stop"
