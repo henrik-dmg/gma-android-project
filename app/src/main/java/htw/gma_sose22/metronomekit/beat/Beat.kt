@@ -14,6 +14,11 @@ data class Beat(
 
     val id = UUID.randomUUID().toString()
 
+    val canAddNote: Boolean
+        get() { return noteCount < 8 }
+    val canRemoveNote: Boolean
+        get() { return noteCount > 1 }
+
     fun addNote(): Boolean {
         if (noteCount < 8) {
             noteCount += 1

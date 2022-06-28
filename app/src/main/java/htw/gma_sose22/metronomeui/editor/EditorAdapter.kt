@@ -1,6 +1,7 @@
 package htw.gma_sose22.metronomeui.editor
 
 import android.content.Context
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import androidx.recyclerview.widget.ListAdapter
@@ -38,6 +39,16 @@ class EditorAdapter(val context: Context): ListAdapter<Beat, EditorAdapter.ViewH
             }
          }
 
+         for (i in 0 until binding.beatView.tonesView.beatButtons.childCount) {
+            val button = binding.beatView.tonesView.beatButtons.getChildAt(i) as MaterialButton
+            button.setOnClickListener {
+               currentBeat?.let {
+                  it.rotateNote(i)
+                  updateBeatView(it)
+               }
+            }
+         }
+
          updateBeatView(beat)
       }
 
@@ -46,6 +57,7 @@ class EditorAdapter(val context: Context): ListAdapter<Beat, EditorAdapter.ViewH
       }
 
       private fun updateBeatView(beat: Beat) {
+         Log.d("EditorAdapter", "Updated view with beat $beat")
          val beatButtons = binding.beatView.tonesView.beatButtons
          val currentNumberOfButtons = beatButtons.childCount
 
@@ -60,6 +72,9 @@ class EditorAdapter(val context: Context): ListAdapter<Beat, EditorAdapter.ViewH
                button.visibility = View.GONE
             }
          }
+
+         incrementNotesButton.isEnabled = beat.canAddNote
+         decrementNotesButton.isEnabled = beat.canRemoveNote
 
          binding.beatView.tonesView.noteCountLabel.text = context.resources.getQuantityString(
             R.plurals.notes_count,
