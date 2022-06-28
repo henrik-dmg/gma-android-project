@@ -8,7 +8,7 @@ data class Beat(
     var tempo: Int = 120,
     var noteCount: Int = 4,
     var repetitions: Int? = null,
-    var emphasisedNotes: Set<Int> = setOf(),
+    var emphasisedNotes: Set<Int> = setOf(0),
     var mutedNotes: Set<Int> = setOf()
 ): Validateable {
 
@@ -19,8 +19,16 @@ data class Beat(
     val canRemoveNote: Boolean
         get() { return noteCount > 1 }
 
+    fun reset() {
+        tempo = 120
+        noteCount = 4
+        repetitions = null
+        emphasisedNotes = setOf(0)
+        mutedNotes = setOf()
+    }
+
     fun addNote(): Boolean {
-        if (noteCount < 8) {
+        if (canAddNote) {
             noteCount += 1
             cleanUpSets()
             Log.d("Beat", "Added note to beat")
@@ -30,7 +38,7 @@ data class Beat(
     }
 
     fun removeNote(): Boolean {
-        if (noteCount > 1) {
+        if (canRemoveNote) {
             noteCount -= 1
             cleanUpSets()
             Log.d("Beat", "Removed note from beat")
@@ -39,20 +47,21 @@ data class Beat(
         return false
     }
 
-    private fun cleanUpSets() {
-        val mutableMutedSet = mutedNotes.toMutableSet()
-        mutableMutedSet.removeAll { index -> index >= noteCount }
-        this.mutedNotes = mutableMutedSet
-
-        val mutableEmphasisedSet = emphasisedNotes.toMutableSet()
-        mutableEmphasisedSet.removeAll { index -> index >= noteCount }
-        this.emphasisedNotes = mutableEmphasisedSet
-    }
-
     override fun isValid(): Boolean {
         return emphasisedNotes.none { index -> index >= noteCount }
                 && mutedNotes.none { index -> index >= noteCount }
                 && (mutedNotes.intersect(emphasisedNotes).isEmpty()) // check that muted and emphasised notes are disjoint
+    }
+
+    fun makeNotes(): Array<Tone> {
+        val notes = Array(noteCount) { Tone.regular }
+        emphasisedNotes.forEach { index ->
+            notes[index] = Tone.emphasised
+        }
+        mutedNotes.forEach { index ->
+            notes[index] = Tone.muted
+        }
+        return notes
     }
 
     fun rotateNote(index: Int) {
@@ -108,15 +117,14 @@ data class Beat(
         this.emphasisedNotes = mutableEmphasisedSet
     }
 
-    fun makeNotes(): Array<Tone> {
-        val notes = Array(noteCount) { Tone.regular }
-        emphasisedNotes.forEach { index ->
-            notes[index] = Tone.emphasised
-        }
-        mutedNotes.forEach { index ->
-            notes[index] = Tone.muted
-        }
-        return notes
+    private fun cleanUpSets() {
+        val mutableMutedSet = mutedNotes.toMutableSet()
+        mutableMutedSet.removeAll { index -> index >= noteCount }
+        this.mutedNotes = mutableMutedSet
+
+        val mutableEmphasisedSet = emphasisedNotes.toMutableSet()
+        mutableEmphasisedSet.removeAll { index -> index >= noteCount }
+        this.emphasisedNotes = mutableEmphasisedSet
     }
 
 }

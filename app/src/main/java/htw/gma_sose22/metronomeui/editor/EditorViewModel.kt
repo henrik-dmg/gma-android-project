@@ -26,10 +26,13 @@ class EditorViewModel: ViewModel() {
         }
     }
 
+    fun removeAllBeats() {
+        beatsLiveData.postValue(initialBeats())
+    }
+
     /* Removes beat from liveData and posts value. */
     fun removeBeat(beat: Beat) {
-        val currentList = beatsLiveData.value
-        if (currentList != null) {
+        beatsLiveData.value?.let { currentList ->
             val updatedList = currentList.toMutableList()
             updatedList.remove(beat)
             beatsLiveData.postValue(updatedList)
@@ -38,8 +41,7 @@ class EditorViewModel: ViewModel() {
 
     /* Removes beat at index from liveData and posts value. */
     fun removeBeat(index: Int) {
-        val currentList = beatsLiveData.value
-        if (currentList != null) {
+        beatsLiveData.value?.let { currentList ->
             val updatedList = currentList.toMutableList()
             updatedList.removeAt(index)
             beatsLiveData.postValue(updatedList)
