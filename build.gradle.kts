@@ -2,14 +2,21 @@
 
 buildscript {
 
+    val lifecycle_version = "2.4.1"
+    val gradle_version = "7.2.1"
+    val kotlin_version = "1.7.0"
+    val supportLibVersion = "25.3.0"
+    val navLibVersion = "2.4.2"
+    val room_version = "2.4.2"
+
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.4.2")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$navLibVersion")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
 
