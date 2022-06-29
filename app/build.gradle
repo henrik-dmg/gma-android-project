@@ -43,6 +43,13 @@ android {
 
 dependencies {
 
+    ext.lifecycle_version = "2.4.1"
+    ext.gradle_version = "7.2.1"
+    ext.kotlin_version = "1.7.0"
+    ext.supportLibVersion = "25.3.0"
+    ext.navLibVersion = "2.4.2"
+    ext.room_version = "2.4.2"
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation 'com.google.android.material:material:1.6.1'
