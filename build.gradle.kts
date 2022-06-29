@@ -2,28 +2,22 @@
 
 buildscript {
 
-    val lifecycle_version = "2.4.1"
-    val gradle_version = "7.2.1"
-    val kotlin_version = "1.7.0"
-    val supportLibVersion = "25.3.0"
-    val navLibVersion = "2.4.2"
-    val room_version = "2.4.2"
-
     repositories {
         google()
         mavenCentral()
     }
 
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$navLibVersion")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navLib}")
+        classpath ("com.android.tools.build:gradle:${Versions.kotlin}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
     }
 }
 
 plugins {
-    id("com.android.application") version "7.2.1" apply false
-    id("com.android.library") version "7.2.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.7.0" apply false
+    id("com.android.application") version Versions.gradle apply false
+    id("com.android.library") version Versions.gradle apply false
+    id("org.jetbrains.kotlin.android") version Versions.kotlin apply false
 }
 
 tasks.register("clean", Delete::class) {

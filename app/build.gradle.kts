@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
-    id("androidx.navigation.safeargs")
     kotlin("android")
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -28,12 +28,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
     viewBinding {
@@ -45,31 +45,17 @@ android {
 
 dependencies {
 
-    val lifecycle_version = "2.4.1"
-    val gradle_version = "7.2.1"
-    val kotlin_version = "1.7.0"
-    val supportLibVersion = "25.3.0"
-    val navLibVersion = "2.4.2"
-    val room_version = "2.4.2"
-
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}")
 
     implementation("com.google.android.material:material:1.6.1")
 
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    // optional - Test helpers
-    testImplementation("androidx.room:room-testing:$room_version")
-
-    implementation("androidx.core:core-ktx:1.8.0")
+    implementation("androidx.core:core-ktx:${Versions.coreKTX}")
     implementation("androidx.appcompat:appcompat:1.4.2")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.navigation:navigation-fragment-ktx:$navLibVersion")
-    implementation("androidx.navigation:navigation-ui-ktx:$navLibVersion")
-
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.3")
+    implementation("androidx.constraintlayout:constraintlayout:${Versions.constraintlayout}")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleLib}")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleLib}")
+    implementation("androidx.navigation:navigation-fragment-ktx:${Versions.navLib}")
+    implementation("androidx.navigation:navigation-ui-ktx:${Versions.navLib}")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
