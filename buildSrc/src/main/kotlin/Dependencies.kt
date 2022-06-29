@@ -1,58 +1,68 @@
-import org.gradle.api.artifacts.dsl.DependencyHandler
+object Dependencies {
 
-//object AppDependencies {
-//    //std lib
-//    val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-//
-//    //android ui
-//    private val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
-//    private val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
-//    private val constraintLayout =
-//        "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-//
-//    //test libs
-//    private val junit = "junit:junit:${Versions.junit}"
-//    private val extJUnit = "androidx.test.ext:junit:${Versions.extJunit}"
-//    private val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
-//
-//    val appLibraries = arrayListOf<String>().apply {
-//        add(kotlinStdLib)
-//        add(coreKtx)
-//        add(appcompat)
-//        add(constraintLayout)
-//    }
-//
-//    val androidTestLibraries = arrayListOf<String>().apply {
-//        add(extJUnit)
-//        add(espressoCore)
-//    }
-//
-//    val testLibraries = arrayListOf<String>().apply {
-//        add(junit)
-//    }
-//}
-//
-////util functions for adding the different type dependencies from build.gradle file
-//fun DependencyHandler.kapt(list: List<String>) {
-//    list.forEach { dependency ->
-//        add("kapt", dependency)
-//    }
-//}
-//
-//fun DependencyHandler.implementation(list: List<String>) {
-//    list.forEach { dependency ->
-//        add("implementation", dependency)
-//    }
-//}
-//
-//fun DependencyHandler.androidTestImplementation(list: List<String>) {
-//    list.forEach { dependency ->
-//        add("androidTestImplementation", dependency)
-//    }
-//}
-//
-//fun DependencyHandler.testImplementation(list: List<String>) {
-//    list.forEach { dependency ->
-//        add("testImplementation", dependency)
-//    }
-//}
+    val kotlin by lazy {
+        "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+    }
+    val coreKTX by lazy {
+        "androidx.core:core-ktx:${Versions.coreKTX}"
+    }
+    val material by lazy {
+        "com.google.android.material:material:1.6.1"
+    }
+    val appCompat by lazy {
+        "androidx.appcompat:appcompat:1.4.2"
+    }
+    val constraintLayout by lazy {
+        "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    }
+    val liveData by lazy {
+        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleLib}"
+    }
+    val viewModel by lazy {
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleLib}"
+    }
+    val navigationFragment by lazy {
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navLib}"
+    }
+    val navigationUI by lazy {
+        "androidx.navigation:navigation-ui-ktx:${Versions.navLib}"
+    }
+    val junit by lazy {
+        "junit:junit:${Versions.jUnit}"
+    }
+    val junitAndroid by lazy {
+        "androidx.test.ext:junit:1.1.3"
+    }
+    val espresso by lazy {
+        "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    }
+
+    val appDependencies: List<String>
+        get() {
+            return listOf(
+                kotlin,
+                material,
+                coreKTX,
+                appCompat,
+                constraintLayout,
+                liveData,
+                viewModel,
+                navigationFragment,
+                navigationUI
+            )
+        }
+
+    val testDependencies: List<String>
+        get() {
+            return listOf(junit)
+        }
+
+    val androidTestDependencies: List<String>
+        get() {
+            return listOf(
+                espresso,
+                junitAndroid
+            )
+        }
+
+}

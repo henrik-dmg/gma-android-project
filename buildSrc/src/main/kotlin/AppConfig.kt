@@ -1,12 +1,12 @@
 object AppConfig {
-    const val compileSdk = 30
-    const val minSdk = 21
-    const val targetSdk = 30
+    const val applicationId = "htw.gma_sose22.metronomepro"
+    const val nameSpace = "htw.gma_sose22"
+
+    const val compileSdk = 32
+    const val targetSdk = 32
+    const val minSdk = 28
     const val versionCode = 1
     const val versionName = "1.0.0"
-    const val buildToolsVersion = "29.0.3"
 
-    const val androidTestInstrumentation = "androidx.test.runner.AndroidJUnitRunner"
-    const val proguardConsumerRules =  "consumer-rules.pro"
-    const val dimension = "environment"
+    const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 }

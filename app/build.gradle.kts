@@ -5,16 +5,15 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        applicationId = "htw.gma_sose22.metronomepro"
-        minSdk = 28
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        applicationId = AppConfig.applicationId
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
+        testInstrumentationRunner = AppConfig.testInstrumentationRunner
     }
 
     buildTypes {
@@ -40,7 +39,7 @@ android {
         android.buildFeatures.viewBinding = true
     }
 
-    namespace = "htw.gma_sose22"
+    namespace = AppConfig.nameSpace
 }
 
 dependencies {
