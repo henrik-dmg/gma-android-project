@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "MetronomePro"
-include ':app'
+include(":app")
