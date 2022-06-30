@@ -7,6 +7,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MetronomePro.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MetronomePro.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MetronomePro.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MetronomePro.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/MetronomePro.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/MetronomePro.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MetronomePro.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/MetronomePro.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MetronomePro.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/MetronomePro.buildSrc.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/MetronomePro.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/MetronomePro.buildSrc.test.iml" />
     </modules>
   </component>
 </project>
