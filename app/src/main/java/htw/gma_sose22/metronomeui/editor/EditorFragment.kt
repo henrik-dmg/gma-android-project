@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import htw.gma_sose22.R
 import htw.gma_sose22.databinding.FragmentEditorBinding
 
 class EditorFragment : Fragment() {
@@ -23,20 +24,23 @@ class EditorFragment : Fragment() {
         viewModel = ViewModelProvider(this)[EditorViewModel::class.java]
         _binding = FragmentEditorBinding.inflate(inflater, container, false)
 
-        val adapter = EditorAdapter()
         val recyclerView = binding.recyclerView
 
-        recyclerView.adapter = adapter
-        viewModel?.beats?.observe(viewLifecycleOwner) {
-            it?.let {
-                adapter.submitList(it as MutableList)
+        context?.let { context ->
+            val adapter = EditorAdapter(context)
+            recyclerView.adapter = adapter
+
+            viewModel?.beats?.observe(viewLifecycleOwner) {
+                it?.let {
+                    adapter.submitList(it as MutableList)
+                }
             }
         }
 
         //val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(editorAdapter))
         //itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        val fab: View = binding.fab
+        val fab = binding.fab
         fab.setOnClickListener {
             viewModel?.addBeat()
         }
@@ -47,6 +51,25 @@ class EditorFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.editor_app_bar_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.delete_pattern -> {
+                viewModel?.removeAllBeats()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

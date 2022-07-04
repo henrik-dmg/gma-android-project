@@ -1,65 +1,130 @@
 package htw.gma_sose22.metronomekit.beat
 
+import android.util.Log
 import htw.gma_sose22.metronomekit.util.Validateable
 import java.util.*
 
 data class Beat(
-    var tempo: Int,
-    var noteCount: Int,
-    var repetitions: Int?,
-    var emphasisedNotes: IntArray?,
-    var mutedNotes: IntArray?
+    var tempo: Int = 120,
+    var noteCount: Int = 4,
+    var repetitions: Int? = null,
+    var emphasisedNotes: Set<Int> = setOf(),
+    var mutedNotes: Set<Int> = setOf()
 ): Validateable {
 
     val id = UUID.randomUUID().toString()
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+    val canAddNote: Boolean
+        get() { return noteCount < 8 }
+    val canRemoveNote: Boolean
+        get() { return noteCount > 1 }
 
-        other as Beat
-
-        if (tempo != other.tempo) return false
-        if (noteCount != other.noteCount) return false
-        if (repetitions != other.repetitions) return false
-        if (!emphasisedNotes.contentEquals(other.emphasisedNotes)) return false
-        if (!mutedNotes.contentEquals(other.mutedNotes)) return false
-
-        return true
+    fun reset() {
+        tempo = 120
+        noteCount = 4
+        repetitions = null
+        emphasisedNotes = setOf()
+        mutedNotes = setOf()
     }
 
-    override fun hashCode(): Int {
-        var result = tempo
-        result = 31 * result + (noteCount)
-        result = 31 * result + (repetitions ?: 0)
-        result = 31 * result + emphasisedNotes.contentHashCode()
-        result = 31 * result + mutedNotes.contentHashCode()
-        return result
+    fun addNote(): Boolean {
+        if (canAddNote) {
+            noteCount += 1
+            cleanUpSets()
+            Log.d("Beat", "Added note to beat")
+            return true
+        }
+        return false
+    }
+
+    fun removeNote(): Boolean {
+        if (canRemoveNote) {
+            noteCount -= 1
+            cleanUpSets()
+            Log.d("Beat", "Removed note from beat")
+            return true
+        }
+        return false
     }
 
     override fun isValid(): Boolean {
-        emphasisedNotes?.forEach { index ->
-            if (index >= noteCount) {
-                return false
-            }
-        }
-        mutedNotes?.forEach { index ->
-            if (index >= noteCount) {
-                return false
-            }
-        }
-        return true
+        return emphasisedNotes.none { index -> index >= noteCount }
+                && mutedNotes.none { index -> index >= noteCount }
+                && (mutedNotes.intersect(emphasisedNotes).isEmpty()) // check that muted and emphasised notes are disjoint
     }
 
     fun makeNotes(): Array<Tone> {
         val notes = Array(noteCount) { Tone.regular }
-        emphasisedNotes?.forEach { index ->
+        emphasisedNotes.forEach { index ->
             notes[index] = Tone.emphasised
         }
-        mutedNotes?.forEach { index ->
+        mutedNotes.forEach { index ->
             notes[index] = Tone.muted
         }
         return notes
+    }
+
+    fun rotateNote(index: Int) {
+        // Flow is emphasised -> normal -> muted
+        if (emphasisedNotes.contains(index)) {
+            normalizeNote(index)
+        } else if (mutedNotes.contains(index)) {
+            emphasiseNote(index)
+        } else {
+            muteNote(index)
+        }
+    }
+
+    private fun normalizeNote(index: Int) {
+        if (index >= noteCount) {
+            throw IndexOutOfBoundsException()
+        }
+
+        val mutableMutedSet = mutedNotes.toMutableSet()
+        mutableMutedSet.remove(index)
+        this.mutedNotes = mutableMutedSet
+
+        val mutableEmphasisedSet = emphasisedNotes.toMutableSet()
+        mutableEmphasisedSet.remove(index)
+        this.emphasisedNotes = mutableEmphasisedSet
+    }
+
+    private fun emphasiseNote(index: Int) {
+        if (index >= noteCount) {
+            throw IndexOutOfBoundsException()
+        }
+
+        val mutableMutedSet = mutedNotes.toMutableSet()
+        mutableMutedSet.remove(index)
+        this.mutedNotes = mutableMutedSet
+
+        val mutableEmphasisedSet = emphasisedNotes.toMutableSet()
+        mutableEmphasisedSet.add(index)
+        this.emphasisedNotes = mutableEmphasisedSet
+    }
+
+    private fun muteNote(index: Int) {
+        if (index >= noteCount) {
+            throw IndexOutOfBoundsException()
+        }
+
+        val mutableMutedSet = mutedNotes.toMutableSet()
+        mutableMutedSet.add(index)
+        this.mutedNotes = mutableMutedSet
+
+        val mutableEmphasisedSet = emphasisedNotes.toMutableSet()
+        mutableEmphasisedSet.remove(index)
+        this.emphasisedNotes = mutableEmphasisedSet
+    }
+
+    private fun cleanUpSets() {
+        val mutableMutedSet = mutedNotes.toMutableSet()
+        mutableMutedSet.removeAll { index -> index >= noteCount }
+        this.mutedNotes = mutableMutedSet
+
+        val mutableEmphasisedSet = emphasisedNotes.toMutableSet()
+        mutableEmphasisedSet.removeAll { index -> index >= noteCount }
+        this.emphasisedNotes = mutableEmphasisedSet
     }
 
 }

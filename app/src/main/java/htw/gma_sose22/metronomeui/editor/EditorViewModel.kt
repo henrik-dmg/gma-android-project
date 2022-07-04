@@ -5,13 +5,12 @@ import htw.gma_sose22.metronomekit.beat.Beat
 
 class EditorViewModel: ViewModel() {
 
-    private val initialFlowerList = initialBeats()
-    private val beatsLiveData = MutableLiveData(initialFlowerList)
+    private val beatsLiveData = MutableLiveData(initialBeats())
 
     val beats: LiveData<List<Beat>> = beatsLiveData
 
     fun addBeat() {
-        val newBeat = Beat(120, 4, 4, null, null)
+        val newBeat = Beat(120, 4, 4, setOf(0), setOf())
         addBeat(newBeat)
     }
 
@@ -27,10 +26,13 @@ class EditorViewModel: ViewModel() {
         }
     }
 
+    fun removeAllBeats() {
+        beatsLiveData.postValue(initialBeats())
+    }
+
     /* Removes beat from liveData and posts value. */
     fun removeBeat(beat: Beat) {
-        val currentList = beatsLiveData.value
-        if (currentList != null) {
+        beatsLiveData.value?.let { currentList ->
             val updatedList = currentList.toMutableList()
             updatedList.remove(beat)
             beatsLiveData.postValue(updatedList)
@@ -39,8 +41,7 @@ class EditorViewModel: ViewModel() {
 
     /* Removes beat at index from liveData and posts value. */
     fun removeBeat(index: Int) {
-        val currentList = beatsLiveData.value
-        if (currentList != null) {
+        beatsLiveData.value?.let { currentList ->
             val updatedList = currentList.toMutableList()
             updatedList.removeAt(index)
             beatsLiveData.postValue(updatedList)
@@ -59,7 +60,7 @@ class EditorViewModel: ViewModel() {
     }
 
     private fun initialBeats(): List<Beat> {
-        val basicBeat = Beat(120, 4, 10, null, null)
+        val basicBeat = Beat(120, 4, 10, setOf(0), setOf())
         return listOf(basicBeat)
     }
 

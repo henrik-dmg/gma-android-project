@@ -17,7 +17,7 @@ class BeatManagerTests {
     @Test
     fun testSimpleBeat() {
         val beats = Array(1) {
-            Beat(120, 4, 1, null, null)
+            Beat(120, 4, 1)
         }
         val beatPattern = BeatPattern("Pattern", Date(), beats)
         BeatManager.loadBeatPattern(beatPattern)
@@ -32,7 +32,7 @@ class BeatManagerTests {
     @Test
     fun testSimpleAlternatingBeat() {
         val beats = Array(1) {
-            Beat(120,4, 1, intArrayOf(1, 3), null)
+            Beat(120,4, 1, setOf(1, 3), setOf())
         }
         val beatPattern = BeatPattern("Pattern", Date(), beats)
         BeatManager.loadBeatPattern(beatPattern)
@@ -47,8 +47,8 @@ class BeatManagerTests {
     @Test
     fun testTwoBeats() {
         val beats = arrayOf(
-            Beat(120,4, 1, intArrayOf(1, 3), null),
-            Beat(130,3, 2, intArrayOf(2), null)
+            Beat(120,4, 1, setOf(1, 3), setOf()),
+            Beat(130,3, 2, setOf(2), setOf())
         )
         val beatPattern = BeatPattern("Pattern", Date(), beats)
         BeatManager.loadBeatPattern(beatPattern)
@@ -72,7 +72,7 @@ class BeatManagerTests {
     @Test
     fun testRepeatingBeat() {
         val beats = Array(1) {
-            Beat(120,3, 2, null, null)
+            Beat(120,3, 2)
         }
         val beatPattern = BeatPattern("Pattern", Date(), beats)
         BeatManager.loadBeatPattern(beatPattern)
@@ -89,7 +89,7 @@ class BeatManagerTests {
     @Test
     fun testInfiniteBeat() {
         val beats = Array(1) {
-            Beat(120,4, null, null, null)
+            Beat(120,4, null)
         }
         val beatPattern = BeatPattern("Pattern", Date(), beats)
         BeatManager.loadBeatPattern(beatPattern)
@@ -102,7 +102,7 @@ class BeatManagerTests {
     @Test
     fun testInvalidBeat() {
         val beats = Array(1) {
-            Beat(120, 2, 1, intArrayOf(3, 4), null)
+            Beat(120, 2, 1, setOf(3, 4), setOf())
         }
         val beatPattern = BeatPattern("Pattern", Date(), beats)
         assertThrows(BeatManagerException::class.java) {

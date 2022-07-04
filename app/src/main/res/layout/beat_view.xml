@@ -1,75 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="6dp"
-        android:gravity="center"
-        android:id="@+id/beat_view"
-        tools:context="htw.gma_sose22.metronomeui.BeatView">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="6dp" >
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_note_default"
-            style="@style/Widget.Material3.Button.IconButton" />
+    <include
+        layout="@layout/tones_view"
+        android:id="@+id/tones_view" />
 
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_note_default"
-            style="@style/Widget.Material3.Button.IconButton" />
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_note_default"
-            style="@style/Widget.Material3.Button.IconButton" />
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:icon="@drawable/ic_note_default"
-            style="@style/Widget.Material3.Button.IconButton" />
-
-    <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4 notes" />
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-            <Button
-                    android:layout_width="48dp"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/decrement_notes_button"
-                    android:text="@string/decrement_button_title" />
-
-            <Button
-                    android:layout_width="48dp"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:id="@+id/increment_notes_button"
-                    android:text="@string/increment_button_title" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    <include
+        layout="@layout/bpm_modification_view"
+        android:id="@+id/bpm_modification_view" />
 
 </LinearLayout>

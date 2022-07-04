@@ -6,7 +6,7 @@ import htw.gma_sose22.metronomekit.beat.Beat
 object BeatDiffCallback: DiffUtil.ItemCallback<Beat>() {
 
     override fun areItemsTheSame(oldItem: Beat, newItem: Beat): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Beat, newItem: Beat): Boolean {

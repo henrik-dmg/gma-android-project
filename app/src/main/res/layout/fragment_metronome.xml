@@ -7,8 +7,10 @@
     tools:context="htw.gma_sose22.metronomeui.metronome.MetronomeFragment">
 
     <include
-            layout="@layout/editorlist_item"
-            android:id="@+id/metronome_beat_view" />
+            layout="@layout/beat_view"
+            android:id="@+id/beat_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
             android:id="@+id/button_start_stop"
@@ -17,7 +19,7 @@
             android:text="@string/metronome_start_button_title"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/metronome_beat_view"
+            app:layout_constraintTop_toBottomOf="@+id/beat_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
