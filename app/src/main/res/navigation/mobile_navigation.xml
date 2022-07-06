@@ -12,9 +12,9 @@
         tools:layout="@layout/fragment_metronome" />
 
     <fragment
-        android:id="@+id/navigation_editor"
-        android:name="htw.gma_sose22.metronomeui.editor.EditorFragment"
-        android:label="@string/title_editor"
-        tools:layout="@layout/fragment_editor" />
+        android:id="@+id/navigation_library"
+        android:name="htw.gma_sose22.metronomeui.library.LibraryFragment"
+        android:label="@string/title_library"
+        tools:layout="@layout/fragment_library" />
 
 </navigation>
