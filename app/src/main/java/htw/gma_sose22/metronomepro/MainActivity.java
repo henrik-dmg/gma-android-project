@@ -12,6 +12,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -19,6 +21,7 @@ import htw.gma_sose22.metronomekit.beat.BeatManager;
 import htw.gma_sose22.databinding.ActivityMainBinding;
 import htw.gma_sose22.R;
 import htw.gma_sose22.metronomekit.metronome.*;
+import kotlin.UInt;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_metronome,
-                R.id.navigation_editor
+                R.id.navigation_library
         ).build();
 
         NavHostFragment navHostFragment = binding.navHostFragment.getFragment();
@@ -98,20 +101,20 @@ public class MainActivity extends AppCompatActivity {
         byte[] offbeatSound = new byte[beatSound.length];
         double volumeScale = 0.2;
 
-        for (int i = 0; i < beatSound.length; i+=2) {
+        for (int i = 0; i < beatSound.length; i += 2) {
             // convert byte pair to int
-            short buf1 = beatSound[i+1];
+            short buf1 = beatSound[i + 1];
             short buf2 = beatSound[i];
 
             buf1 = (short) ((buf1 & 0xff) << 8);
             buf2 = (short) (buf2 & 0xff);
 
-            short res= (short) (buf1 | buf2);
+            short res = (short) (buf1 | buf2);
             res = (short) (res * volumeScale);
 
             // convert back
             offbeatSound[i] = (byte) res;
-            offbeatSound[i+1] = (byte) (res >> 8);
+            offbeatSound[i + 1] = (byte) (res >> 8);
 
         }
         return offbeatSound;
