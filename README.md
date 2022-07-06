@@ -126,7 +126,7 @@ Allerdings ändert dies nichts an der Liste der zu testenden Funktionen:
 
 ### MetronomePro
 
-Hier lebt nur `MainActivity`, welche vom Rest der App nicht wirklich weiß. Hier wird außerm der Sound des Metronoms geladen und festgelt und das Metronom mit dem `MetronomeService` verbunden. Da die `MainActivity` kaum Logik enhält, die nicht vorher schon getestet wurde, oder Boilerplate-Code ist, werden wir keine extra Tests für diese Klasse schreiben.
+Hier lebt nur `MainActivity`, welche vom Rest der App nicht wirklich weiß. Hier wird außerm der Sound des Metronoms geladen und festgelegt und das Metronom mit dem `MetronomeService` verbunden. Da die `MainActivity` kaum Logik enhält, die nicht vorher schon getestet wurde, oder Boilerplate-Code ist, werden wir keine extra Tests für diese Klasse schreiben.
 
 ## Exploration
 
