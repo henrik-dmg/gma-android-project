@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bpm_modification_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:weightSum="5">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/large_bpm_decrement_button"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        android:id="@+id/bpm_modification_view" >
+        android:layout_weight="1"
+        android:text="@string/metronome_decrement_large"
+        style="@style/Widget.Material3.Button.TextButton"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/small_bpm_decrement_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/metronome_decrement_small"
+        style="@style/Widget.Material3.Button.TextButton"/>
 
-    <SeekBar
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/bpmSeekBar"
-            android:layout_weight="1" />
+    <TextView
+        android:id="@+id/bpm_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        android:layout_weight="0.4"
+        android:text="xxx BPM"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
-    <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/metronomeBPMLabel"
-            android:text="@string/title_metronome"
-            android:textAlignment="center"
-            android:inputType="number"
-            android:autofillHints="Please enter a number between 40 and 200"
-            android:minHeight="48dp" />
-
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/small_bpm_increment_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/metronome_increment_small"
+        style="@style/Widget.Material3.Button.TextButton"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/large_bpm_increment_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/metronome_increment_large"
+        style="@style/Widget.Material3.Button.TextButton"/>
 </LinearLayout>
