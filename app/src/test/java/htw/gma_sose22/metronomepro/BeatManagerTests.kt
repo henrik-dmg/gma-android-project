@@ -5,7 +5,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
 import org.junit.Before
 import org.junit.Test
-import java.util.*
 
 class BeatManagerTests {
 
@@ -16,10 +15,8 @@ class BeatManagerTests {
 
     @Test
     fun testSimpleBeat() {
-        val beats = Array(1) {
-            Beat(120, 4, 1)
-        }
-        val beatPattern = BeatPattern("Pattern", Date(), beats)
+        val beats = arrayOf(Beat(120, 4u, 1u))
+        val beatPattern = BeatPattern(beats = beats)
         BeatManager.loadBeatPattern(beatPattern)
 
         assertEquals(Tone.regular, BeatManager.nextTone())
@@ -32,9 +29,9 @@ class BeatManagerTests {
     @Test
     fun testSimpleAlternatingBeat() {
         val beats = Array(1) {
-            Beat(120,4, 1, setOf(1, 3), setOf())
+            Beat(120, 4u, 1u, setOf(1u, 3u), setOf())
         }
-        val beatPattern = BeatPattern("Pattern", Date(), beats)
+        val beatPattern = BeatPattern(beats = beats)
         BeatManager.loadBeatPattern(beatPattern)
 
         assertEquals(Tone.regular, BeatManager.nextTone())
@@ -47,10 +44,10 @@ class BeatManagerTests {
     @Test
     fun testTwoBeats() {
         val beats = arrayOf(
-            Beat(120,4, 1, setOf(1, 3), setOf()),
-            Beat(130,3, 2, setOf(2), setOf())
+            Beat(120, 4u, 1u, setOf(1u, 3u), setOf()),
+            Beat(130, 3u, 2u, setOf(2u), setOf())
         )
-        val beatPattern = BeatPattern("Pattern", Date(), beats)
+        val beatPattern = BeatPattern(beats = beats)
         BeatManager.loadBeatPattern(beatPattern)
 
         assertEquals(Tone.regular, BeatManager.nextTone())
@@ -72,9 +69,9 @@ class BeatManagerTests {
     @Test
     fun testRepeatingBeat() {
         val beats = Array(1) {
-            Beat(120,3, 2)
+            Beat(120, 3u, 2u)
         }
-        val beatPattern = BeatPattern("Pattern", Date(), beats)
+        val beatPattern = BeatPattern(beats = beats)
         BeatManager.loadBeatPattern(beatPattern)
 
         assertEquals(Tone.regular, BeatManager.nextTone())
@@ -89,9 +86,9 @@ class BeatManagerTests {
     @Test
     fun testInfiniteBeat() {
         val beats = Array(1) {
-            Beat(120,4, null)
+            Beat(120, 4u, null)
         }
-        val beatPattern = BeatPattern("Pattern", Date(), beats)
+        val beatPattern = BeatPattern(beats = beats)
         BeatManager.loadBeatPattern(beatPattern)
 
         for (i in 0..100) {
@@ -102,9 +99,9 @@ class BeatManagerTests {
     @Test
     fun testInvalidBeat() {
         val beats = Array(1) {
-            Beat(120, 2, 1, setOf(3, 4), setOf())
+            Beat(120, 2u, 1u, setOf(3u, 4u), setOf())
         }
-        val beatPattern = BeatPattern("Pattern", Date(), beats)
+        val beatPattern = BeatPattern(beats = beats)
         assertThrows(BeatManagerException::class.java) {
             BeatManager.loadBeatPattern(beatPattern)
         }

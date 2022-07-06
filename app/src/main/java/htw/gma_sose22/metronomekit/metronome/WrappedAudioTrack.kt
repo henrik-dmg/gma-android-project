@@ -2,7 +2,7 @@ package htw.gma_sose22.metronomekit.metronome
 
 import android.media.AudioTrack
 
-class WrappedAudioTrack(private val audioTrack: AudioTrack): MetronomeAudioInterface {
+class WrappedAudioTrack(private val audioTrack: AudioTrack) : MetronomeAudioInterface {
 
     override val sampleRate: Int
         get() = audioTrack.sampleRate

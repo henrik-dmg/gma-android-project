@@ -4,19 +4,20 @@ buildscript {
 
     repositories {
         google()
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
     }
 
     dependencies {
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navLib}")
-        classpath ("com.android.tools.build:gradle:${Versions.gradle}")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
+        classpath ("com.android.tools.build:gradle:7.2.1")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.4.2")
     }
 }
 
 plugins {
-    id("com.android.library") version Versions.gradle apply false
+    id("com.android.library") version "7.2.1" apply false
+    id("org.jetbrains.kotlin.android") version "1.7.0" apply false
 }
 
 tasks.register("clean", Delete::class) {

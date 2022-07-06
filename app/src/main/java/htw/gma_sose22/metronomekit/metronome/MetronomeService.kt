@@ -2,7 +2,7 @@ package htw.gma_sose22.metronomekit.metronome
 
 import htw.gma_sose22.metronomekit.audio.AudioControllable
 
-object MetronomeService: AudioControllable {
+object MetronomeService : AudioControllable {
 
     lateinit var metronome: MetronomeInterface
 
