@@ -7,10 +7,8 @@
     android:checkable="false"
     android:clickable="true"
     android:focusable="false"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
     app:cardUseCompatPadding="true"
-    app:contentPadding="6dp">
+    app:contentPadding="4dp">
 
     <include
         android:id="@+id/beat_view"

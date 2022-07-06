@@ -7,11 +7,49 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/beat_buttons"
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/beat_buttons">
+
+        <Button
+            android:id="@+id/decrement_notes_button"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/remove_note"
+            app:icon="@drawable/round_remove_24" />
+
+        <Button
+            android:id="@+id/increment_notes_button"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/add_note"
+            app:icon="@drawable/round_add_24" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/note_count_label"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="xxx Notes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/beat_buttons" />
+
+    <LinearLayout
+        android:id="@+id/beat_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center|start"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -52,7 +90,7 @@
             style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             app:icon="@drawable/ic_note_default" />
 
         <com.google.android.material.button.MaterialButton
@@ -60,7 +98,7 @@
             style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             app:icon="@drawable/ic_note_default" />
 
         <com.google.android.material.button.MaterialButton
@@ -68,7 +106,7 @@
             style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             app:icon="@drawable/ic_note_default" />
 
         <com.google.android.material.button.MaterialButton
@@ -76,47 +114,8 @@
             style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             app:icon="@drawable/ic_note_default" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/note_control_stack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/note_count_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4 xxx" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/decrement_notes_button"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="48dp"
-                android:layout_height="wrap_content"
-                android:text="@string/decrement_button_title" />
-
-            <Button
-                android:id="@+id/increment_notes_button"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="48dp"
-                android:layout_height="wrap_content"
-                android:text="@string/increment_button_title" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

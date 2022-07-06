@@ -15,20 +15,21 @@ data class Beat(
 ) : Validateable {
 
     companion object {
+        const val MINIMUM_NOTES = 1u
+        const val MAXIMUM_NOTES = 8u
         const val MINIMUM_SPEED = 40
         const val MAXIMUM_SPEED = 200
-        const val MAXIMUM_NOTES = 10u
     }
 
     val id = UUID.randomUUID().toString()
 
     val canAddNote: Boolean
         get() {
-            return noteCount < 8u
+            return noteCount < MAXIMUM_NOTES
         }
     val canRemoveNote: Boolean
         get() {
-            return noteCount > 1u
+            return noteCount > MINIMUM_NOTES
         }
     val canDecreaseBPM: Boolean
         get() {

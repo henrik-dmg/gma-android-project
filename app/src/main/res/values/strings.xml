@@ -28,6 +28,9 @@
     <string name="beat_pattern_name_prompt_title">Please enter a name for your pattern</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="play_beat">Play beat</string>
+    <string name="remove_note">Remove note</string>
+    <string name="add_note">Add note</string>
     <plurals name="bars_count">
         <item quantity="one">%d bar</item>
         <item quantity="other">%d bars</item>
