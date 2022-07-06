@@ -13,7 +13,25 @@
     <string name="decrement_button_title">-</string>
     <string name="increment_button_title">+</string>
     <string name="add_new_beat">Add new beat</string>
+    <string name="add_new_pattern">Add new pattern</string>
     <string name="delete_pattern">Delete pattern</string>
+    <string name="title_library">Library</string>
+    <string name="infinite_beat_subtitle">Beat repeats continuously</string>
+    <string name="save_pattern">Save pattern</string>
+    <string name="beat_deleted">Beat was deleted</string>
+    <string name="pattern_deleted">Pattern was deleted</string>
+    <string name="undo">Undo</string>
+    <string name="bpm_count">%d BPM</string>
+    <string name="save_the_current_pattern">Save the current pattern</string>
+    <string name="delete_all_beats">Delete all beats</string>
+    <string name="beat_pattern_name_placeholder">Pattern Name</string>
+    <string name="beat_pattern_name_prompt_title">Please enter a name for your pattern</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <plurals name="bars_count">
+        <item quantity="one">%d bar</item>
+        <item quantity="other">%d bars</item>
+    </plurals>
     <plurals name="notes_count">
         <item quantity="one">%d note</item>
         <item quantity="other">%d notes</item>
