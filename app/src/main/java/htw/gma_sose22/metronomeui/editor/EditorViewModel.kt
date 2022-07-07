@@ -1,16 +1,27 @@
 package htw.gma_sose22.metronomeui.editor
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import htw.gma_sose22.metronomekit.beat.Beat
+import htw.gma_sose22.metronomekit.beat.BeatPattern
 
-class EditorViewModel: ViewModel() {
+class EditorViewModel(val beatPattern: BeatPattern?) : ViewModel() {
 
-    private val beatsLiveData = MutableLiveData(initialBeats())
+    private val beatsLiveData: MutableLiveData<List<Beat>>
+    val beats: LiveData<List<Beat>>
 
-    val beats: LiveData<List<Beat>> = beatsLiveData
+    init {
+        beatsLiveData = if (beatPattern != null) {
+            MutableLiveData(beatPattern.beats.toList())
+        } else {
+            MutableLiveData(initialBeats())
+        }
+        beats = beatsLiveData
+    }
 
     fun addBeat() {
-        val newBeat = Beat(120, 4, 4, setOf(0), setOf())
+        val newBeat = Beat(120, 4u, 4u, setOf(0u), setOf())
         addBeat(newBeat)
     }
 
@@ -30,15 +41,6 @@ class EditorViewModel: ViewModel() {
         beatsLiveData.postValue(initialBeats())
     }
 
-    /* Removes beat from liveData and posts value. */
-    fun removeBeat(beat: Beat) {
-        beatsLiveData.value?.let { currentList ->
-            val updatedList = currentList.toMutableList()
-            updatedList.remove(beat)
-            beatsLiveData.postValue(updatedList)
-        }
-    }
-
     /* Removes beat at index from liveData and posts value. */
     fun removeBeat(index: Int) {
         beatsLiveData.value?.let { currentList ->
@@ -48,20 +50,34 @@ class EditorViewModel: ViewModel() {
         }
     }
 
-    fun getBeatForID(id: String): Beat? {
+    /* Removes beat at index from liveData and posts value. */
+    fun restoreBeat(beat: Beat?, index: Int) {
+        beat?.let {
+            val currentList = beatsLiveData.value
+            if (currentList == null) {
+                beatsLiveData.postValue(listOf(beat))
+            } else {
+                val updatedList = currentList.toMutableList()
+                updatedList.add(index, beat)
+                beatsLiveData.postValue(updatedList)
+            }
+        }
+    }
+
+    fun makePattern(patternName: String): BeatPattern? {
         beatsLiveData.value?.let { beats ->
-            return beats.firstOrNull{ it.id == id }
+            return if (beatPattern != null) {
+                beatPattern.beats = beats.toTypedArray()
+                return beatPattern
+            } else {
+                BeatPattern(patternName = patternName, beats = beats.toTypedArray())
+            }
         }
         return null
     }
 
-    fun getBeatList(): LiveData<List<Beat>> {
-        return beatsLiveData
-    }
-
     private fun initialBeats(): List<Beat> {
-        val basicBeat = Beat(120, 4, 10, setOf(0), setOf())
+        val basicBeat = Beat(120, 4u, 10u, setOf(0u), setOf())
         return listOf(basicBeat)
     }
-
 }

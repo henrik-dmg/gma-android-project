@@ -1,7 +1,9 @@
 package htw.gma_sose22.metronomepro
 
 import htw.gma_sose22.metronomekit.beat.Tone
-import htw.gma_sose22.metronomekit.metronome.*
+import htw.gma_sose22.metronomekit.metronome.Metronome
+import htw.gma_sose22.metronomekit.metronome.MetronomeInterface
+import htw.gma_sose22.metronomekit.metronome.MetronomeService
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

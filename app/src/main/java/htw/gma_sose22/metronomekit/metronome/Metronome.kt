@@ -3,7 +3,7 @@ package htw.gma_sose22.metronomekit.metronome
 import htw.gma_sose22.metronomekit.beat.Tone
 
 class Metronome(
-    override var bpm: Int,
+    override var bpm: Int = DEFAULT_SPEED.toInt(),
     override var beatSound: ByteArray,
     override var offbeatSound: ByteArray,
     override val metronomeAudio: MetronomeAudioInterface,
@@ -12,9 +12,7 @@ class Metronome(
 
     companion object {
         const val DEFAULT_SAMPLE_RATE = 44100
-        const val DEFAULT_SPEED = 120
-        const val MINIMUM_SPEED = 40
-        const val MAXIMUM_SPEED = 220
+        const val DEFAULT_SPEED = 120u
     }
 
     override var isPlaying = false

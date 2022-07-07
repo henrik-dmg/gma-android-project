@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="6dp" >
+    android:orientation="vertical">
 
     <include
-        layout="@layout/tones_view"
-        android:id="@+id/tones_view" />
+        android:id="@+id/tones_view"
+        layout="@layout/tones_view" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:alpha="0.3"/>
 
     <include
-        layout="@layout/bpm_modification_view"
-        android:id="@+id/bpm_modification_view" />
+        android:id="@+id/bpm_modification_view"
+        layout="@layout/bpm_modification_view" />
 
 </LinearLayout>

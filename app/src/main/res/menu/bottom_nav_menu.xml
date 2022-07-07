@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/navigation_metronome"
-        android:icon="@drawable/ic_speed_48px"
+        android:icon="@drawable/round_speed_24"
         android:title="@string/title_metronome" />
 
     <item
-        android:id="@+id/navigation_editor"
-            android:icon="@drawable/ic_tune_48px"
-        android:title="@string/title_editor" />
+        android:id="@+id/navigation_library"
+        android:icon="@drawable/round_bookmark_24"
+        android:title="@string/title_library" />
 
 </menu>
