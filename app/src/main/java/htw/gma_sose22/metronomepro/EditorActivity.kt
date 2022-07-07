@@ -59,9 +59,19 @@ class EditorActivity : AppCompatActivity() {
             }
         }
 
-        val fab = binding.fab
-        fab.setOnClickListener {
+        viewModel.isPlaying.observe(this) { isPlaying ->
+            binding.fab2.setImageResource(
+                if (isPlaying) R.drawable.round_stop_24
+                else R.drawable.round_play_arrow_24
+            )
+            supportActionBar?.setDisplayHomeAsUpEnabled(!isPlaying)
+        }
+
+        binding.fab.setOnClickListener {
             viewModel.addBeat()
+        }
+        binding.fab2.setOnClickListener {
+            viewModel.handlePlaybackButtonTapped()
         }
 
         binding.topAppBar.setNavigationOnClickListener {

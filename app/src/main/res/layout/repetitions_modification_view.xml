@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bpm_modification_view"
+    android:id="@+id/repetitions_modification_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="start"
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="2dp"
-        android:text="@string/bpm_label"
+        android:text="@string/repetitions_label"
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
@@ -19,13 +19,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/large_bpm_decrement_button"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:text="@string/metronome_decrement_large" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/small_bpm_decrement_button"
@@ -47,13 +40,7 @@
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:text="@string/metronome_increment_small" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/large_bpm_increment_button"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:text="@string/metronome_increment_large" />
+        android:text="@string/metronome_increment_small"
+        android:layout_marginEnd="50dp"/>
 
 </LinearLayout>

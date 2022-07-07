@@ -14,8 +14,8 @@ import htw.gma_sose22.metronomekit.beat.Tone
 class EditorViewHolder(private val binding: EditorListitemBinding, private val context: Context) :
     RecyclerView.ViewHolder(binding.root) {
 
-    private val incrementNotesButton: Button = binding.beatView.tonesView.incrementNotesButton
-    private val decrementNotesButton: Button = binding.beatView.tonesView.decrementNotesButton
+    private val incrementNotesButton: Button = binding.tonesView.incrementNotesButton
+    private val decrementNotesButton: Button = binding.tonesView.decrementNotesButton
     private var currentBeat: Beat? = null
 
     fun bind(beat: Beat) {
@@ -35,33 +35,33 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
             }
         }
 
-        binding.beatView.bpmModificationView.smallBpmDecrementButton.setOnClickListener {
+        binding.bpmModificationView.smallBpmDecrementButton.setOnClickListener {
             currentBeat?.let {
                 it.modifyBPM(-1)
                 updateBeatView(it)
             }
         }
-        binding.beatView.bpmModificationView.largeBpmDecrementButton.setOnClickListener {
+        binding.bpmModificationView.largeBpmDecrementButton.setOnClickListener {
             currentBeat?.let {
                 it.modifyBPM(-10)
                 updateBeatView(it)
             }
         }
-        binding.beatView.bpmModificationView.smallBpmIncrementButton.setOnClickListener {
+        binding.bpmModificationView.smallBpmIncrementButton.setOnClickListener {
             currentBeat?.let {
                 it.modifyBPM(1)
                 updateBeatView(it)
             }
         }
-        binding.beatView.bpmModificationView.largeBpmIncrementButton.setOnClickListener {
+        binding.bpmModificationView.largeBpmIncrementButton.setOnClickListener {
             currentBeat?.let {
                 it.modifyBPM(10)
                 updateBeatView(it)
             }
         }
 
-        for (i in 0 until binding.beatView.tonesView.beatButtons.childCount) {
-            val button = binding.beatView.tonesView.beatButtons.getChildAt(i) as MaterialButton
+        for (i in 0 until binding.tonesView.beatButtons.childCount) {
+            val button = binding.tonesView.beatButtons.getChildAt(i) as MaterialButton
             button.setOnClickListener {
                 currentBeat?.let {
                     it.rotateNote(i.toUInt())
@@ -79,7 +79,7 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
 
     private fun updateBeatView(beat: Beat) {
         Log.d("EditorAdapter", "Updated view with beat $beat")
-        val beatButtons = binding.beatView.tonesView.beatButtons
+        val beatButtons = binding.tonesView.beatButtons
         val currentNumberOfButtons = beatButtons.childCount
 
         val tones = beat.makeNotes()
@@ -94,14 +94,14 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
             }
         }
 
-        binding.beatView.bpmModificationView.bpmTextView.text = context.resources.getString(R.string.bpm_count, beat.tempo)
+        binding.bpmModificationView.bpmTextView.text = context.resources.getString(R.string.bpm_count, beat.tempo)
         incrementNotesButton.isEnabled = beat.canAddNote
         decrementNotesButton.isEnabled = beat.canRemoveNote
-        binding.beatView.bpmModificationView.smallBpmIncrementButton.isEnabled = beat.canIncreaseBPM
-        binding.beatView.bpmModificationView.largeBpmIncrementButton.isEnabled = beat.canIncreaseBPM
-        binding.beatView.bpmModificationView.smallBpmDecrementButton.isEnabled = beat.canDecreaseBPM
-        binding.beatView.bpmModificationView.largeBpmDecrementButton.isEnabled = beat.canDecreaseBPM
-        binding.beatView.tonesView.noteCountLabel.text = context.resources.getQuantityString(
+        binding.bpmModificationView.smallBpmIncrementButton.isEnabled = beat.canIncreaseBPM
+        binding.bpmModificationView.largeBpmIncrementButton.isEnabled = beat.canIncreaseBPM
+        binding.bpmModificationView.smallBpmDecrementButton.isEnabled = beat.canDecreaseBPM
+        binding.bpmModificationView.largeBpmDecrementButton.isEnabled = beat.canDecreaseBPM
+        binding.tonesView.noteCountLabel.text = context.resources.getQuantityString(
             R.plurals.notes_count,
             beat.noteCount.toInt(),
             beat.noteCount.toInt()

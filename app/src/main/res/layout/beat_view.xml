@@ -11,10 +11,7 @@
 
     <View
         android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:alpha="0.3"/>
+        style="@style/horizontal_separator" />
 
     <include
         android:id="@+id/bpm_modification_view"

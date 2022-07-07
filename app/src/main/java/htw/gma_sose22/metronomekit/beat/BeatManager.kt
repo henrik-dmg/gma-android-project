@@ -8,6 +8,7 @@ object BeatManager {
     private var currentToneIndex = 0u
     private var currentRepetitionCount = 0u
 
+    @Throws(BeatManagerException::class)
     fun loadBeat(beat: Beat) {
         val beats = arrayOf(beat)
         val beatPattern = BeatPattern(beats = beats)

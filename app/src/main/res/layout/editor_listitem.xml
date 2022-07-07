@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,8 +11,32 @@
     app:cardUseCompatPadding="true"
     app:contentPadding="4dp">
 
-    <include
-        android:id="@+id/beat_view"
-        layout="@layout/beat_view" />
+    <LinearLayout
+        android:id="@+id/vertical_stack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/tones_view"
+            layout="@layout/tones_view" />
+
+        <View
+            android:id="@+id/divider1"
+            style="@style/horizontal_separator" />
+
+        <include
+            android:id="@+id/bpm_modification_view"
+            layout="@layout/bpm_modification_view" />
+
+        <View
+            android:id="@+id/divider2"
+            style="@style/horizontal_separator" />
+
+        <include
+            android:id="@+id/repetitions_view"
+            layout="@layout/repetitions_modification_view" />
+
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>
