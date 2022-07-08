@@ -29,12 +29,15 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ViewModelProvider(this)[MetronomeViewModel::class.java]
+        val viewModel = ViewModelProvider(this)[MetronomeViewModel::class.java]
+        this.viewModel = viewModel
         _binding = FragmentMetronomeBinding.inflate(inflater, container, false)
+
+        binding.beatView.bpmModificationView.bind(viewModel)
 
         setupBindings()
         setupMetronomeControls()
-        viewModel?.beat?.value?.let {
+        viewModel.beat.value?.let {
             updateBeatView(it)
         }
 
@@ -47,19 +50,6 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
     }
 
     private fun setupMetronomeControls() {
-        binding.beatView.bpmModificationView.smallBpmDecrementButton.setOnClickListener {
-            viewModel?.modifyBPM(-1)
-        }
-        binding.beatView.bpmModificationView.largeBpmDecrementButton.setOnClickListener {
-            viewModel?.modifyBPM(-10)
-        }
-        binding.beatView.bpmModificationView.smallBpmIncrementButton.setOnClickListener {
-            viewModel?.modifyBPM(1)
-        }
-        binding.beatView.bpmModificationView.largeBpmIncrementButton.setOnClickListener {
-            viewModel?.modifyBPM(10)
-        }
-
         binding.beatView.tonesView.tonesDecrementButton.setOnClickListener {
             viewModel?.removeNoteFromBeat()
         }
@@ -99,10 +89,7 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
     }
 
     private fun toggleMetronomeControls(controlsEnabled: Boolean) {
-        binding.beatView.bpmModificationView.smallBpmIncrementButton.isEnabled = controlsEnabled
-        binding.beatView.bpmModificationView.smallBpmDecrementButton.isEnabled = controlsEnabled
-        binding.beatView.bpmModificationView.largeBpmIncrementButton.isEnabled = controlsEnabled
-        binding.beatView.bpmModificationView.largeBpmDecrementButton.isEnabled = controlsEnabled
+        binding.beatView.bpmModificationView.toggleControls(controlsEnabled)
         binding.beatView.tonesView.tonesIncrementButton.isEnabled = controlsEnabled
         binding.beatView.tonesView.tonesDecrementButton.isEnabled = controlsEnabled
     }
@@ -123,13 +110,10 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
             }
         }
 
-        binding.beatView.bpmModificationView.bpmTextView.text = resources.getString(R.string.bpm_count, beat.tempo)
+        binding.beatView.bpmModificationView.updateView(beat)
+
         binding.beatView.tonesView.tonesIncrementButton.isEnabled = beat.canAddNote
         binding.beatView.tonesView.tonesDecrementButton.isEnabled = beat.canRemoveNote
-        binding.beatView.bpmModificationView.smallBpmIncrementButton.isEnabled = beat.canIncreaseBPM
-        binding.beatView.bpmModificationView.largeBpmIncrementButton.isEnabled = beat.canIncreaseBPM
-        binding.beatView.bpmModificationView.smallBpmDecrementButton.isEnabled = beat.canDecreaseBPM
-        binding.beatView.bpmModificationView.largeBpmDecrementButton.isEnabled = beat.canDecreaseBPM
         binding.beatView.tonesView.tonesTextView.text = resources.getString(R.string.tones_count, beat.noteCount.toInt())
     }
 
@@ -142,7 +126,7 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
     }
 
     override fun currentToneChanged(toneIndex: Int, beatIndex: Int) {
-        TODO("Not yet implemented")
+        // TODO: Call view to highlight here
     }
 
     override fun playbackStopped() {

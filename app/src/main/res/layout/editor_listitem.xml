@@ -25,9 +25,10 @@
             android:id="@+id/divider1"
             style="@style/horizontal_separator" />
 
-        <include
+        <htw.gma_sose22.metronomeui.views.BPMModificationView
             android:id="@+id/bpm_modification_view"
-            layout="@layout/bpm_modification_view" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <View
             android:id="@+id/divider2"

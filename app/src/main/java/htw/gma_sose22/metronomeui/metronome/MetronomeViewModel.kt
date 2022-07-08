@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import htw.gma_sose22.metronomekit.beat.Beat
 import htw.gma_sose22.metronomekit.metronome.MetronomeService
+import htw.gma_sose22.metronomeui.views.BPMModifiable
 
-class MetronomeViewModel : ViewModel() {
+class MetronomeViewModel : ViewModel(), BPMModifiable {
 
     private val mutableBeat = MutableLiveData<Beat>()
     private val mutableIsPlaying = MutableLiveData<Boolean>()
@@ -42,7 +43,7 @@ class MetronomeViewModel : ViewModel() {
         }
     }
 
-    fun modifyBPM(bpmDelta: Int) {
+    override fun modifyBPM(bpmDelta: Int) {
         mutableBeat.value?.let {
             it.modifyBPM(bpmDelta)
             MetronomeService.bpm = it.tempo

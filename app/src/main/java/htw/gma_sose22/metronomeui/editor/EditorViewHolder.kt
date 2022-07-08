@@ -10,9 +10,10 @@ import htw.gma_sose22.R
 import htw.gma_sose22.databinding.EditorListitemBinding
 import htw.gma_sose22.metronomekit.beat.Beat
 import htw.gma_sose22.metronomekit.beat.Tone
+import htw.gma_sose22.metronomeui.views.BPMModifiable
 
 class EditorViewHolder(private val binding: EditorListitemBinding, private val context: Context) :
-    RecyclerView.ViewHolder(binding.root) {
+    RecyclerView.ViewHolder(binding.root), BPMModifiable {
 
     private val incrementNotesButton: Button = binding.tonesView.tonesIncrementButton
     private val decrementNotesButton: Button = binding.tonesView.tonesDecrementButton
@@ -20,6 +21,8 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
 
     fun bind(beat: Beat) {
         currentBeat = beat
+        binding.bpmModificationView.bind(this)
+
         incrementNotesButton.setOnClickListener {
             currentBeat?.let {
                 if (it.addNote()) {
@@ -32,31 +35,6 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
                 if (it.removeNote()) {
                     updateBeatView(it)
                 }
-            }
-        }
-
-        binding.bpmModificationView.smallBpmDecrementButton.setOnClickListener {
-            currentBeat?.let {
-                it.modifyBPM(-1)
-                updateBeatView(it)
-            }
-        }
-        binding.bpmModificationView.largeBpmDecrementButton.setOnClickListener {
-            currentBeat?.let {
-                it.modifyBPM(-10)
-                updateBeatView(it)
-            }
-        }
-        binding.bpmModificationView.smallBpmIncrementButton.setOnClickListener {
-            currentBeat?.let {
-                it.modifyBPM(1)
-                updateBeatView(it)
-            }
-        }
-        binding.bpmModificationView.largeBpmIncrementButton.setOnClickListener {
-            currentBeat?.let {
-                it.modifyBPM(10)
-                updateBeatView(it)
             }
         }
         binding.repetitionsView.repetitionIncrementButton.setOnClickListener {
@@ -108,13 +86,9 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
             }
         }
 
+        binding.bpmModificationView.updateView(beat)
         incrementNotesButton.isEnabled = beat.canAddNote
         decrementNotesButton.isEnabled = beat.canRemoveNote
-        binding.bpmModificationView.bpmTextView.text = context.resources.getString(R.string.bpm_count, beat.tempo)
-        binding.bpmModificationView.smallBpmIncrementButton.isEnabled = beat.canIncreaseBPM
-        binding.bpmModificationView.largeBpmIncrementButton.isEnabled = beat.canIncreaseBPM
-        binding.bpmModificationView.smallBpmDecrementButton.isEnabled = beat.canDecreaseBPM
-        binding.bpmModificationView.largeBpmDecrementButton.isEnabled = beat.canDecreaseBPM
         beat.repetitions?.let {
             binding.repetitionsView.repetitionTextView.text = context.resources.getString(R.string.repetitions_count, it.toInt())
         }
@@ -135,6 +109,13 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
 
     fun highlightNote(toneIndex: Int) {
 
+    }
+
+    override fun modifyBPM(bpmDelta: Int) {
+        currentBeat?.let {
+            it.modifyBPM(bpmDelta)
+            updateBeatView(it)
+        }
     }
 
 }
