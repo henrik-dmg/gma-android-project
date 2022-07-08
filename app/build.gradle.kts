@@ -2,8 +2,8 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("androidx.navigation.safeargs.kotlin")
-    id("com.google.devtools.ksp") version "1.7.0-1.0.6"
-    kotlin("plugin.serialization") version "1.6.21"
+    id("com.google.devtools.ksp") version "1.7.10-1.0.6"
+    kotlin("plugin.serialization") version "1.7.10"
 }
 
 android {
@@ -55,7 +55,7 @@ android {
 dependencies {
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
 
     // Material
     implementation("com.google.android.material:material:1.6.1")
