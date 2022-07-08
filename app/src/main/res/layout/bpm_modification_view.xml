@@ -24,36 +24,33 @@
         android:id="@+id/large_bpm_decrement_button"
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="@string/metronome_decrement_large" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/small_bpm_decrement_button"
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="@string/metronome_decrement_small" />
 
     <TextView
         android:id="@+id/bpm_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="999"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+        style="@style/counter_label" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/small_bpm_increment_button"
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="@string/metronome_increment_small" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/large_bpm_increment_button"
         style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="@string/metronome_increment_large" />
 
 </LinearLayout>

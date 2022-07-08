@@ -7,6 +7,7 @@ object MetronomeService : AudioControllable, NextToneProvider, BeatPatternHandle
 
     private lateinit var metronome: MetronomeInterface
     private val beatManager = BeatManager()
+    private var toneChangeHandler: ToneChangeHandler? = null
 
     var bpm: Int
         get() = metronome.bpm
@@ -39,12 +40,20 @@ object MetronomeService : AudioControllable, NextToneProvider, BeatPatternHandle
 
     override fun nextTone(): ToneMetadata? {
         val metadata = beatManager.nextTone()
-        // TODO: Call change handler to notify of changes
+        if (metadata != null) {
+            toneChangeHandler?.currentToneChanged(metadata.beatID, metadata.index)
+        } else {
+            toneChangeHandler?.playbackStopped()
+        }
         return metadata
     }
 
     fun configureMetronome(beatSound: ByteArray, offbeatSound: ByteArray, metronomeAudio: MetronomeAudioInterface) {
         metronome = Metronome(beatSound = beatSound, offbeatSound = offbeatSound, metronomeAudio = metronomeAudio, nextToneProvider = this)
+    }
+
+    fun configureToneChangeHandler(toneChangeHandler: ToneChangeHandler) {
+        this.toneChangeHandler = toneChangeHandler
     }
 
 }

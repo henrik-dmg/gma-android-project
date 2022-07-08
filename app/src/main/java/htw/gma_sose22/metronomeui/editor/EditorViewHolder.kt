@@ -14,8 +14,8 @@ import htw.gma_sose22.metronomekit.beat.Tone
 class EditorViewHolder(private val binding: EditorListitemBinding, private val context: Context) :
     RecyclerView.ViewHolder(binding.root) {
 
-    private val incrementNotesButton: Button = binding.tonesView.incrementNotesButton
-    private val decrementNotesButton: Button = binding.tonesView.decrementNotesButton
+    private val incrementNotesButton: Button = binding.tonesView.tonesIncrementButton
+    private val decrementNotesButton: Button = binding.tonesView.tonesDecrementButton
     private var currentBeat: Beat? = null
 
     fun bind(beat: Beat) {
@@ -59,6 +59,20 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
                 updateBeatView(it)
             }
         }
+        binding.repetitionsView.repetitionIncrementButton.setOnClickListener {
+            currentBeat?.let {
+                if (it.addRepetition()) {
+                    updateBeatView(it)
+                }
+            }
+        }
+        binding.repetitionsView.repetitionDecrementButton.setOnClickListener {
+            currentBeat?.let {
+                if (it.removeRepetition()) {
+                    updateBeatView(it)
+                }
+            }
+        }
 
         for (i in 0 until binding.tonesView.beatButtons.childCount) {
             val button = binding.tonesView.beatButtons.getChildAt(i) as MaterialButton
@@ -94,18 +108,19 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
             }
         }
 
-        binding.bpmModificationView.bpmTextView.text = context.resources.getString(R.string.bpm_count, beat.tempo)
         incrementNotesButton.isEnabled = beat.canAddNote
         decrementNotesButton.isEnabled = beat.canRemoveNote
+        binding.bpmModificationView.bpmTextView.text = context.resources.getString(R.string.bpm_count, beat.tempo)
         binding.bpmModificationView.smallBpmIncrementButton.isEnabled = beat.canIncreaseBPM
         binding.bpmModificationView.largeBpmIncrementButton.isEnabled = beat.canIncreaseBPM
         binding.bpmModificationView.smallBpmDecrementButton.isEnabled = beat.canDecreaseBPM
         binding.bpmModificationView.largeBpmDecrementButton.isEnabled = beat.canDecreaseBPM
-        binding.tonesView.noteCountLabel.text = context.resources.getQuantityString(
-            R.plurals.notes_count,
-            beat.noteCount.toInt(),
-            beat.noteCount.toInt()
-        )
+        beat.repetitions?.let {
+            binding.repetitionsView.repetitionTextView.text = context.resources.getString(R.string.repetitions_count, it.toInt())
+        }
+        binding.repetitionsView.repetitionIncrementButton.isEnabled = beat.canIncreaseRepetitions
+        binding.repetitionsView.repetitionDecrementButton.isEnabled = beat.canDecreaseRepetitions
+        binding.tonesView.tonesTextView.text = context.resources.getString(R.string.tones_count, beat.noteCount.toInt())
     }
 
     private fun updateButtonImage(button: MaterialButton, tone: Tone) {

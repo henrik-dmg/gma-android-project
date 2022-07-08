@@ -39,6 +39,20 @@ data class Beat(
         get() {
             return tempo < MAXIMUM_SPEED
         }
+    val canIncreaseRepetitions: Boolean
+        get() {
+            repetitions?.let {
+                return it < 10u
+            }
+            return false
+        }
+    val canDecreaseRepetitions: Boolean
+        get() {
+            repetitions?.let {
+                return it > 1u
+            }
+            return false
+        }
 
     fun modifyBPM(bpmDelta: Int) {
         var newTempo = tempo + bpmDelta
@@ -65,6 +79,26 @@ data class Beat(
             noteCount -= 1u
             cleanUpSets()
             Log.d("Beat", "Removed note from beat")
+            return true
+        }
+        return false
+    }
+
+    fun addRepetition(): Boolean {
+        if (canIncreaseRepetitions) {
+            repetitions?.let {
+                this.repetitions = it + 1u
+            }
+            return true
+        }
+        return false
+    }
+
+    fun removeRepetition(): Boolean {
+        if (canDecreaseRepetitions) {
+            repetitions?.let {
+                this.repetitions = it - 1u
+            }
             return true
         }
         return false

@@ -12,8 +12,10 @@ import htw.gma_sose22.R
 import htw.gma_sose22.databinding.FragmentMetronomeBinding
 import htw.gma_sose22.metronomekit.beat.Beat
 import htw.gma_sose22.metronomekit.beat.Tone
+import htw.gma_sose22.metronomekit.beat.ToneChangeHandler
+import htw.gma_sose22.metronomekit.metronome.MetronomeService
 
-class MetronomeFragment : Fragment() {
+class MetronomeFragment : Fragment(), ToneChangeHandler {
 
     private var _binding: FragmentMetronomeBinding? = null
 
@@ -58,11 +60,11 @@ class MetronomeFragment : Fragment() {
             viewModel?.modifyBPM(10)
         }
 
-        binding.beatView.tonesView.decrementNotesButton.setOnClickListener {
+        binding.beatView.tonesView.tonesDecrementButton.setOnClickListener {
             viewModel?.removeNoteFromBeat()
         }
 
-        binding.beatView.tonesView.incrementNotesButton.setOnClickListener {
+        binding.beatView.tonesView.tonesIncrementButton.setOnClickListener {
             viewModel?.addNoteToBeat()
         }
 
@@ -90,7 +92,10 @@ class MetronomeFragment : Fragment() {
                 startStopButton.text = resources.getText(R.string.metronome_start_button_title)
             }
         }
-        startStopButton.setOnClickListener { viewModel?.handleStartStopButtonClicked() }
+        startStopButton.setOnClickListener {
+            MetronomeService.configureToneChangeHandler(this)
+            viewModel?.handleStartStopButtonClicked()
+        }
     }
 
     private fun toggleMetronomeControls(controlsEnabled: Boolean) {
@@ -98,8 +103,8 @@ class MetronomeFragment : Fragment() {
         binding.beatView.bpmModificationView.smallBpmDecrementButton.isEnabled = controlsEnabled
         binding.beatView.bpmModificationView.largeBpmIncrementButton.isEnabled = controlsEnabled
         binding.beatView.bpmModificationView.largeBpmDecrementButton.isEnabled = controlsEnabled
-        binding.beatView.tonesView.decrementNotesButton.isEnabled = controlsEnabled
-        binding.beatView.tonesView.incrementNotesButton.isEnabled = controlsEnabled
+        binding.beatView.tonesView.tonesIncrementButton.isEnabled = controlsEnabled
+        binding.beatView.tonesView.tonesDecrementButton.isEnabled = controlsEnabled
     }
 
     private fun updateBeatView(beat: Beat) {
@@ -119,17 +124,13 @@ class MetronomeFragment : Fragment() {
         }
 
         binding.beatView.bpmModificationView.bpmTextView.text = resources.getString(R.string.bpm_count, beat.tempo)
-        binding.beatView.tonesView.incrementNotesButton.isEnabled = beat.canAddNote
-        binding.beatView.tonesView.decrementNotesButton.isEnabled = beat.canRemoveNote
+        binding.beatView.tonesView.tonesIncrementButton.isEnabled = beat.canAddNote
+        binding.beatView.tonesView.tonesDecrementButton.isEnabled = beat.canRemoveNote
         binding.beatView.bpmModificationView.smallBpmIncrementButton.isEnabled = beat.canIncreaseBPM
         binding.beatView.bpmModificationView.largeBpmIncrementButton.isEnabled = beat.canIncreaseBPM
         binding.beatView.bpmModificationView.smallBpmDecrementButton.isEnabled = beat.canDecreaseBPM
         binding.beatView.bpmModificationView.largeBpmDecrementButton.isEnabled = beat.canDecreaseBPM
-        binding.beatView.tonesView.noteCountLabel.text = resources.getQuantityString(
-            R.plurals.notes_count,
-            beat.noteCount.toInt(),
-            beat.noteCount.toInt()
-        )
+        binding.beatView.tonesView.tonesTextView.text = resources.getString(R.string.tones_count, beat.noteCount.toInt())
     }
 
     private fun updateButtonImage(button: MaterialButton, tone: Tone) {
@@ -138,6 +139,14 @@ class MetronomeFragment : Fragment() {
             Tone.muted -> button.icon = resources.getDrawable(R.drawable.ic_note_muted)
             Tone.regular -> button.icon = resources.getDrawable(R.drawable.ic_note_default)
         }
+    }
+
+    override fun currentToneChanged(beatID: String, toneIndex: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun playbackStopped() {
+        TODO("Not yet implemented")
     }
 
 }
