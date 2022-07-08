@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/repetitions_modification_view"
     android:layout_width="match_parent"
@@ -41,4 +41,4 @@
         android:layout_marginEnd="50dp"
         app:icon="@drawable/round_add_24" />
 
-</LinearLayout>
+</merge>

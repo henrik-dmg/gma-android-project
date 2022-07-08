@@ -16,7 +16,7 @@ data class Beat(
 
     companion object {
         const val MINIMUM_NOTES = 1u
-        const val MAXIMUM_NOTES = 8u
+        const val MAXIMUM_NOTES = 7u
         const val MINIMUM_SPEED = 40
         const val MAXIMUM_SPEED = 200
     }

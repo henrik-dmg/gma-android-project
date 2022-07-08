@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import htw.gma_sose22.metronomekit.beat.Beat
 import htw.gma_sose22.metronomekit.metronome.MetronomeService
 import htw.gma_sose22.metronomeui.views.BPMModifiable
+import htw.gma_sose22.metronomeui.views.ToneModifiable
 
-class MetronomeViewModel : ViewModel(), BPMModifiable {
+class MetronomeViewModel : ViewModel(), BPMModifiable, ToneModifiable {
 
     private val mutableBeat = MutableLiveData<Beat>()
     private val mutableIsPlaying = MutableLiveData<Boolean>()
@@ -18,37 +19,6 @@ class MetronomeViewModel : ViewModel(), BPMModifiable {
     init {
         mutableBeat.value = Beat(MetronomeService.bpm, 4u, null, setOf(0u), setOf())
         mutableIsPlaying.value = MetronomeService.isPlaying
-    }
-
-    fun addNoteToBeat() {
-        mutableBeat.value?.let {
-            if (it.addNote()) {
-                mutableBeat.postValue(it)
-            }
-        }
-    }
-
-    fun removeNoteFromBeat() {
-        mutableBeat.value?.let {
-            if (it.removeNote()) {
-                mutableBeat.postValue(it)
-            }
-        }
-    }
-
-    fun rotateNoteTypeAtIndex(index: UInt) {
-        mutableBeat.value?.let {
-            it.rotateNote(index)
-            mutableBeat.postValue(it)
-        }
-    }
-
-    override fun modifyBPM(bpmDelta: Int) {
-        mutableBeat.value?.let {
-            it.modifyBPM(bpmDelta)
-            MetronomeService.bpm = it.tempo
-            mutableBeat.postValue(it)
-        }
     }
 
     fun handleStartStopButtonClicked() {
@@ -65,6 +35,37 @@ class MetronomeViewModel : ViewModel(), BPMModifiable {
 
     fun playbackStopped() {
         handleStartStopButtonClicked()
+    }
+
+    override fun modifyBPM(bpmDelta: Int) {
+        mutableBeat.value?.let {
+            it.modifyBPM(bpmDelta)
+            MetronomeService.bpm = it.tempo
+            mutableBeat.postValue(it)
+        }
+    }
+
+    override fun addNote() {
+        mutableBeat.value?.let {
+            if (it.addNote()) {
+                mutableBeat.postValue(it)
+            }
+        }
+    }
+
+    override fun removeNote() {
+        mutableBeat.value?.let {
+            if (it.removeNote()) {
+                mutableBeat.postValue(it)
+            }
+        }
+    }
+
+    override fun rotateNote(index: Int) {
+        mutableBeat.value?.let {
+            it.rotateNote(index.toUInt())
+            mutableBeat.postValue(it)
+        }
     }
 
 }

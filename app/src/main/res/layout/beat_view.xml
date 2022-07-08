@@ -5,9 +5,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include
+    <htw.gma_sose22.metronomeui.views.ToneModificationView
         android:id="@+id/tones_view"
-        layout="@layout/tones_view" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <View
         android:id="@+id/divider"

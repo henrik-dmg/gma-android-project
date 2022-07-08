@@ -9,11 +9,11 @@ import com.google.android.material.button.MaterialButton
 import htw.gma_sose22.R
 import htw.gma_sose22.databinding.BpmModificationViewBinding
 import htw.gma_sose22.metronomekit.beat.Beat
+import java.lang.ref.WeakReference
 
-class BPMModificationView : LinearLayout {
+class BPMModificationView : LinearLayout, BeatModificationView<BPMModifiable> {
 
-    private var bpmModifiable: BPMModifiable? = null
-
+    private var bpmModifiable: WeakReference<BPMModifiable> = WeakReference(null)
     private val binding: BpmModificationViewBinding
 
     private val bpmTextView: TextView
@@ -43,24 +43,28 @@ class BPMModificationView : LinearLayout {
     override fun onFinishInflate() {
         super.onFinishInflate()
         binding.smallBpmDecrementButton.setOnClickListener {
-            bpmModifiable?.modifyBPM(-1)
+            bpmModifiable.get()?.modifyBPM(-1)
         }
         binding.largeBpmDecrementButton.setOnClickListener {
-            bpmModifiable?.modifyBPM(-10)
+            bpmModifiable.get()?.modifyBPM(-10)
         }
         binding.smallBpmIncrementButton.setOnClickListener {
-            bpmModifiable?.modifyBPM(1)
+            bpmModifiable.get()?.modifyBPM(1)
         }
         binding.largeBpmIncrementButton.setOnClickListener {
-            bpmModifiable?.modifyBPM(10)
+            bpmModifiable.get()?.modifyBPM(10)
         }
     }
 
-    fun bind(bpmModifiable: BPMModifiable) {
-        this.bpmModifiable = bpmModifiable
+    override fun bind(modifiable: BPMModifiable) {
+        this.bpmModifiable = WeakReference(modifiable)
     }
 
-    fun updateView(beat: Beat) {
+    override fun unbind() {
+        this.bpmModifiable.clear()
+    }
+
+    override fun updateView(beat: Beat) {
         bpmTextView.text = context.resources.getString(R.string.bpm_count, beat.tempo)
         smallBpmIncrementButton.isEnabled = beat.canIncreaseBPM
         largeBpmIncrementButton.isEnabled = beat.canIncreaseBPM
