@@ -24,7 +24,7 @@ class BeatManager: NextToneProvider, BeatPatternHandler {
         reset()
     }
 
-    private fun reset() {
+    fun reset() {
         this.currentBeatIndex = 0
         this.currentToneIndex = 0
         this.currentRepetitionCount = 0
