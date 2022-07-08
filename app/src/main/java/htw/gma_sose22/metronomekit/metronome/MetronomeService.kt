@@ -41,7 +41,7 @@ object MetronomeService : AudioControllable, NextToneProvider, BeatPatternHandle
     override fun nextTone(): ToneMetadata? {
         val metadata = beatManager.nextTone()
         if (metadata != null) {
-            toneChangeHandler?.currentToneChanged(metadata.beatID, metadata.index)
+            toneChangeHandler?.currentToneChanged(metadata.toneIndex, metadata.beatIndex)
         } else {
             toneChangeHandler?.playbackStopped()
         }

@@ -132,4 +132,9 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
                 context.resources.getDrawable(R.drawable.ic_note_default)
         }
     }
+
+    fun highlightNote(toneIndex: Int) {
+
+    }
+
 }

@@ -96,4 +96,9 @@ class EditorViewModel(val beatPattern: BeatPattern?) : ViewModel() {
         }
         isPlayingLiveData.postValue(MetronomeService.isPlaying)
     }
+
+    fun playbackStopped() {
+        handlePlaybackButtonTapped()
+    }
+
 }

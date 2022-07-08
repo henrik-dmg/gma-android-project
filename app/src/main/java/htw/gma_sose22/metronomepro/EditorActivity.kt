@@ -9,12 +9,16 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import htw.gma_sose22.R
 import htw.gma_sose22.databinding.ActivityEditorBinding
 import htw.gma_sose22.metronomekit.beat.BeatPattern
+import htw.gma_sose22.metronomekit.beat.ToneChangeHandler
+import htw.gma_sose22.metronomekit.metronome.MetronomeService
 import htw.gma_sose22.metronomeui.editor.EditorAdapter
+import htw.gma_sose22.metronomeui.editor.EditorViewHolder
 import htw.gma_sose22.metronomeui.editor.EditorViewModel
 import htw.gma_sose22.metronomeui.editor.EditorViewModelFactory
 import htw.gma_sose22.metronomeui.util.SwipeToDeleteCallback
@@ -24,7 +28,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-class EditorActivity : AppCompatActivity() {
+class EditorActivity : AppCompatActivity(), ToneChangeHandler {
 
     companion object {
         const val intentJSONKey = "INTENT_PATTERN_JSON_KEY"
@@ -34,6 +38,8 @@ class EditorActivity : AppCompatActivity() {
     private val viewModel: EditorViewModel by viewModels {
         EditorViewModelFactory(beatPattern)
     }
+
+    private var recyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +52,10 @@ class EditorActivity : AppCompatActivity() {
         setContentView(binding.root)
         //setSupportActionBar(binding.topAppBar)
 
-        val recyclerView = binding.recyclerView
+        recyclerView = binding.recyclerView
 
         val adapter = EditorAdapter(applicationContext)
-        recyclerView.adapter = adapter
+        recyclerView?.adapter = adapter
 
         enableSwipeToDeleteAndUndo(binding, applicationContext)
 
@@ -71,6 +77,7 @@ class EditorActivity : AppCompatActivity() {
             viewModel.addBeat()
         }
         binding.fab2.setOnClickListener {
+            MetronomeService.configureToneChangeHandler(this)
             viewModel.handlePlaybackButtonTapped()
         }
 
@@ -151,6 +158,14 @@ class EditorActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, intent)
         }
         finish()
+    }
+
+    override fun currentToneChanged(toneIndex: Int, beatIndex: Int) {
+        (recyclerView?.findViewHolderForAdapterPosition(beatIndex) as? EditorViewHolder)?.highlightNote(toneIndex)
+    }
+
+    override fun playbackStopped() {
+        viewModel.playbackStopped()
     }
 
 }

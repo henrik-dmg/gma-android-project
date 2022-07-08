@@ -62,4 +62,8 @@ class MetronomeViewModel : ViewModel() {
         mutableIsPlaying.value = MetronomeService.isPlaying
     }
 
+    fun playbackStopped() {
+        handleStartStopButtonClicked()
+    }
+
 }

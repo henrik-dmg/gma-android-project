@@ -141,12 +141,12 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
         }
     }
 
-    override fun currentToneChanged(beatID: String, toneIndex: Int) {
+    override fun currentToneChanged(toneIndex: Int, beatIndex: Int) {
         TODO("Not yet implemented")
     }
 
     override fun playbackStopped() {
-        TODO("Not yet implemented")
+        viewModel?.playbackStopped()
     }
 
 }

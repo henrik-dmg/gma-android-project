@@ -51,7 +51,7 @@ class BeatManager: NextToneProvider, BeatPatternHandler {
             }
         }
         val tone = currentBeat.makeNotes()[currentToneIndex]
-        val metadata = ToneMetadata(tone, currentToneIndex, currentBeat.id)
+        val metadata = ToneMetadata(tone, currentToneIndex, currentBeatIndex)
         currentToneIndex++
         return metadata
     }
