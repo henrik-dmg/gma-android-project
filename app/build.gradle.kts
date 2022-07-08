@@ -55,7 +55,7 @@ android {
 dependencies {
 
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.10")
 
     // Material
     implementation("com.google.android.material:material:1.6.1")
