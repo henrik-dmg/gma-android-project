@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp") version "1.7.10-1.0.6"
-    kotlin("plugin.serialization") version "1.6.21"
+    kotlin("plugin.serialization") version "1.7.10"
 }
 
 android {
