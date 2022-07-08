@@ -1,5 +1,6 @@
 package htw.gma_sose22.metronomekit.metronome
 
+import htw.gma_sose22.metronomekit.beat.NextToneProvider
 import htw.gma_sose22.metronomekit.beat.Tone
 
 class Metronome(
@@ -7,7 +8,7 @@ class Metronome(
     override var beatSound: ByteArray,
     override var offbeatSound: ByteArray,
     override val metronomeAudio: MetronomeAudioInterface,
-    override val nextToneClosure: () -> Tone?
+    override val nextToneProvider: NextToneProvider
 ) : MetronomeInterface {
 
     companion object {
@@ -71,7 +72,7 @@ class Metronome(
     }
 
     private fun nextSound(): ByteArray? {
-        return when (nextToneClosure()) {
+        return when (nextToneProvider.nextTone()?.tone) {
             Tone.emphasised -> beatSound
             Tone.muted -> ByteArray(10)
             Tone.regular -> offbeatSound

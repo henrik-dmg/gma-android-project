@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import htw.gma_sose22.metronomekit.beat.Beat
-import htw.gma_sose22.metronomekit.beat.BeatManager
 import htw.gma_sose22.metronomekit.beat.BeatPattern
 import htw.gma_sose22.metronomekit.metronome.MetronomeService
 
@@ -91,7 +90,7 @@ class EditorViewModel(val beatPattern: BeatPattern?) : ViewModel() {
             MetronomeService.stop()
         } else {
             makePattern("Temp Pattern")?.let {
-                BeatManager.loadBeatPattern(it)
+                MetronomeService.loadBeatPattern(it)
                 MetronomeService.play()
             }
         }

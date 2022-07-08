@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import htw.gma_sose22.metronomekit.beat.Beat
-import htw.gma_sose22.metronomekit.beat.BeatManager
 import htw.gma_sose22.metronomekit.metronome.MetronomeService
 
 class MetronomeViewModel : ViewModel() {
@@ -56,7 +55,7 @@ class MetronomeViewModel : ViewModel() {
             MetronomeService.stop()
         } else {
             mutableBeat.value?.let {
-                BeatManager.loadBeat(it)
+                MetronomeService.loadBeat(it)
                 MetronomeService.play()
             }
         }

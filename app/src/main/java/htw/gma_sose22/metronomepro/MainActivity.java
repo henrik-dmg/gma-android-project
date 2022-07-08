@@ -61,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
         byte[] beatSound = makeBeatSoundBytes();
         byte[] offbeatSound = makeOffbeatSoundBytes();
         MetronomeAudioInterface metronomeAudio = makeMetronomeAudio();
-        MetronomeInterface metronome = new Metronome(Metronome.DEFAULT_SPEED, beatSound, offbeatSound, metronomeAudio, BeatManager.INSTANCE::nextTone);
-        MetronomeService.INSTANCE.setMetronome(metronome);
+        MetronomeService.INSTANCE.configureMetronome(beatSound, offbeatSound, metronomeAudio);
     }
 
     private MetronomeAudioInterface makeMetronomeAudio() {
