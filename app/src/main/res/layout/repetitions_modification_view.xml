@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/repetitions_modification_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="start"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/repetition_label_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        android:text="@string/repetitions_label"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/repetition_decrement_button"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:icon="@drawable/round_remove_24" />
+
+    <TextView
+        android:id="@+id/repetition_text_view"
+        style="@style/counter_label"
+        android:text="999" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/repetition_increment_button"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="50dp"
+        app:icon="@drawable/round_add_24" />
+
+</merge>

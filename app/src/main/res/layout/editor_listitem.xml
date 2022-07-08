@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.Material3.CardView.Elevated"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:checkable="false"
-    android:clickable="true"
+    android:clickable="false"
     android:focusable="false"
     app:cardUseCompatPadding="true"
-    app:contentPadding="4dp">
+    app:contentPadding="8dp">
 
-    <include
-        android:id="@+id/beat_view"
-        layout="@layout/beat_view" />
+    <LinearLayout
+        android:id="@+id/vertical_stack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <htw.gma_sose22.metronomeui.views.ToneModificationView
+            android:id="@+id/tones_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/divider1"
+            style="@style/horizontal_separator" />
+
+        <htw.gma_sose22.metronomeui.views.BPMModificationView
+            android:id="@+id/bpm_modification_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/divider2"
+            style="@style/horizontal_separator" />
+
+        <htw.gma_sose22.metronomeui.views.RepetitionModificationView
+            android:id="@+id/repetitions_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tones_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/beat_buttons">
 
-        <Button
-            android:id="@+id/decrement_notes_button"
-            style="@style/Widget.Material3.Button.IconButton"
+        <TextView
+            android:id="@+id/tones_label_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="2dp"
+            android:text="@string/notes_in_beat"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tones_decrement_button"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:contentDescription="@string/remove_note"
             app:icon="@drawable/round_remove_24" />
 
-        <Button
-            android:id="@+id/increment_notes_button"
+        <TextView
+            android:id="@+id/tones_text_view"
+            style="@style/counter_label"
+            android:text="999" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tones_increment_button"
             style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="50dp"
             android:contentDescription="@string/add_note"
             app:icon="@drawable/round_add_24" />
 
     </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/note_count_label"
-        style="@style/TextAppearance.Material3.BodyLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="xxx Notes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/beat_buttons" />
 
     <LinearLayout
         android:id="@+id/beat_buttons"
@@ -119,4 +127,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>

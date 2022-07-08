@@ -1,21 +1,22 @@
 package htw.gma_sose22.metronomekit.beat
 
-object BeatManager {
+class BeatManager: NextToneProvider, BeatPatternHandler {
 
     private var beatPattern: BeatPattern? = null
 
-    private var currentBeatIndex = 0u
-    private var currentToneIndex = 0u
-    private var currentRepetitionCount = 0u
+    private var currentBeatIndex = 0
+    private var currentToneIndex = 0
+    private var currentRepetitionCount = 0
 
-    fun loadBeat(beat: Beat) {
+    @Throws(BeatManagerException::class)
+    override fun loadBeat(beat: Beat) {
         val beats = arrayOf(beat)
         val beatPattern = BeatPattern(beats = beats)
         loadBeatPattern(beatPattern)
     }
 
     @Throws(BeatManagerException::class)
-    fun loadBeatPattern(beatPattern: BeatPattern) {
+    override fun loadBeatPattern(beatPattern: BeatPattern) {
         if (!beatPattern.isValid()) {
             throw BeatManagerException("The BeatPattern is invalid")
         }
@@ -24,34 +25,35 @@ object BeatManager {
     }
 
     fun reset() {
-        this.currentBeatIndex = 0u
-        this.currentToneIndex = 0u
-        this.currentRepetitionCount = 0u
+        this.currentBeatIndex = 0
+        this.currentToneIndex = 0
+        this.currentRepetitionCount = 0
     }
 
-    fun nextTone(): Tone? {
+    override fun nextTone(): ToneMetadata? {
         return beatPattern?.let { nextToneInPattern(it) }
     }
 
-    private fun nextToneInPattern(beatPattern: BeatPattern): Tone? {
-        if (currentBeatIndex.toInt() >= beatPattern.beats.size) {
+    private fun nextToneInPattern(beatPattern: BeatPattern): ToneMetadata? {
+        if (currentBeatIndex >= beatPattern.beats.size) {
             return null
         }
-        val currentBeat = beatPattern.beats[currentBeatIndex.toInt()]
-        if (currentToneIndex == currentBeat.noteCount) {
+        val currentBeat = beatPattern.beats[currentBeatIndex]
+        if (currentToneIndex == currentBeat.noteCount.toInt()) {
             currentRepetitionCount++
-            currentToneIndex = 0u
+            currentToneIndex = 0
         }
         currentBeat.repetitions?.let { repetitions ->
-            if (repetitions == currentRepetitionCount) {
+            if (repetitions.toInt() == currentRepetitionCount) {
                 currentBeatIndex++
-                currentRepetitionCount = 0u
+                currentRepetitionCount = 0
                 return nextToneInPattern(beatPattern)
             }
         }
-        val tone = currentBeat.makeNotes()[currentToneIndex.toInt()]
+        val tone = currentBeat.makeNotes()[currentToneIndex]
+        val metadata = ToneMetadata(tone, currentToneIndex, currentBeatIndex)
         currentToneIndex++
-        return tone
+        return metadata
     }
 
 }

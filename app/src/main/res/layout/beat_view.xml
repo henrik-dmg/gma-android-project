@@ -5,19 +5,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include
+    <htw.gma_sose22.metronomeui.views.ToneModificationView
         android:id="@+id/tones_view"
-        layout="@layout/tones_view" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <View
         android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        android:alpha="0.3"/>
+        style="@style/horizontal_separator" />
 
-    <include
+    <htw.gma_sose22.metronomeui.views.BPMModificationView
         android:id="@+id/bpm_modification_view"
-        layout="@layout/bpm_modification_view" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

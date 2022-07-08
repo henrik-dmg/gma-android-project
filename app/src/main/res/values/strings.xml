@@ -21,7 +21,9 @@
     <string name="beat_deleted">Beat was deleted</string>
     <string name="pattern_deleted">Pattern was deleted</string>
     <string name="undo">Undo</string>
-    <string name="bpm_count">%d BPM</string>
+    <string name="bpm_count">%d</string>
+    <string name="tones_count">%d</string>
+    <string name="repetitions_count">%d</string>
     <string name="save_the_current_pattern">Save the current pattern</string>
     <string name="delete_all_beats">Delete all beats</string>
     <string name="beat_pattern_name_placeholder">Pattern Name</string>
@@ -31,12 +33,11 @@
     <string name="play_beat">Play beat</string>
     <string name="remove_note">Remove note</string>
     <string name="add_note">Add note</string>
+    <string name="bpm_label">BPM</string>
+    <string name="repetitions_label">Repetitions</string>
+    <string name="notes_in_beat">Notes</string>
     <plurals name="bars_count">
         <item quantity="one">%d bar</item>
         <item quantity="other">%d bars</item>
-    </plurals>
-    <plurals name="notes_count">
-        <item quantity="one">%d note</item>
-        <item quantity="other">%d notes</item>
     </plurals>
 </resources>

@@ -5,11 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import htw.gma_sose22.metronomekit.beat.Beat
 import htw.gma_sose22.metronomekit.beat.BeatPattern
+import htw.gma_sose22.metronomekit.metronome.MetronomeService
 
 class EditorViewModel(val beatPattern: BeatPattern?) : ViewModel() {
 
     private val beatsLiveData: MutableLiveData<List<Beat>>
     val beats: LiveData<List<Beat>>
+
+    private val isPlayingLiveData = MutableLiveData(false)
+    val isPlaying: LiveData<Boolean> = isPlayingLiveData
 
     init {
         beatsLiveData = if (beatPattern != null) {
@@ -80,4 +84,21 @@ class EditorViewModel(val beatPattern: BeatPattern?) : ViewModel() {
         val basicBeat = Beat(120, 4u, 10u, setOf(0u), setOf())
         return listOf(basicBeat)
     }
+
+    fun handlePlaybackButtonTapped() {
+        if (MetronomeService.isPlaying) {
+            MetronomeService.stop()
+        } else {
+            makePattern("Temp Pattern")?.let {
+                MetronomeService.loadBeatPattern(it)
+                MetronomeService.play()
+            }
+        }
+        isPlayingLiveData.postValue(MetronomeService.isPlaying)
+    }
+
+    fun playbackStopped() {
+        handlePlaybackButtonTapped()
+    }
+
 }

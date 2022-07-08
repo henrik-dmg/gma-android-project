@@ -1,18 +1,19 @@
 package htw.gma_sose22.metronomekit.metronome
 
+import htw.gma_sose22.metronomekit.beat.NextToneProvider
 import htw.gma_sose22.metronomekit.beat.Tone
 
 class Metronome(
-    override var bpm: Int = DEFAULT_SPEED.toInt(),
+    override var bpm: Int = DEFAULT_SPEED,
     override var beatSound: ByteArray,
     override var offbeatSound: ByteArray,
     override val metronomeAudio: MetronomeAudioInterface,
-    override val nextToneClosure: () -> Tone?
+    override val nextToneProvider: NextToneProvider
 ) : MetronomeInterface {
 
     companion object {
         const val DEFAULT_SAMPLE_RATE = 44100
-        const val DEFAULT_SPEED = 120u
+        const val DEFAULT_SPEED = 120
     }
 
     override var isPlaying = false
@@ -71,7 +72,7 @@ class Metronome(
     }
 
     private fun nextSound(): ByteArray? {
-        return when (nextToneClosure()) {
+        return when (nextToneProvider.nextTone()?.tone) {
             Tone.emphasised -> beatSound
             Tone.muted -> ByteArray(10)
             Tone.regular -> offbeatSound

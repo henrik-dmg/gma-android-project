@@ -8,22 +8,24 @@ import org.junit.Test
 
 class BeatManagerTests {
 
+    private val beatManager = BeatManager()
+
     @Before
     fun setup() {
-        BeatManager.reset()
+        beatManager.reset()
     }
 
     @Test
     fun testSimpleBeat() {
         val beats = arrayOf(Beat(120, 4u, 1u))
         val beatPattern = BeatPattern(beats = beats)
-        BeatManager.loadBeatPattern(beatPattern)
+        beatManager.loadBeatPattern(beatPattern)
 
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(null, BeatManager.nextTone())
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(null, beatManager.nextTone()?.tone)
     }
 
     @Test
@@ -32,13 +34,13 @@ class BeatManagerTests {
             Beat(120, 4u, 1u, setOf(1u, 3u), setOf())
         }
         val beatPattern = BeatPattern(beats = beats)
-        BeatManager.loadBeatPattern(beatPattern)
+        beatManager.loadBeatPattern(beatPattern)
 
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.emphasised, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.emphasised, BeatManager.nextTone())
-        assertEquals(null, BeatManager.nextTone())
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.emphasised, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.emphasised, beatManager.nextTone()?.tone)
+        assertEquals(null, beatManager.nextTone()?.tone)
     }
 
     @Test
@@ -48,22 +50,22 @@ class BeatManagerTests {
             Beat(130, 3u, 2u, setOf(2u), setOf())
         )
         val beatPattern = BeatPattern(beats = beats)
-        BeatManager.loadBeatPattern(beatPattern)
+        beatManager.loadBeatPattern(beatPattern)
 
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.emphasised, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.emphasised, BeatManager.nextTone())
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.emphasised, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.emphasised, beatManager.nextTone()?.tone)
 
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.emphasised, BeatManager.nextTone())
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.emphasised, beatManager.nextTone()?.tone)
 
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.emphasised, BeatManager.nextTone())
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.emphasised, beatManager.nextTone()?.tone)
 
-        assertEquals(null, BeatManager.nextTone())
+        assertEquals(null, beatManager.nextTone()?.tone)
     }
 
     @Test
@@ -72,15 +74,15 @@ class BeatManagerTests {
             Beat(120, 3u, 2u)
         }
         val beatPattern = BeatPattern(beats = beats)
-        BeatManager.loadBeatPattern(beatPattern)
+        beatManager.loadBeatPattern(beatPattern)
 
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(Tone.regular, BeatManager.nextTone())
-        assertEquals(null, BeatManager.nextTone())
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(Tone.regular, beatManager.nextTone()?.tone)
+        assertEquals(null, beatManager.nextTone()?.tone)
     }
 
     @Test
@@ -89,10 +91,10 @@ class BeatManagerTests {
             Beat(120, 4u, null)
         }
         val beatPattern = BeatPattern(beats = beats)
-        BeatManager.loadBeatPattern(beatPattern)
+        beatManager.loadBeatPattern(beatPattern)
 
         for (i in 0..100) {
-            assertEquals(Tone.regular, BeatManager.nextTone())
+            assertEquals(Tone.regular, beatManager.nextTone()?.tone)
         }
     }
 
@@ -103,7 +105,7 @@ class BeatManagerTests {
         }
         val beatPattern = BeatPattern(beats = beats)
         assertThrows(BeatManagerException::class.java) {
-            BeatManager.loadBeatPattern(beatPattern)
+            beatManager.loadBeatPattern(beatPattern)
         }
     }
 
