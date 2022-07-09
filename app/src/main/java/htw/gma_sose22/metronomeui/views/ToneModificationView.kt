@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.children
+import androidx.core.view.forEachIndexed
 import htw.gma_sose22.R
 import htw.gma_sose22.databinding.TonesViewBinding
 import htw.gma_sose22.metronomekit.beat.Beat
@@ -40,10 +41,9 @@ class ToneModificationView : ConstraintLayout, BeatModificationView<ToneModifiab
         binding.tonesDecrementButton.setOnClickListener {
             toneModifiable.get()?.removeNote()
         }
-        for (i in 0 until binding.beatButtons.childCount) {
-            val button = binding.beatButtons.getChildAt(i) as ToneButtonView
-            button.button.setOnClickListener {
-                toneModifiable.get()?.rotateNote(i)
+        binding.beatButtons.forEachIndexed { index, view ->
+            (view as? ToneButtonView)?.button?.setOnClickListener {
+                toneModifiable.get()?.rotateNote(index)
             }
         }
     }
@@ -84,15 +84,11 @@ class ToneModificationView : ConstraintLayout, BeatModificationView<ToneModifiab
 
     fun highlightToneButton(index: Int) {
         uiScope.launch {
-            val beatButtons = binding.beatButtons
-            val currentNumberOfButtons = beatButtons.childCount
-
-            for (i in 0 until currentNumberOfButtons) {
-                val button = beatButtons.getChildAt(i) as? ToneButtonView
-                if (i == index) {
-                    button?.highlightButton()
+            binding.beatButtons.children.forEachIndexed { viewIndex, view ->
+                if (viewIndex == index) {
+                    (view as? ToneButtonView)?.highlightButton()
                 } else {
-                    button?.unhighlightButton()
+                    (view as? ToneButtonView)?.unhighlightButton()
                 }
             }
         }
