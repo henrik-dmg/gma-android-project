@@ -7,19 +7,16 @@ import htw.gma_sose22.metronomekit.beat.Beat
 import htw.gma_sose22.metronomekit.metronome.MetronomeService
 import htw.gma_sose22.metronomeui.views.BPMModifiable
 import htw.gma_sose22.metronomeui.views.ToneModifiable
+import kotlinx.coroutines.MainScope
 
 class MetronomeViewModel : ViewModel(), BPMModifiable, ToneModifiable {
 
-    private val mutableBeat = MutableLiveData<Beat>()
-    private val mutableIsPlaying = MutableLiveData<Boolean>()
+    private val uiScope = MainScope()
+    private val mutableBeat = MutableLiveData(Beat(MetronomeService.bpm, 4u, null, setOf(0u), setOf()))
+    private val mutableIsPlaying = MutableLiveData(MetronomeService.isPlaying)
 
     val beat: LiveData<Beat> = mutableBeat
     val isPlaying: LiveData<Boolean> = mutableIsPlaying
-
-    init {
-        mutableBeat.value = Beat(MetronomeService.bpm, 4u, null, setOf(0u), setOf())
-        mutableIsPlaying.value = MetronomeService.isPlaying
-    }
 
     fun handleStartStopButtonClicked() {
         if (MetronomeService.isPlaying) {
@@ -31,10 +28,6 @@ class MetronomeViewModel : ViewModel(), BPMModifiable, ToneModifiable {
             }
         }
         mutableIsPlaying.value = MetronomeService.isPlaying
-    }
-
-    fun playbackStopped() {
-        handleStartStopButtonClicked()
     }
 
     override fun modifyBPM(bpmDelta: Int) {

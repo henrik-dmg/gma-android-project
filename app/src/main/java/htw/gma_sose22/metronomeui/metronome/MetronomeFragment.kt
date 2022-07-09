@@ -83,7 +83,6 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
 
     override fun playbackStopped() {
         binding.beatView.tonesView.unhighlightToneButton()
-        viewModel?.playbackStopped()
     }
 
 }

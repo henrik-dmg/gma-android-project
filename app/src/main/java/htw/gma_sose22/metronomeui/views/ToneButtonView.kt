@@ -32,12 +32,8 @@ class ToneButtonView : ConstraintLayout {
         binding = ToneButtonViewBinding.inflate(inflater, this)
     }
 
-    fun highlightButton() {
-        binding.highlightingPip.visibility = View.VISIBLE
-    }
-
-    fun unhighlightButton() {
-        binding.highlightingPip.visibility = View.INVISIBLE
+    fun highlightButton(shouldHighlight: Boolean) {
+        binding.highlightingPip.visibility = if (shouldHighlight) View.VISIBLE else View.INVISIBLE
     }
 
     fun updateButtonImage(tone: Tone) {

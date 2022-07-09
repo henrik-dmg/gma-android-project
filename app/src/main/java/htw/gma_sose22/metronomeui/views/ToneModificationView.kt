@@ -85,19 +85,15 @@ class ToneModificationView : ConstraintLayout, BeatModificationView<ToneModifiab
     fun highlightToneButton(index: Int) {
         uiScope.launch {
             binding.beatButtons.children.forEachIndexed { viewIndex, view ->
-                if (viewIndex == index) {
-                    (view as? ToneButtonView)?.highlightButton()
-                } else {
-                    (view as? ToneButtonView)?.unhighlightButton()
-                }
+                (view as? ToneButtonView)?.highlightButton(viewIndex == index)
             }
         }
     }
 
     fun unhighlightToneButton() {
         uiScope.launch {
-            binding.beatButtons.children.forEach { child ->
-                (child as? ToneButtonView)?.unhighlightButton()
+            binding.beatButtons.children.forEach { view ->
+                (view as? ToneButtonView)?.highlightButton(false)
             }
         }
     }
