@@ -12,6 +12,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/beat_buttons">
 
         <TextView
@@ -54,76 +55,60 @@
 
     <LinearLayout
         android:id="@+id/beat_buttons"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.button.MaterialButton
+        <htw.gma_sose22.metronomeui.views.ToneButtonView
             android:id="@+id/beat_button_1"
-            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:icon="@drawable/ic_note_default" />
+            android:visibility="visible" />
 
-        <com.google.android.material.button.MaterialButton
+        <htw.gma_sose22.metronomeui.views.ToneButtonView
             android:id="@+id/beat_button_2"
-            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:icon="@drawable/ic_note_default" />
+            android:visibility="visible" />
 
-        <com.google.android.material.button.MaterialButton
+        <htw.gma_sose22.metronomeui.views.ToneButtonView
             android:id="@+id/beat_button_3"
-            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:icon="@drawable/ic_note_default" />
+            android:visibility="visible" />
 
-        <com.google.android.material.button.MaterialButton
+        <htw.gma_sose22.metronomeui.views.ToneButtonView
             android:id="@+id/beat_button_4"
-            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:icon="@drawable/ic_note_default" />
+            android:visibility="visible" />
 
-        <com.google.android.material.button.MaterialButton
+        <htw.gma_sose22.metronomeui.views.ToneButtonView
             android:id="@+id/beat_button_5"
-            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:icon="@drawable/ic_note_default" />
+            android:visibility="visible" />
 
-        <com.google.android.material.button.MaterialButton
+        <htw.gma_sose22.metronomeui.views.ToneButtonView
             android:id="@+id/beat_button_6"
-            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:icon="@drawable/ic_note_default" />
+            android:visibility="visible" />
 
-        <com.google.android.material.button.MaterialButton
+        <htw.gma_sose22.metronomeui.views.ToneButtonView
             android:id="@+id/beat_button_7"
-            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:icon="@drawable/ic_note_default" />
+            android:visibility="visible" />
 
-        <com.google.android.material.button.MaterialButton
+        <htw.gma_sose22.metronomeui.views.ToneButtonView
             android:id="@+id/beat_button_8"
-            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:icon="@drawable/ic_note_default" />
+            android:visibility="visible" />
 
     </LinearLayout>
 

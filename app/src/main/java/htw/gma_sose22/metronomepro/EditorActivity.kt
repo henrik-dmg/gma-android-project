@@ -165,6 +165,7 @@ class EditorActivity : AppCompatActivity(), ToneChangeHandler {
     }
 
     override fun playbackStopped() {
+        // TODO: Unhighlight last view
         viewModel.playbackStopped()
     }
 

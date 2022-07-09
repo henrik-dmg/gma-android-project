@@ -40,6 +40,8 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
             updateBeatView(it)
         }
 
+        setupBindings()
+
         return binding.root
     }
 
@@ -56,6 +58,7 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
                 startStopButton.text = resources.getText(R.string.metronome_stop_button_title)
             } else {
                 startStopButton.text = resources.getText(R.string.metronome_start_button_title)
+                binding.beatView.tonesView.unhighlightToneButton()
             }
         }
         startStopButton.setOnClickListener {
@@ -75,10 +78,11 @@ class MetronomeFragment : Fragment(), ToneChangeHandler {
     }
 
     override fun currentToneChanged(toneIndex: Int, beatIndex: Int) {
-        // TODO: Call view to highlight here
+        binding.beatView.tonesView.highlightToneButton(toneIndex)
     }
 
     override fun playbackStopped() {
+        binding.beatView.tonesView.unhighlightToneButton()
         viewModel?.playbackStopped()
     }
 
