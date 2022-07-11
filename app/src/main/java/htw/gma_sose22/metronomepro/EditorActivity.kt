@@ -40,6 +40,7 @@ class EditorActivity : AppCompatActivity(), ToneChangeHandler {
     }
 
     private var recyclerView: RecyclerView? = null
+    private var lastHighlightedBeatIndex: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +72,8 @@ class EditorActivity : AppCompatActivity(), ToneChangeHandler {
                 else R.drawable.round_play_arrow_24
             )
             supportActionBar?.setDisplayHomeAsUpEnabled(!isPlaying)
+            binding.fab.isEnabled = !isPlaying
+            unhighlightLastHighlightedBeatIfNecessary()
         }
 
         binding.fab.setOnClickListener {
@@ -161,11 +164,28 @@ class EditorActivity : AppCompatActivity(), ToneChangeHandler {
     }
 
     override fun currentToneChanged(toneIndex: Int, beatIndex: Int) {
-        (recyclerView?.findViewHolderForAdapterPosition(beatIndex) as? EditorViewHolder)?.highlightNote(toneIndex)
+        (recyclerView?.findViewHolderForAdapterPosition(beatIndex) as? EditorViewHolder)?.let {
+            lastHighlightedBeatIndex = beatIndex
+            it.highlightNote(toneIndex)
+        }
     }
 
     override fun playbackStopped() {
         viewModel.playbackStopped()
+        unhighlightLastHighlightedBeatIfNecessary()
+    }
+
+    override fun finish() {
+        super.finish()
+        MetronomeService.stop()
+    }
+
+    private fun unhighlightLastHighlightedBeatIfNecessary() {
+        lastHighlightedBeatIndex?.let {
+            Log.d("EditorActivity", "Unhighlighting beat at $it")
+            (recyclerView?.findViewHolderForAdapterPosition(it) as? EditorViewHolder)?.unhighlightNote()
+            this.lastHighlightedBeatIndex = null
+        }
     }
 
 }

@@ -41,7 +41,11 @@ class EditorViewHolder(private val binding: EditorListitemBinding, private val c
     }
 
     fun highlightNote(toneIndex: Int) {
-        TODO("Actually highlight note")
+        binding.tonesView.highlightToneButton(toneIndex)
+    }
+
+    fun unhighlightNote() {
+        binding.tonesView.unhighlightToneButton()
     }
 
     override fun modifyBPM(bpmDelta: Int) {
