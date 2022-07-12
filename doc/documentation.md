@@ -4,6 +4,8 @@
 
 Semesterprojekt von Bastian Unterbörsch (573228) und Henrik Panhans (573550) für das Modul "Grundlagen Mobiler Anwendungen"
 
+![Screenshots](../assets/marketing_screenshots.png)
+
 ## Grundidee
 
 Wir bauen eine Metronom-App, die zusätzlich zur grundlegenden Takt-Vorgabe-Funktion noch die Möglichkeit bietet, komplexe Muster und Abfolgen von verschiedenen Takten und Tempi zu erstellen und zu speichern.
@@ -41,7 +43,7 @@ In dieser kann dann entweder auf "Abbrechen" oder "Laden" gedrückt werden, was 
 
 ![Mockup of Application](../assets/Mockup.jpg "Mockup")
 
-#### Integrations-Tests
+### Integrations-Tests
 
 Da es zu unvorhersehbaren Komplikationen in der Entwicklung kam, hat uns bisher die Zeit nicht gereicht, um auch noch Integrations-Tests zu schreiben. Mit ein wenig mehr Zeit würden wir allerdings Folgendes verifizieren:
 
