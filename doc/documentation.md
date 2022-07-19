@@ -2,7 +2,8 @@
 
 [![Build Status](https://app.bitrise.io/app/ea70fa64fbda2537/status.svg?token=Hxyrd6Kvk22GcvXxibhSCg&branch=main)](https://app.bitrise.io/app/ea70fa64fbda2537)
 
-Semesterprojekt von Bastian Unterbörsch (573228) und Henrik Panhans (573550) für das Modul "Grundlagen Mobiler Anwendungen". Die Repository kann öffentlich auf [Github](https://github.com/henrik-dmg/gma-android-project) eingesehen werden.
+Die Idee und das Konzept für die App stammen von Bastian Unterbörsch (573228) und Henrik Panhans (573550) und wurden für das Modul "Grundlagen Mobiler Anwendungen" angefertigt. Die Implementationsarbeit wurde ausschließlich von Henrik Panhans vorgenommen.
+Die Repository kann öffentlich auf [Github](https://github.com/henrik-dmg/gma-android-project) eingesehen werden.
 
 ![Screenshots](../assets/marketing_screenshots.png)
 
